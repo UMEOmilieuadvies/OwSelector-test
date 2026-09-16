@@ -1,0 +1,56 @@
+name: Build and deploy OwSelector to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download official regulations
+        run: python tools/download_all.py
+      - name: Build legal graphs
+        run: python tools/build_all.py
+      - name: Verify graphs
+        run: python tools/verify_runtime.py
+      - name: Assemble static site
+        run: |
+          mkdir -p _site/css _site/js _site/data/graph
+          cp index.html _site/index.html
+          cp css/app.css _site/css/app.css
+          cp js/app.js _site/js/app.js
+          cp data/graph/*_legal_graph.json _site/data/graph/
+          touch _site/.nojekyll
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
