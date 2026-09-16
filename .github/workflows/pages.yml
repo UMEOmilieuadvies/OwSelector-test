@@ -1,8 +1,8 @@
 name: Build and deploy OwSelector to GitHub Pages
 
+# Tijdens de V550-overdracht alleen handmatig starten.
+# Na een geslaagde volledige build wordt de push-trigger weer ingeschakeld.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
