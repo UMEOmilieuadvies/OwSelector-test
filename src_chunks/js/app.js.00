@@ -1,0 +1,57 @@
+'use strict';
+(() => {
+const VERSION='V550';
+const REGS=[
+ {id:'OW',name:'Omgevingswet',file:'ow_legal_graph.json'},
+ {id:'BAL',name:'Besluit activiteiten leefomgeving (BAL)',file:'bal_legal_graph.json'},
+ {id:'BBL',name:'Besluit bouwwerken leefomgeving (BBL)',file:'bbl_legal_graph.json'},
+ {id:'BKL',name:'Besluit kwaliteit leefomgeving (BKL)',file:'bkl_legal_graph.json'},
+ {id:'OB',name:'Omgevingsbesluit (OB)',file:'ob_legal_graph.json'},
+ {id:'OR',name:'Omgevingsregeling (OR)',file:'or_legal_graph.json'}
+];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const type=n=>String(n?.type||'').toLowerCase();
+const nid=n=>String(n?.id||'');
+const num=n=>String(n?.number_display||n?.number||'').trim();
+const parentId=n=>String(n?.parent||'');
+const state={graphs:new Map(),indexes:new Map(),regulation:'BAL',glossaryRegulation:'BAL',search:{query:'',results:[],active:false},navigation:{selected:null,expanded:new Set()},viewer:{node:null,trail:[],regulation:'BAL'},side:{article:null,selected:null},historyTab:'recent'};
+const logQueue=[];let logTimer=null;
+function log(event,data={}){const e={time:new Date().toISOString(),version:VERSION,event,...data};logQueue.push(e);if(logQueue.length>500)logQueue.splice(0,logQueue.length-500);if(!logTimer)logTimer=setTimeout(flushLog,300)}
+async function flushLog(){logTimer=null;if(!logQueue.length)return;logQueue.splice(0,100)}
+function regName(id){return REGS.find(r=>r.id===id)?.name||id}
+function graph(reg=state.regulation){return state.graphs.get(reg)}
+function index(reg=state.regulation){return state.indexes.get(reg)}
+function node(id,reg=(state.viewer.regulation||state.regulation)){return index(reg)?.byId.get(String(id))||null}
+function children(n){return (n?.children||[]).map(id=>node(id,n.regId)).filter(Boolean)}
+function parent(n){return n?node(parentId(n),n.regId):null}
+function ancestors(n){const out=[];const seen=new Set();let cur=n;while(cur&&!seen.has(nid(cur))){seen.add(nid(cur));out.unshift(cur);cur=parent(cur)}return out}
+function articleOf(n){let cur=n;const seen=new Set();while(cur&&!seen.has(nid(cur))){seen.add(nid(cur));if(type(cur)==='article')return cur;cur=parent(cur)}return null}
+function legalPrefix(n){return ({chapter:'Hoofdstuk',section:'Afdeling',paragraph:'Paragraaf',subparagraph:'Paragraaf',article:'Artikel',member:'',paragraph_member:'',item:'',subitem:'',table:'Tabel',appendix:'Bijlage'})[type(n)]||''}
+function label(n){if(!n)return'';return [legalPrefix(n),num(n),String(n.title||'').trim()].filter(Boolean).join(' ').trim()||String(n.title||n.id||'Element')}
+function ownText(n){return String(n?.text||'').trim()}
+function searchText(n){return String(n?.search_text_exact||[num(n),n?.title,ownText(n)].filter(Boolean).join(' '))}
+function buildIndex(reg,g){const byId=new Map(),byLegal=new Map();for(const n of g.nodes||[]){n.regId=reg;byId.set(nid(n),n)}
+ const add=(k,n)=>{if(k&&!byLegal.has(k))byLegal.set(k,n)};
+ for(const n of byId.values()){const no=normNum(num(n));if(!no)continue;const t=type(n);add(t+':'+no,n);if(t==='subparagraph')add('paragraph:'+no,n)}
+ const glossary=(Array.isArray(g.glossary)?g.glossary:[]).filter(x=>x&&x.term&&x.definition).sort((a,b)=>String(b.term).length-String(a.term).length);
+ const glossaryByKey=new Map(glossary.map(x=>[String(x.key||x.term_normalized||x.term),x])); state.indexes.set(reg,{byId,byLegal,glossary,glossaryByKey});}
+function normNum(s){return String(s??'').replace(/\s+/g,'').replace(/[.)]$/,'').toLowerCase()}
+function roots(reg){return [...(index(reg)?.byId.values()||[])].filter(n=>!parentId(n)&&['chapter','appendix'].includes(type(n)))}
+function navChildren(n){if(type(n)==='article')return[];return children(n).filter(x=>['chapter','section','paragraph','subparagraph','article'].includes(type(x)))}
+function legalChildren(n){return children(n).filter(x=>!['table','appendix'].includes(type(x)))}
+function articleAttachments(ar){if(!ar)return[];const ids=Array.isArray(ar.article_attachments)?ar.article_attachments:[];return ids.map(id=>node(id,ar.regId)).filter(x=>['table','appendix'].includes(type(x))).filter(x=>x.display_mode!=='inline')}
+function isReliableAttachment(a){return Boolean(a?.article_id)}
+function resultArticle(n){return articleOf(n)||n}
+function stripResultMetadata(n,text){let s=String(text||'').replace(/\s+/g,' ').trim();const variants=[[num(n),String(n?.title||'').trim()].filter(Boolean).join(' '),label(n)].filter(Boolean);for(let pass=0;pass<3;pass++){let changed=false;for(const v of variants){if(s.toLocaleLowerCase('nl-NL').startsWith(v.toLocaleLowerCase('nl-NL'))){s=s.slice(v.length).trim().replace(/^[\s|:;–—-]+/,'');changed=true;}}if(!changed)break;}return s} 
+function resultSource(r){return stripResultMetadata(r.match,r.source)}
+function snippet(text,q,max=260){text=String(text||'').replace(/\s+/g,' ').trim();const low=text.toLowerCase(),needle=q.toLowerCase(),i=low.indexOf(needle);if(i<0)return text.slice(0,max);const start=Math.max(0,i-90),end=Math.min(text.length,i+needle.length+150);return (start?'…':'')+text.slice(start,end)+(end<text.length?'…':'')}
+function highlight(s,q){const safe=esc(s);if(!q)return safe;const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');return safe.replace(re,m=>'<mark>'+m+'</mark>')}
+function search(q){q=q.trim();const g=graph();if(q.length<2||!g)return[];const found=[];for(const n of g.nodes||[]){if(!searchText(n).toLowerCase().includes(q.toLowerCase()))continue;const r=resultArticle(n);found.push({node:r,match:n,source:searchText(n)});}return found.sort((a,b)=>{const c=label(a.node).localeCompare(label(b.node),'nl',{numeric:true,sensitivity:'base'});return c||label(a.match).localeCompare(label(b.match),'nl',{numeric:true,sensitivity:'base'})})}
+function saveHistory(q){const lim=Math.max(1,Number(localStorage.getItem('owz_history_limit')||10));let a=history().filter(x=>!(x.query===q&&x.reg===state.regulation));a.unshift({query:q,reg:state.regulation,label:`${q} — ${state.regulation}`});localStorage.setItem('owz_history',JSON.stringify(a.slice(0,lim)))}
+function history(){try{return JSON.parse(localStorage.getItem('owz_history')||'[]')}catch(_){return[]}}
+function favorites(){try{return JSON.parse(localStorage.getItem('owz_favorites')||'[]')}catch(_){return[]}}
+function queryFavorite(q=String($('searchInput').value||'').trim()){return favorites().some(x=>x.query===q&&x.reg===state.regulation)}
+function toggleQueryFavorite(){const q=String($('searchInput').value||'').trim();if(q.length<2)return;let a=favorites();const i=a.findIndex(x=>x.query===q&&x.reg===state.regulation);if(i>=0)a.splice(i,1);else a.unshift({query:q,reg:state.regulation,label:`${q} — ${state.regulation}`});localStorage.setItem('owz_favorites',JSON.stringify(a));updateStar();if(!historyPanelHidden())renderHistory()}
+function historyPanelHidden(){return $('historyPanel').hidden}
+function updateStar(){$('favoriteQueryButt
