@@ -1,0 +1,73 @@
+import subprocess, sys
+import shutil
+import time
+from pathlib import Path
+
+BASE = Path(__file__).resolve().parent
+APPROOT = BASE.parent
+DATA = APPROOT / "data"
+SOURCE = DATA / "source"
+DOWN = BASE / "download_regeling.py"
+
+REGULATIONS = [
+    ("OW",  "BWBR0037885", "omgevingswet.xml"),
+    ("BAL", "BWBR0041330", "bal.xml"),
+    ("BBL", "BWBR0041297", "bbl.xml"),
+    ("BKL", "BWBR0041313", "bkl.xml"),
+    ("OB",  "BWBR0041278", "ob.xml"),
+    ("OR",  "BWBR0045528", "or.xml"),
+]
+PEILDATUM = "2026-08-20"
+
+if not DOWN.exists():
+    print(f"FOUT: downloader ontbreekt: {DOWN}")
+    raise SystemExit(1)
+SOURCE.mkdir(parents=True, exist_ok=True)
+
+failed = []
+reused = []
+for rid, bwb, filename in REGULATIONS:
+    target = SOURCE / filename
+    print()
+    print(f"[{rid}] API ophalen")
+    print(f"  BWB-ID: {bwb}")
+    print(f"  Peildatum: {PEILDATUM}")
+    print(f"  Doel: {target}")
+    cmd = [sys.executable, str(DOWN), bwb, PEILDATUM, str(target)]
+    print("  Opdracht:", " ".join(f'"{x}"' if " " in x else x for x in cmd))
+    rc = 1
+    for attempt in range(1, 4):
+        print(f"  Poging {attempt}/3...")
+        rc = subprocess.call(cmd, cwd=str(BASE))
+        if rc == 0:
+            break
+        if attempt < 3:
+            print(f"  Tijdelijke API-fout voor {rid}; opnieuw proberen...")
+            time.sleep(2)
+    if rc != 0:
+        if target.exists() and target.stat().st_size > 0:
+            try:
+                head = target.read_bytes()[:200000]
+                usable = bwb.encode('ascii') in head
+            except Exception:
+                usable = False
+            if usable:
+                reused.append(rid)
+                print(f"  WAARSCHUWING: API {rid} code {rc}; bestaand XML-bestand blijft behouden en wordt gebruikt.")
+                continue
+        failed.append((rid, rc))
+        print(f"  FOUT: {rid} code {rc}; geen bruikbaar bestaand XML-bestand beschikbaar.")
+    else:
+        if not target.exists() or target.stat().st_size == 0:
+            failed.append((rid, 3))
+            print(f"  FOUT: XML niet aangemaakt: {target}")
+        else:
+            print(f"  GESLAAGD: {target}")
+
+print()
+if reused:
+    print("Bestaande XML-bestanden hergebruikt na tijdelijke API-fout:", ", ".join(reused))
+if failed:
+    print("API-ophalen mislukt en geen bruikbare XML beschikbaar voor:", ", ".join(f"{r}(code {c})" for r,c in failed))
+    raise SystemExit(1)
+print("Downloadfase voltooid in één enkele cyclus (maximaal 3 pogingen per regeling).")
