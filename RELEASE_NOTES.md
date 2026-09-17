@@ -47,3 +47,10 @@
 **Kleine wijziging.**
 
 - Europese CELEX-verwijzingen openen voortaan als Nederlandse HTML-pagina op EUR-Lex.
+
+## 0.04 — 2026-09-17
+
+**Grote wijziging.**
+
+- Kolom 3 toont nu officiële terugverwijzingen vanuit de zes opgenomen regelingen naar het geselecteerde artikel.
+- Een aangeklikt verwijzend artikel opent in kolom 3, terwijl het geselecteerde artikel zichtbaar blijft in kolom 2.

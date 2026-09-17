@@ -1,9 +1,10 @@
 {
-  "version": "0.03c",
-  "kind": "klein",
+  "version": "0.04",
+  "kind": "groot",
   "released_at": "2026-09-17",
   "notes": [
-    "Europese CELEX-verwijzingen openen voortaan als Nederlandse HTML-pagina op EUR-Lex."
+    "Kolom 3 toont nu officiële terugverwijzingen vanuit de zes opgenomen regelingen naar het geselecteerde artikel.",
+    "Een aangeklikt verwijzend artikel opent in kolom 3, terwijl het geselecteerde artikel zichtbaar blijft in kolom 2."
   ],
   "resolved_comment_ids": []
 }
