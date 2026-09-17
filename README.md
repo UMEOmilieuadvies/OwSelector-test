@@ -1,6 +1,6 @@
-# OwSelector — Omgevingswet Zoeker 0.02
+# OwSelector — Omgevingswet Zoeker 0.02a
 
-GitHub Pages-uitgave van Omgevingswet Zoeker 0.02.
+GitHub Pages-uitgave van Omgevingswet Zoeker 0.02a.
 
 De website wordt bij iedere push en dagelijks met GitHub Actions gebouwd. Tijdens de build worden de zes officiële regelingen opgehaald via de bestaande KOOP/BWB-downloader, met de dag van de build als peildatum, en omgezet naar de legal graphs die de browser gebruikt. De dagelijkse build publiceert alleen als de inhoud is gewijzigd. De gepubliceerde website bevat alleen statische HTML, CSS, JavaScript en JSON.
 
@@ -24,3 +24,5 @@ De zelfstandige Windows-release blijft los van deze Pages-publicatie; de viewerf
 Voer vóór iedere wijziging `python tools/release.py groot` of `python tools/release.py klein` uit, met ten minste één `--note`. Voeg voor opgeloste opmerkingen ook `--issue ID` toe. Het hulpmiddel werkt `VERSION`, de zichtbare versie, `release.json` en `RELEASE_NOTES.md` bij.
 
 Na een succesvolle Pages-uitgave registreert GitHub Actions de versie en de opgeloste opmerkingen in Supabase. Dit vereist de GitHub-secrets `SUPABASE_URL` en `SUPABASE_SERVICE_ROLE_KEY`; de service-role sleutel wordt nooit in de website opgenomen.
+
+Bij een doorgevoerde opmerking kan de beheerder in de kolom `admin_note` in de Supabase-tabel `comments` een korte toelichting invullen. Die toelichting wordt op de website onder de opmerking getoond.

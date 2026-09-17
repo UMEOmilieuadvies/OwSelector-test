@@ -15,3 +15,9 @@
 
 - Dagelijkse controle en publicatie van officiële KOOP/BWB-wetteksten.
 - De opmerking over actuele wetteksten is opgelost.
+
+## 0.02a — 2026-09-17
+
+**Kleine wijziging.**
+
+- Doorgevoerde opmerkingen tonen nu een korte toelichting voor bezoekers.

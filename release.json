@@ -1,12 +1,9 @@
 {
-  "version": "0.02",
-  "kind": "groot",
+  "version": "0.02a",
+  "kind": "klein",
   "released_at": "2026-09-17",
   "notes": [
-    "Dagelijkse controle en publicatie van officiële KOOP/BWB-wetteksten.",
-    "De opmerking over actuele wetteksten is opgelost."
+    "Doorgevoerde opmerkingen tonen nu een korte toelichting voor bezoekers."
   ],
-  "resolved_comment_ids": [
-    "2"
-  ]
+  "resolved_comment_ids": []
 }
