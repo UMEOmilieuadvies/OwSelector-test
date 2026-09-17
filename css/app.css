@@ -71,8 +71,12 @@ button[data-inline]:focus-visible{outline:2px solid currentColor!important;outli
 .appendixSourceListItem{display:grid;grid-template-columns:minmax(2.5rem,auto) 1fr;gap:.6rem;margin:.35rem 0;align-items:start}
 .appendixSourceEnum{font-weight:600;white-space:nowrap}
 .appendixSourceTableWrap{max-width:100%;overflow-x:auto;margin:1rem 0 1.25rem}
-.appendixSourceTable{border-collapse:collapse;width:100%;table-layout:auto}
+.appendixSourceTable{border-collapse:collapse;width:100%;table-layout:fixed}
 .appendixSourceTable th,.appendixSourceTable td{vertical-align:top;white-space:normal;overflow-wrap:anywhere}
+
+/* Laat de beschikbare breedte gelijkmatig over de cellen verdelen. Lange inhoud
+   loopt binnen de cel door; zij bepaalt niet langer de kolombreedte. */
+.legalTable{table-layout:fixed}
 
 /* V550: alle functionele juridische verwijzingen zijn visueel herkenbaar als link.
    Dit geldt expliciet ook in tabellen en voor regelingoverschrijdende verwijzingen. */
