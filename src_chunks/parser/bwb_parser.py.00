@@ -1,0 +1,204 @@
+#!/usr/bin/env python3
+"""
+OMGEVINGSWET ZOEKER - GENERIEKE BWB PARSER
+
+Gebruik:
+    python bwb_parser.py INPUT.xml OUTPUT.json
+
+De parser kent geen BAL-specifieke bestandsnamen en schrijft uitsluitend naar
+het door de gebruiker opgegeven uitvoerbestand.
+"""
+import sys, json, re
+from pathlib import Path
+import xml.etree.ElementTree as ET
+from collections import Counter
+
+STRUCT = {
+    "hoofdstuk":"chapter",
+    "afdeling":"section",
+    "paragraaf":"paragraph",
+    "sub-paragraaf":"subparagraph",
+    "artikel":"article",
+    "lid":"member",
+    "li":"item",
+    "bijlage":"appendix",
+}
+BOUNDARY = set(STRUCT) | {"li","table"}
+SKIP = {"meta-data","kop","lidnr","li.nr"}
+def normalize_legal_enumeration(number, level=None):
+    raw=str(number or "").strip()
+    if re.fullmatch(r"[a-z]",raw,re.I):
+        return {"number_raw":raw,"number_display":raw.lower()+".","enumeration_kind":"letter"}
+    if re.fullmatch(r"\d+\s*[°º]",raw):
+        return {"number_raw":raw,"number_display":re.sub(r"\s+","",raw).replace("º","°"),
+                "enumeration_kind":"degree"}
+    if re.fullmatch(r"\d+\.?",raw):
+        return {"number_raw":raw,"number_display":raw.rstrip("."),
+                "enumeration_kind":"numeric"}
+    return {"number_raw":raw,"number_display":raw,"enumeration_kind":"other"}
+
+def ln(tag):
+    if not isinstance(tag,str): return ""
+    return tag.rsplit("}",1)[-1].rsplit(":",1)[-1].lower()
+
+def clean(s):
+    return re.sub(r"\s+"," ",s or "").strip()
+
+def text_all(e):
+    return clean(" ".join(e.itertext()))
+
+def title(e):
+    for c in list(e):
+        if ln(c.tag)=="kop":
+            for x in list(c):
+                if ln(x.tag)=="titel":
+                    return text_all(x)
+    return ""
+
+def number(e,typ):
+    if typ=="member":
+        for c in list(e):
+            if ln(c.tag)=="lidnr":
+                return text_all(c)
+    for c in list(e):
+        if ln(c.tag)=="kop":
+            for x in list(c):
+                if ln(x.tag)=="nr":
+                    return text_all(x)
+    label=e.get("label") or ""
+    m=re.search(r"(\d+(?:\.\d+)*(?:[a-z]+)?)",label,re.I)
+    return m.group(1) if m else None
+
+def li_number(e):
+    for c in list(e):
+        if ln(c.tag)=="li.nr":
+            return text_all(c).rstrip(".")
+    raw=e.get("nr") or e.get("number") or e.get("n")
+    if raw:
+        return str(raw).strip().rstrip(".")
+    return None
+
+def own_visible_text(e):
+    out=[]
+    def rec(x,isroot=False):
+        tag=ln(x.tag)
+        if tag=="meta-data": return
+        if not isroot and tag in BOUNDARY: return
+        if tag=="kop" or tag in {"lidnr","li.nr"}: return
+        if x.text: out.append(x.text)
+        for c in list(x):
+            rec(c)
+            if c.tail: out.append(c.tail)
+    rec(e,True)
+    return clean("".join(out))
+
+def direct_visible_blocks(e):
+    """Preserve appendix paragraphs in source order, including source alignment hints."""
+    blocks=[]
+    def add_block(x, depth=0):
+        tag=ln(x.tag)
+        if tag=="alineagroep":
+            for c in list(x):
+                if ln(c.tag) in {"al","alineagroep"}:
+                    add_block(c, depth + (1 if ln(c.tag)=="alineagroep" else 0))
+            return
+        txt=text_all(x)
+        if not txt: return
+        attrs={}
+        for key in ("align","valign","role","class","type"):
+            if x.get(key) is not None: attrs[key]=x.get(key)
+        blocks.append({"text":txt,"indent":depth,"attrs":attrs})
+    for c in list(e):
+        if ln(c.tag) in {"al","alineagroep"}: add_block(c,0)
+    return blocks
+
+
+
+def appendix_source_tree(e):
+    """Preserve the official appendix XML hierarchy and source order for faithful rendering."""
+    def attrs_of(x):
+        out={}
+        for key in ("align","valign","role","class","type","label","id","name"):
+            if x.get(key) is not None: out[key]=x.get(key)
+        return out
+    def convert(x):
+        tag=ln(x.tag)
+        if tag=="meta-data": return None
+        if tag=="table":
+            return {"kind":"table","tag":tag,"number":table_identity(x),"title":title(x),
+                    "rows":table_rows(x),"columns":table_columns(x),"attrs":attrs_of(x)}
+        if tag=="kop":
+            nr=""; ttl=""
+            for c in list(x):
+                if ln(c.tag)=="nr": nr=text_all(c)
+                elif ln(c.tag)=="titel": ttl=text_all(c)
+            return {"kind":"heading","tag":tag,"number":nr,"title":ttl,
+                    "text":text_all(x),"attrs":attrs_of(x)}
+        if tag in {"al","alineagroep"}:
+            # Alineagroep is a container; keep nested paragraphs separate.
+            nested=[convert(c) for c in list(x) if ln(c.tag) in {"al","alineagroep","table","lijst","li"}]
+            nested=[v for v in nested if v]
+            if tag=="alineagroep" and nested:
+                return {"kind":"group","tag":tag,"attrs":attrs_of(x),"children":nested}
+            return {"kind":"paragraph","tag":tag,"text":text_all(x),"attrs":attrs_of(x)}
+        if tag=="li":
+            kids=[convert(c) for c in list(x) if ln(c.tag) not in {"li.nr","kop"}]
+            kids=[v for v in kids if v]
+            return {"kind":"list_item","tag":tag,"number":li_number(x),
+                    "text":own_visible_text(x),"attrs":attrs_of(x),"children":kids}
+        kids=[convert(c) for c in list(x)]
+        kids=[v for v in kids if v]
+        own=own_visible_text(x) if tag not in SKIP else ""
+        if kids or own:
+            return {"kind":"container","tag":tag,"number":number(x,STRUCT.get(tag,"")) if tag in STRUCT else None,
+                    "title":title(x),"text":own,"attrs":attrs_of(x),"children":kids}
+        return None
+    out=[]
+    for c in list(e):
+        v=convert(c)
+        if v: out.append(v)
+    return out
+
+def table_columns(e):
+    """Preserve CALS column widths/alignment from the official regulation XML."""
+    cols=[]
+    for x in e.iter():
+        if ln(x.tag)!="colspec": continue
+        d={}
+        for key in ("colname","colnum","colwidth","align","char","charoff"):
+            if x.get(key) is not None: d[key]=x.get(key)
+        cols.append(d)
+    return cols
+
+def descendant_search_text(e):
+    out=[]
+    def rec(x):
+        if ln(x.tag)=="meta-data": return
+        if x.text: out.append(x.text)
+        for c in list(x):
+            rec(c)
+            if c.tail: out.append(c.tail)
+    rec(e)
+    return clean("".join(out))
+
+def _table_colspecs(table):
+    """Return XML column-name -> zero-based index mapping."""
+    names=[]
+    for x in table.iter():
+        if ln(x.tag)=="colspec":
+            n=x.get("colname") or x.get("name") or x.get("id")
+            if n:
+                names.append(n)
+    return {n:i for i,n in enumerate(names)}
+
+def _cell_span(cell, colspec_map, current_col):
+    """Read rowspan/colspan from common BWB/TEI table encodings."""
+    rowspan=1
+    colspan=1
+
+    # HTML-like attributes.
+    for key in ("rowspan","morerows"):
+        val=cell.get(key)
+        if val:
+            try:
+                n=int(val)
