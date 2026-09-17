@@ -1,11 +1,9 @@
 {
-  "version": "0.03b",
+  "version": "0.03c",
   "kind": "klein",
   "released_at": "2026-09-17",
   "notes": [
-    "Bijlageverwijzingen naar de Seveso-richtlijn openen nu de officiële EUR-Lex-bron in een nieuw tabblad."
+    "Europese CELEX-verwijzingen openen voortaan als Nederlandse HTML-pagina op EUR-Lex."
   ],
-  "resolved_comment_ids": [
-    "3"
-  ]
+  "resolved_comment_ids": []
 }

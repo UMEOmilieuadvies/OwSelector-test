@@ -65,7 +65,7 @@ def main() -> None:
             elif re.fullmatch(r"[0-9]{5}[LR][0-9]{4}", doc):
                 key = doc
                 kind = "eu"
-                url = f"https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:{doc}"
+                url = f"https://eur-lex.europa.eu/legal-content/NL/TXT/HTML/?uri=CELEX:{doc}"
             elif doc.startswith(("http://", "https://")):
                 key = doc
                 kind = "web"

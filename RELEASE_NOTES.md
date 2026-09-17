@@ -41,3 +41,9 @@
 **Kleine wijziging.**
 
 - Bijlageverwijzingen naar de Seveso-richtlijn openen nu de officiële EUR-Lex-bron in een nieuw tabblad.
+
+## 0.03c — 2026-09-17
+
+**Kleine wijziging.**
+
+- Europese CELEX-verwijzingen openen voortaan als Nederlandse HTML-pagina op EUR-Lex.

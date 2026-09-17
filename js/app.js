@@ -1,6 +1,6 @@
 'use strict';
 (() => {
-const VERSION='0.03b';
+const VERSION='0.03c';
 const SUPABASE_URL='https://pqpsajcjydvagrfxfeye.supabase.co';
 const SUPABASE_KEY='sb_publishable_Xa5PS_17HKGY-f_LQAPbUA_u0J0-49V';
 const REGS=[
@@ -179,7 +179,7 @@ function openGlossary(){
  log('GLOSSARY_LIST_OPEN',{reg:state.regulation,count:glossaryFor(state.regulation).length});
 }
 const SEVESO_ANNEX_RE=/\bbijlage\s+[IVXLCDM]+(?:,\s*[^.;]*?)?\s+bij\s+de\s+Seveso-richtlijn\b/gi;
-const SEVESO_URL='https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32012L0018';
+const SEVESO_URL='https://eur-lex.europa.eu/legal-content/NL/TXT/HTML/?uri=CELEX:32012L0018';
 function renderPlainInlineCore(source,text){let out='',last=0;const sourceArticle=articleOf(source),raw=String(text||''),sourceReg=source?.regId||state.viewer.regulation||state.regulation;REF_RE.lastIndex=0;for(const m of raw.matchAll(REF_RE)){out+=renderGlossaryText(source,raw.slice(last,m.index));const context=raw.slice(Math.max(0,m.index-160),Math.min(raw.length,m.index+m[0].length+180));const cross=resolveCrossRegRef(m[0],context);const target=cross?.target||resolveRef(m[0],sourceReg);if(cross&&cross.reg!==sourceReg){if(target)out+=`<button class="legalLink" data-cross-reg="${esc(cross.reg)}" data-cross-id="${esc(nid(target))}">${esc(m[0])}</button>`;else if(state.graphs.has(cross.reg))out+=`<button class="legalLink" data-cross-reg-overview="${esc(cross.reg)}">${esc(m[0])}</button>`;else out+=renderGlossaryText(source,m[0])}else if(target){const sameInlineTable=type(target)==='table'&&target.display_mode==='inline'&&sourceArticle&&String(target.article_id||'')===nid(sourceArticle);if(sameInlineTable){out+=`<button class="attachmentLink" data-inline="${esc(nid(target))}">${esc(m[0])}</button>`}else{const cls=['table','appendix'].includes(type(target))?'attachmentLink':'legalLink';out+=`<button class="${cls}" data-inline="${esc(nid(target))}">${esc(m[0])}</button>`}}else out+=renderGlossaryText(source,m[0]);last=m.index+m[0].length}return out+renderGlossaryText(source,raw.slice(last))}
 function renderPlainInline(source,text){const raw=String(text||'');let out='',last=0;SEVESO_ANNEX_RE.lastIndex=0;for(const m of raw.matchAll(SEVESO_ANNEX_RE)){out+=renderPlainInlineCore(source,raw.slice(last,m.index));out+=`<a class="legalLink externalRef" href="${SEVESO_URL}" target="_blank" rel="noopener noreferrer" title="Opent in een nieuw tabblad">${esc(m[0])}</a>`;last=m.index+m[0].length}return out+renderPlainInlineCore(source,raw.slice(last))}
 function externalMeta(ref){return state.externalRefs.get(String(ref?.bwb_id||ref?.doc||''))||null}
