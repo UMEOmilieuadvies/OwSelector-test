@@ -124,3 +124,6 @@ button[data-regulation-info]:focus-visible{
 
 /* V550: kolom 3 is het vaste gekoppelde-materiaalvlak. */
 .sideContext{font-size:12px;color:#5a6d7d;padding:0 0 8px;margin-bottom:8px;border-bottom:1px solid #d9e2e9}.sideAppendix .appendixView{max-width:none;margin:0;padding:0 0 18px}.sideAppendix .appendixHeader{margin-top:0}.sideAppendix .appendixSourceTableWrap,.sideAppendix .tableWrap{max-width:100%;overflow:auto}.sideAppendix .appendixSourceParagraph,.sideAppendix .appendixPartText{overflow-wrap:anywhere}.sideAppendix .legalLink,.sideAppendix .attachmentLink{color:#075fae;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+
+/* V550: openbare opmerkingen. */
+#commentMessage{min-height:150px;resize:vertical;padding:8px;border:1px solid #aebdca;border-radius:5px;font:inherit}.formMessage{min-height:1.2em;margin:0;color:#a22020}.commentsModal{width:min(760px,94vw);max-width:760px}.commentsList{max-height:60vh;overflow:auto;border-top:1px solid var(--line)}.commentItem{padding:11px 2px;border-bottom:1px solid #dbe4eb;white-space:pre-wrap;line-height:1.45}.commentMeta{font-size:12px;color:#607284;margin-bottom:4px}.commentLoading{padding:12px;color:#607284}
