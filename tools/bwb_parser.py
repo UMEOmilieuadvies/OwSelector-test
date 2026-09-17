@@ -92,6 +92,44 @@ def own_visible_text(e):
     rec(e,True)
     return clean("".join(out))
 
+def external_refs(e):
+    """Bewaar officiële externe XML-verwijzingen bij het zichtbare bronblok.
+
+    De browser kan daardoor iedere <extref> als link tonen, zonder op een
+    tekstpatroon te hoeven gokken. De BWB-id en documentcode blijven intact.
+    """
+    refs=[]
+    def rec(x, isroot=False):
+        tag=ln(x.tag)
+        if tag=="meta-data": return
+        if not isroot and tag in BOUNDARY: return
+        if tag in {"kop","lidnr","li.nr"}: return
+        if tag=="extref":
+            add(x)
+            return
+        for child in list(x):
+            rec(child)
+    def add(x):
+        anchor=clean(" ".join(x.itertext()))
+        if not anchor: return
+        doc=clean(str(x.get("doc") or ""))
+        target={}
+        for xml_key,kind in (("artikel","article"),("paragraaf","paragraph"),
+                             ("afdeling","section"),("hoofdstuk","chapter"),
+                             ("bijlage","appendix")):
+            m=re.search(r"(?:^|&)"+xml_key+r"=([^&]+)",doc,re.I)
+            if m:
+                target={"type":kind,"number":m.group(1)}
+                break
+        refs.append({
+            "anchor":anchor,
+            "bwb_id":str(x.get("bwb-id") or "").upper() or None,
+            "doc":doc or None,
+            "target":target,
+        })
+    rec(e, True)
+    return refs
+
 def direct_visible_blocks(e):
     """Preserve appendix paragraphs in source order, including source alignment hints."""
     blocks=[]
@@ -613,12 +651,13 @@ def parse(input_path,output_path):
               "id":nid,"type":typ,"number":number(e,typ),
               "title":title(e),"parent":parent["id"] if parent else None,
               "text":own_visible_text(e),
+              "external_refs":external_refs(e),
               "blocks":direct_visible_blocks(e) if typ=="appendix" else [],
               "source_tree":appendix_source_tree(e) if typ=="appendix" else [],
               "search_text_exact":"",
               "_full_search_text":descendant_search_text(e) if typ=="article" else "",
               "children":[],"_xml_order":len(nodes),
-              "_ancestors":[{k:v for k,v in x.items() if not k.startswith("_")}
+              "_ancestors":[{k:v for k,v in x.items() if not k.startswith("_") and k not in {"external_refs"}}
                             for x in stack]
             }
             if typ=="member" and not n["number"]: n["number"]=number(e,typ)
@@ -639,9 +678,10 @@ def parse(input_path,output_path):
             n={"id":nid,"type":"table","number":table_identity(e),
                "title":title(e),"parent":parent["id"] if parent else None,
                "text":clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows)),
+               "external_refs":external_refs(e),
                "search_text_exact":clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows)),
                "rows":rows,"columns":table_columns(e),"table_layout_version":3,"children":[],"_xml_order":len(nodes),
-               "_ancestors":[{k:v for k,v in x.items() if not k.startswith("_")} for x in stack]}
+               "_ancestors":[{k:v for k,v in x.items() if not k.startswith("_") and k not in {"external_refs"}} for x in stack]}
             nodes.append(n)
             if parent: parent["children"].append(nid)
             # table is a boundary; do not recurse as legal descendants

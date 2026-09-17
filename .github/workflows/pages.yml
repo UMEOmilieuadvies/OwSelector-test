@@ -41,6 +41,7 @@ jobs:
           cp index.html _site/index.html
           cp css/app.css _site/css/app.css
           cp js/app.js _site/js/app.js
+          cp data/external_refs.json _site/data/external_refs.json
           cp data/graph/*_legal_graph.json _site/data/graph/
           touch _site/.nojekyll
       - name: Determine whether legal data changed

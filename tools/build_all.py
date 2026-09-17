@@ -18,6 +18,7 @@ REGS = [
 ]
 
 PARSER = BASE / "bwb_parser.py"
+EXTERNAL_REFS = BASE / "build_external_refs.py"
 
 def log(msg):
     print(msg, flush=True)
@@ -88,6 +89,10 @@ def main():
             ok = False
 
     if ok and built == len(REGS):
+        result = subprocess.run([sys.executable, str(EXTERNAL_REFS)], cwd=BASE)
+        if result.returncode != 0:
+            log("FOUT extern-verwijzingenregister kon niet worden gebouwd.")
+            return 1
         log("ALLE ZES REGELINGEN ZIJN GEBOUWD.")
         return 0
     if built > 0:
