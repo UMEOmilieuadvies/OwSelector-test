@@ -357,7 +357,10 @@ def extract_glossary(root, nodes, bwb_id=None):
         if n.get("type")!="appendix": continue
         no=clean(str(n.get("number") or ""))
         hay=clean(" ".join([no,str(n.get("title") or ""),str(n.get("text") or "")])).casefold()
-        if "begrip" in hay or (str(bwb_id or "").upper()=="BWBR0041330" and no.upper() in {"I","1"}):
+        # De Omgevingswet noemt in de titel uitsluitend "bij artikel 1.1";
+        # de aanduiding "Begrippen" staat daaronder in divisie A.
+        if ("begrip" in hay or "artikel 1.1" in hay
+                or (str(bwb_id or "").upper()=="BWBR0041330" and no.upper() in {"I","1"})):
             appendix_ids.add(n["id"]); appendix_numbers[n["id"]]=no or "I"
 
     found=[]; seen=set()
@@ -517,7 +520,12 @@ def extract_glossary(root, nodes, bwb_id=None):
         if ln(e.tag)!="bijlage": continue
         kop=next((c for c in list(e) if ln(c.tag)=="kop"),None)
         koptxt=clean(text_all(kop) if kop is not None else "")
-        if "begrip" in koptxt.casefold(): xml_candidates.append(e)
+        # De Omgevingswet noemt in de bijlagekop alleen het artikelnummer;
+        # "Begrippen" staat pas in divisie A. De overige regelingen noemen
+        # Begrippen al in de bijlagekop.
+        is_ow_glossary="artikel 1.1" in koptxt.casefold()
+        if "begrip" in koptxt.casefold() or is_ow_glossary:
+            xml_candidates.append(e)
     for xml_app in xml_candidates:
         kop=next((c for c in list(xml_app) if ln(c.tag)=="kop"),None)
         appno=""
