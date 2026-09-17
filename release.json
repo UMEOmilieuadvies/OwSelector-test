@@ -1,9 +1,11 @@
 {
-  "version": "0.03a",
+  "version": "0.03b",
   "kind": "klein",
   "released_at": "2026-09-17",
   "notes": [
-    "Externe verwijzingen tonen regelingnamen waar beschikbaar en een duidelijke aanwijzing voor openen in een nieuw tabblad."
+    "Bijlageverwijzingen naar de Seveso-richtlijn openen nu de officiële EUR-Lex-bron in een nieuw tabblad."
   ],
-  "resolved_comment_ids": []
+  "resolved_comment_ids": [
+    "3"
+  ]
 }

@@ -35,3 +35,9 @@
 **Kleine wijziging.**
 
 - Externe verwijzingen tonen regelingnamen waar beschikbaar en een duidelijke aanwijzing voor openen in een nieuw tabblad.
+
+## 0.03b — 2026-09-17
+
+**Kleine wijziging.**
+
+- Bijlageverwijzingen naar de Seveso-richtlijn openen nu de officiële EUR-Lex-bron in een nieuw tabblad.
