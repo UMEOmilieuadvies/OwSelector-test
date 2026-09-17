@@ -1,11 +1,12 @@
 {
-  "version": "0.01",
+  "version": "0.02",
   "kind": "groot",
   "released_at": "2026-09-17",
   "notes": [
-    "Eerste beheerde GitHub Pages-uitgave met versiebeheer.",
-    "Zoekresultaten volgen de juridische structuur.",
-    "Tabelverwijzingen zijn zichtbaar en openen de gekoppelde tabel."
+    "Dagelijkse controle en publicatie van officiële KOOP/BWB-wetteksten.",
+    "De opmerking over actuele wetteksten is opgelost."
   ],
-  "resolved_comment_ids": []
+  "resolved_comment_ids": [
+    "2"
+  ]
 }

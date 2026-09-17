@@ -1,8 +1,8 @@
-# OwSelector — Omgevingswet Zoeker 0.01
+# OwSelector — Omgevingswet Zoeker 0.02
 
-GitHub Pages-uitgave van Omgevingswet Zoeker 0.01.
+GitHub Pages-uitgave van Omgevingswet Zoeker 0.02.
 
-De website wordt voorlopig alleen handmatig gebouwd met GitHub Actions. Tijdens de build worden de zes officiële regelingen opgehaald via de bestaande KOOP/BWB-downloader en omgezet naar de legal graphs die de browser gebruikt. De gepubliceerde website bevat alleen statische HTML, CSS, JavaScript en JSON.
+De website wordt bij iedere push en dagelijks met GitHub Actions gebouwd. Tijdens de build worden de zes officiële regelingen opgehaald via de bestaande KOOP/BWB-downloader, met de dag van de build als peildatum, en omgezet naar de legal graphs die de browser gebruikt. De dagelijkse build publiceert alleen als de inhoud is gewijzigd. De gepubliceerde website bevat alleen statische HTML, CSS, JavaScript en JSON.
 
 ## Regelingen
 

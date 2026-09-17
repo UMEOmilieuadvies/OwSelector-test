@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Dagelijks 05:15 UTC: officiële BWB-bron opnieuw ophalen en vergelijken.
+    - cron: '15 5 * * *'
 
 permissions:
   contents: read
@@ -17,6 +20,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.change_check.outputs.should_deploy }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,13 +43,42 @@ jobs:
           cp js/app.js _site/js/app.js
           cp data/graph/*_legal_graph.json _site/data/graph/
           touch _site/.nojekyll
+      - name: Determine whether legal data changed
+        id: change_check
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" != "schedule" ]; then
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          mkdir -p previous-graph
+          changed=false
+          for graph in _site/data/graph/*_legal_graph.json; do
+            name=$(basename "$graph")
+            if ! curl --fail --silent --show-error \
+              "https://umeomilieuadvies.github.io/OwSelector/data/graph/$name" \
+              --output "previous-graph/$name"; then
+              changed=true
+              break
+            fi
+            if ! cmp --silent "$graph" "previous-graph/$name"; then
+              changed=true
+              break
+            fi
+          done
+          echo "should_deploy=$changed" >> "$GITHUB_OUTPUT"
+          echo "Officiële gegevens gewijzigd: $changed"
       - name: Configure Pages
+        if: ${{ steps.change_check.outputs.should_deploy == 'true' }}
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
+        if: ${{ steps.change_check.outputs.should_deploy == 'true' }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
   deploy:
+    if: ${{ needs.build.outputs.should_deploy == 'true' }}
     outputs:
       page_url: ${{ steps.deployment.outputs.page_url }}
     environment:
@@ -57,6 +91,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
   record-release:
+    if: ${{ github.event_name == 'push' && needs.deploy.result == 'success' }}
     runs-on: ubuntu-latest
     needs: deploy
     env:

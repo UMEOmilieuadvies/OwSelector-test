@@ -1,6 +1,7 @@
 import subprocess, sys
 import shutil
 import time
+from datetime import date
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
@@ -18,8 +19,9 @@ REGULATIONS = [
     ("OR",  "BWBR0045528", "or.xml"),
 ]
 
-# Keep the requested reference date explicit. The downloader accepts it as YYYY-MM-DD.
-PEILDATUM = "2026-08-20"
+# Iedere build gebruikt de dag van uitvoeren als peildatum. Daardoor haalt de
+# dagelijkse Pages-controle steeds de op dat moment geldende BWB-tekst op.
+PEILDATUM = date.today().isoformat()
 
 if not DOWN.exists():
     print(f"FOUT: downloader ontbreekt: {DOWN}")
