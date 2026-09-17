@@ -1,6 +1,6 @@
 'use strict';
 (() => {
-const VERSION='V550';
+const VERSION='0.01';
 const SUPABASE_URL='https://pqpsajcjydvagrfxfeye.supabase.co';
 const SUPABASE_KEY='sb_publishable_Xa5PS_17HKGY-f_LQAPbUA_u0J0-49V';
 const REGS=[
@@ -75,7 +75,7 @@ const COMMENT_STATUS={
  'Niet geaccepteerd':'rejected'
 };
 function commentStatus(value){return COMMENT_STATUS[value]?value:'Ontvangen'}
-async function openComments(){const modal=$('commentsModal'),list=$('commentsList');$('commentsMeta').textContent=`Opmerkingen bij Omgevingswet Zoeker ${VERSION}.`;list.innerHTML='<div class="commentLoading">Opmerkingen laden…</div>';modal.showModal();try{const res=await fetch(SUPABASE_URL+'/rest/v1/comments?select=*&order=created_at.desc',{headers:commentHeaders()});if(!res.ok)throw new Error('HTTP '+res.status);const rows=await res.json();list.innerHTML=rows.length?rows.map(row=>{const status=commentStatus(row.status);return `<article class="commentItem"><div class="commentMeta"><span>Geplaatst: ${esc(new Date(row.created_at).toLocaleString('nl-NL',{dateStyle:'long',timeStyle:'short'}))}</span><span>Versie: ${esc(row.app_version||VERSION)}</span><span class="commentStatus ${COMMENT_STATUS[status]}">${esc(status)}</span></div>${esc(row.message)}</article>`}).join(''):'<div class="commentLoading">Er zijn nog geen opmerkingen.</div>';log('COMMENTS_LIST_OPEN',{count:rows.length})}catch(_){list.innerHTML='<div class="commentLoading">De opmerkingen kunnen nu niet worden geladen.</div>'}}
+async function openComments(){const modal=$('commentsModal'),list=$('commentsList');$('commentsMeta').textContent=`Opmerkingen bij Omgevingswet Zoeker ${VERSION}.`;list.innerHTML='<div class="commentLoading">Opmerkingen laden…</div>';modal.showModal();try{const res=await fetch(SUPABASE_URL+'/rest/v1/comments?select=*&order=created_at.desc',{headers:commentHeaders()});if(!res.ok)throw new Error('HTTP '+res.status);const rows=await res.json();list.innerHTML=rows.length?rows.map(row=>{const status=commentStatus(row.status),resolved=row.resolved_in_version?`<span>Opgelost in: ${esc(row.resolved_in_version)}</span>`:'';return `<article class="commentItem"><div class="commentMeta"><span>Geplaatst: ${esc(new Date(row.created_at).toLocaleString('nl-NL',{dateStyle:'long',timeStyle:'short'}))}</span><span>Versie: ${esc(row.app_version||VERSION)}</span>${resolved}<span class="commentStatus ${COMMENT_STATUS[status]}">${esc(status)}</span></div>${esc(row.message)}</article>`}).join(''):'<div class="commentLoading">Er zijn nog geen opmerkingen.</div>';log('COMMENTS_LIST_OPEN',{count:rows.length})}catch(_){list.innerHTML='<div class="commentLoading">De opmerkingen kunnen nu niet worden geladen.</div>'}}
 function clearSide(){state.side={article:null,selected:null};renderSide()}
 function syncSideForViewer(n){if(type(n)==='article'){state.side={article:n,selected:null};renderSide()}else clearSide()}
 function clearSearch(){state.search={query:'',results:[],active:false};$('resultCount').textContent=''}
