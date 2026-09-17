@@ -51,7 +51,7 @@ button[data-inline]:focus-visible{outline:2px solid currentColor!important;outli
 /* V332: ieder begrip is een zelfstandig bronblok; lange definities breken binnen de kolom af. */
 .glossarySourceView,.glossarySourceList,.glossarySourceItem{min-width:0;max-width:100%}
 /* V550: vaste zoekregeling boven kolom 1 en compacte samenvoegknop */
-.navPanel>header>div{min-width:0;display:flex;flex-direction:column;gap:2px}.navRegulationLabel{font-size:11px;font-weight:700;color:#435667;white-space:normal;line-height:1.15}.mergeButton{font-size:20px;line-height:1;padding:4px 8px;min-width:34px}
+.navPanel>header>div{min-width:0;display:flex;flex-direction:column;gap:2px}.navRegulationLabel{font-size:11px;font-weight:700;color:#435667;white-space:normal;line-height:1.15}.mergeButton{font-size:12px;line-height:1.2;padding:5px 7px;white-space:nowrap}.navPreview{margin:0 6px 5px 25px;color:#607284;font-size:11px;line-height:1.25;pointer-events:none}
 
 /* V550: kruimelpad kolom 2 blijft altijd zichtbaar; alleen inhoud eronder scrolt. */
 #viewer.scroll{padding:0;overflow:hidden;display:flex;flex-direction:column;min-height:0}
