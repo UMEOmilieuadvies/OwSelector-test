@@ -31,11 +31,18 @@ def clean(value: str) -> str:
 
 
 def title_from_anchor(anchor: str) -> str:
-    """Neem alleen een echte regelingnaam uit de zichtbare officiële tekst."""
+    """Neem een regelingnaam uit de zichtbare officiële verwijzing."""
+    text = clean(anchor)
+    # Veel verwijzingen bevatten eerst alleen artikelnummers en de BWB-code.
+    # Een andere verwijzing naar dezelfde BWB-code bevat vaak ook de regelingnaam.
     match = re.search(
-        r"\b((?:Omgevingswet|Omgevingsbesluit|Omgevingsregeling|"
-        r"(?:Wet|Besluit|Regeling|Verordening|Richtlijn)\s+[A-Za-z].*?))"
-        r"(?:[;,\.]|$)", anchor)
+        r"\b(?:van\s+(?:de|het)\s+)?"
+        r"((?:(?:Wet|Besluit|Regeling|Verordening|Richtlijn)\s+[A-Za-zÀ-ÿ0-9'’\- ]+|"
+        r"(?:[A-Z][A-Za-zÀ-ÿ'’\-]+\s+)*[A-Z][A-Za-zÀ-ÿ'’\-]*?(?:wet|besluit|regeling|verordening|richtlijn)))"
+        r"(?:\s*\(BWBR\d+\)|[;,.]|$)",
+        text,
+        flags=re.IGNORECASE,
+    )
     return clean(match.group(1)) if match else ""
 
 

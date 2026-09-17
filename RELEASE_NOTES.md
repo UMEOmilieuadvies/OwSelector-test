@@ -29,3 +29,9 @@
 - Iedere officiële externe XML-verwijzing is nu als link beschikbaar.
 - Verwijzingen naar de zes opgenomen regelingen openen gericht in kolom 2; overige Nederlandse regelingen openen op Wetten.nl en Europese regelgeving op EUR-Lex.
 - De build maakt een beheeroverzicht van Nederlandse, Europese en overige externe bronnen.
+
+## 0.03a — 2026-09-17
+
+**Kleine wijziging.**
+
+- Externe verwijzingen tonen regelingnamen waar beschikbaar en een duidelijke aanwijzing voor openen in een nieuw tabblad.
