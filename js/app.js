@@ -36,6 +36,9 @@ function searchText(n){return String(n?.search_text_exact||[num(n),n?.title,ownT
 function buildIndex(reg,g){const byId=new Map(),byLegal=new Map();for(const n of g.nodes||[]){n.regId=reg;byId.set(nid(n),n)}
  const add=(k,n)=>{if(k&&!byLegal.has(k))byLegal.set(k,n)};
  for(const n of byId.values()){const no=normNum(num(n));if(!no)continue;const t=type(n);add(t+':'+no,n);if(t==='subparagraph')add('paragraph:'+no,n)}
+ // BWB-tabellen hebben doorgaans geen eigen nummer. Een verwijzing als
+ // "tabel 4.36" duidt dan op de tabel die bij artikel 4.36 hoort.
+ for(const n of byId.values()){if(type(n)!=='table'||!n.article_id)continue;const article=byId.get(String(n.article_id)),articleNo=normNum(num(article));if(articleNo)add('table:'+articleNo,n)}
  const glossary=(Array.isArray(g.glossary)?g.glossary:[]).filter(x=>x&&x.term&&x.definition).sort((a,b)=>String(b.term).length-String(a.term).length);
  const glossaryByKey=new Map(glossary.map(x=>[String(x.key||x.term_normalized||x.term),x])); state.indexes.set(reg,{byId,byLegal,glossary,glossaryByKey});}
 function normNum(s){return String(s??'').replace(/\s+/g,'').replace(/[.)]$/,'').toLowerCase()}
