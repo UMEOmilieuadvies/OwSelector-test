@@ -54,3 +54,11 @@
 
 - Kolom 3 toont nu officiële terugverwijzingen vanuit de zes opgenomen regelingen naar het geselecteerde artikel.
 - Een aangeklikt verwijzend artikel opent in kolom 3, terwijl het geselecteerde artikel zichtbaar blijft in kolom 2.
+
+## 0.05 — 2026-09-17
+
+**Grote wijziging.**
+
+- Terugverwijzingen tonen nu ook inhoudelijke bronfragmenten buiten artikelen, waaronder tabellen en bijlagen.
+- Bij BAL artikel 4.421 opent de relevante tabel uit bijlage VII van het BKL in kolom 3.
+- Tabelteksten blijven binnen hun cellen; bezoekers kunnen kolombreedtes met de muis aanpassen en die voorkeur wordt lokaal onthouden.

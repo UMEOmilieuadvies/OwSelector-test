@@ -136,3 +136,14 @@ button[data-regulation-info]:focus-visible{
 #commentMessage{min-height:150px;resize:vertical;padding:8px;border:1px solid #aebdca;border-radius:5px;font:inherit}.formMessage{min-height:1.2em;margin:0;color:#a22020}.commentsModal{width:min(760px,94vw);max-width:760px}.commentsList{max-height:60vh;overflow:auto;border-top:1px solid var(--line)}.commentItem{padding:11px 2px;border-bottom:1px solid #dbe4eb;white-space:pre-wrap;line-height:1.45}.commentMeta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:#607284;margin-bottom:4px}.commentStatus{display:inline-block;border-radius:999px;padding:2px 7px;font-weight:700}.commentStatus.received{background:#dcecff;color:#145ea8}.commentStatus.investigating{background:#fff0d8;color:#a75800}.commentStatus.accepted{background:#e1f4df;color:#34743c}.commentStatus.implemented{background:#187449;color:#fff}.commentStatus.rejected{background:#fde3e3;color:#a22020}.commentLoading{padding:12px;color:#607284}
 .commentResolution{margin-top:8px;padding:7px 9px;border-left:3px solid #187449;background:#edf8f0;color:#235b36;white-space:pre-wrap}
 .externalRef{font:inherit;cursor:pointer}
+
+
+/* Terugverwijzingen en tabellen: elk gevonden bronfragment opent in kolom 3.
+   Tabellen houden hun inhoud binnen de cel; sleep een scheidingslijn in de eerste rij
+   om twee naastgelegen kolommen naar eigen voorkeur te verdelen. */
+.legalTable{width:100%;max-width:none;table-layout:fixed}
+.legalTable td,.legalTable th{position:relative;min-width:0;white-space:normal;overflow-wrap:anywhere;word-break:break-word;hyphens:auto}
+.tableResizeHandle{position:absolute;z-index:2;top:0;right:-5px;bottom:0;width:10px;cursor:col-resize;touch-action:none}
+.tableResizeHandle::after{content:"";position:absolute;top:0;bottom:0;left:4px;width:2px;background:transparent}
+.tableResizeHandle:hover::after,.tableResizeHandle:active::after{background:#145ea8}
+.tableWrap{max-width:100%;overflow:auto}
