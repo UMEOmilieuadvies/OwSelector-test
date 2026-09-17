@@ -17,6 +17,8 @@ REGULATIONS = [
     ("OB",  "BWBR0041278", "ob.xml"),
     ("OR",  "BWBR0045528", "or.xml"),
 ]
+
+# Keep the requested reference date explicit. The downloader accepts it as YYYY-MM-DD.
 PEILDATUM = "2026-08-20"
 
 if not DOWN.exists():
@@ -45,6 +47,9 @@ for rid, bwb, filename in REGULATIONS:
             print(f"  Tijdelijke API-fout voor {rid}; opnieuw proberen...")
             time.sleep(2)
     if rc != 0:
+        # The downloader deliberately leaves an existing XML untouched on a
+        # transient network failure. Reuse that file in this same single pass
+        # instead of aborting and forcing the user to run start.bat again.
         if target.exists() and target.stat().st_size > 0:
             try:
                 head = target.read_bytes()[:200000]
@@ -70,4 +75,5 @@ if reused:
 if failed:
     print("API-ophalen mislukt en geen bruikbare XML beschikbaar voor:", ", ".join(f"{r}(code {c})" for r,c in failed))
     raise SystemExit(1)
+
 print("Downloadfase voltooid in één enkele cyclus (maximaal 3 pogingen per regeling).")

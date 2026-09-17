@@ -2,7 +2,7 @@
 
 GitHub Pages-uitgave van Omgevingswet Zoeker V550.
 
-De website wordt bij iedere push naar `main` gebouwd met GitHub Actions. Tijdens de build worden de zes officiële regelingen opgehaald via de bestaande KOOP/BWB-downloader en omgezet naar de legal graphs die de browser gebruikt. De gepubliceerde website bevat alleen statische HTML, CSS, JavaScript en JSON.
+De website wordt voorlopig alleen handmatig gebouwd met GitHub Actions. Tijdens de build worden de zes officiële regelingen opgehaald via de bestaande KOOP/BWB-downloader en omgezet naar de legal graphs die de browser gebruikt. De gepubliceerde website bevat alleen statische HTML, CSS, JavaScript en JSON.
 
 ## Regelingen
 
