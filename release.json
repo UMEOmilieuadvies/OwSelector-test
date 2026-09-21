@@ -1,10 +1,11 @@
 {
-  "version": "0.1 beta b",
-  "kind": "klein",
+  "version": "0.11 beta",
+  "kind": "groot",
   "released_at": "2026-09-21",
   "notes": [
-    "Helppagina hersteld zodat de kop volledig zichtbaar is en de pagina normaal kan scrollen.",
-    "Tabelweergave robuuster gemaakt voor bron-tabellen met een afwijkend kolomaantal."
+    "Verwijzingen naar bijlagen met een toevoeging openen nu de exacte bijlage.",
+    "Verwijzingen naar normen openen de officiële normregel uit Bijlage II van de Omgevingsregeling.",
+    "Officiële illustraties worden tijdens de Pages-build opgehaald en opgenomen."
   ],
   "resolved_comment_ids": []
 }

@@ -31,19 +31,22 @@ jobs:
           python-version: '3.12'
       - name: Download official regulations
         run: python tools/download_all.py
+      - name: Download official illustrations
+        run: python tools/download_illustrations.py
       - name: Build legal graphs
         run: python tools/build_all.py
       - name: Verify graphs
         run: python tools/verify_runtime.py
       - name: Assemble static site
         run: |
-          mkdir -p _site/css _site/js _site/data/graph
+          mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations
           cp index.html help.html favicon.svg _site/
           cp css/app.css _site/css/app.css
           cp js/app.js _site/js/app.js
           cp data/external_refs.json _site/data/external_refs.json
           cp data/back_references.json _site/data/back_references.json
           cp data/graph/*_legal_graph.json _site/data/graph/
+          cp -R data/illustrations/. _site/data/illustrations/
           touch _site/.nojekyll
       - name: Determine whether legal data changed
         id: change_check

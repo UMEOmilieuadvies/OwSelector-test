@@ -92,6 +92,21 @@ def own_visible_text(e):
     rec(e,True)
     return clean("".join(out))
 
+def own_illustrations(e):
+    """Illustrations that belong to this legal node, excluding nested legal nodes."""
+    out=[]
+    def rec(x,isroot=False):
+        tag=ln(x.tag)
+        if tag=="meta-data" or (not isroot and tag in BOUNDARY): return
+        if tag=="illustratie" and x.get("naam"):
+            out.append({"name":x.get("naam"),"alt":x.get("alt") or "",
+                        "width":x.get("breedte") or "","height":x.get("hoogte") or "",
+                        "display":x.get("display") or "block"})
+            return
+        for child in list(x): rec(child)
+    rec(e,True)
+    return out
+
 def external_refs(e):
     """Bewaar officiële externe XML-verwijzingen bij het zichtbare bronblok.
 
@@ -162,6 +177,13 @@ def appendix_source_tree(e):
     def convert(x):
         tag=ln(x.tag)
         if tag=="meta-data": return None
+        if tag=="plaatje":
+            illustration=next((c for c in x.iter() if ln(c.tag)=="illustratie"),None)
+            if illustration is not None:
+                return {"kind":"image","tag":tag,"name":illustration.get("naam") or "",
+                        "alt":illustration.get("alt") or text_all(x),
+                        "width":illustration.get("breedte") or "","height":illustration.get("hoogte") or "",
+                        "display":illustration.get("display") or "block","attrs":attrs_of(x)}
         if tag=="table":
             return {"kind":"table","tag":tag,"number":table_identity(x),"title":title(x),
                     "rows":table_rows(x),"columns":table_columns(x),"attrs":attrs_of(x)}
@@ -339,7 +361,7 @@ REF_QUAL = r"(?:\s*,\s*(?:eerste|tweede|derde|vierde|vijfde|zesde|zevende|achtst
 
 LEGAL_REF_RE = re.compile(
     r"\b(?:artikel|art\.?|paragraaf|§|afdeling|hoofdstuk|tabel|table|bijlage)\s+"
-    r"(?:[0-9]+(?:\.[0-9]+)*[a-z]?|[IVX]+)" + REF_QUAL, re.I)
+    r"(?:[0-9]+(?:\.[0-9]+)*[a-z]?|[IVXLCDM]+(?:[a-z]+)?)" + REF_QUAL, re.I)
 
 def scan_refs(root, nodes, by_id):
     refs=[]
@@ -651,6 +673,7 @@ def parse(input_path,output_path):
               "id":nid,"type":typ,"number":number(e,typ),
               "title":title(e),"parent":parent["id"] if parent else None,
               "text":own_visible_text(e),
+              "illustrations":own_illustrations(e),
               "external_refs":external_refs(e),
               "blocks":direct_visible_blocks(e) if typ=="appendix" else [],
               "source_tree":appendix_source_tree(e) if typ=="appendix" else [],
