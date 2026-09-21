@@ -7,6 +7,7 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 import xml.etree.ElementTree as ET
+from eu_references import EU_INSTRUMENTS, eu_url
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data" / "source"
@@ -82,6 +83,14 @@ def main() -> None:
                 candidate = title_from_anchor(anchor)
                 if candidate and (not item["title"] or len(candidate) < len(item["title"])):
                     item["title"] = candidate
+
+    # De browser ontvangt ook de officiële doelen voor EU-namen die de BWB-XML
+    # als gewone tekst heeft opgenomen in plaats van als <extref>.
+    for _name, celex, title in EU_INSTRUMENTS:
+        found.setdefault(celex, {
+            "key": celex, "kind": "eu", "url": eu_url(celex), "count": 0,
+            "sample": title, "title": title,
+        })
 
     for item in found.values():
         if item["kind"] == "bwb":

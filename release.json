@@ -1,9 +1,11 @@
 {
-  "version": "0.11 beta e",
-  "kind": "klein",
+  "version": "0.12 beta",
+  "kind": "groot",
   "released_at": "2026-09-21",
   "notes": [
-    "De rustige leefomgevingillustratie is als vaste, subtiele beeldsignatuur in de bestaande kopruimte toegevoegd zonder de lay-out te wijzigen."
+    "Externe EU-verwijzingen, inclusief bijlagen, worden betrouwbaar naar de Nederlandse EUR-Lex-bron geleid.",
+    "Een geautomatiseerde controle signaleert ontbrekende CELEX-koppelingen vóór publicatie.",
+    "Tijdelijk niet bereikbare officiële illustraties blokkeren de Pages-publicatie niet meer."
   ],
   "resolved_comment_ids": []
 }

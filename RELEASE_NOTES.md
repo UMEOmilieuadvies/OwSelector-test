@@ -123,3 +123,11 @@
 **Kleine wijziging.**
 
 - De rustige leefomgevingillustratie is als vaste, subtiele beeldsignatuur in de bestaande kopruimte toegevoegd zonder de lay-out te wijzigen.
+
+## 0.12 beta — 2026-09-21
+
+**Grote wijziging.**
+
+- Externe EU-verwijzingen, inclusief bijlagen, worden betrouwbaar naar de Nederlandse EUR-Lex-bron geleid.
+- Een geautomatiseerde controle signaleert ontbrekende CELEX-koppelingen vóór publicatie.
+- Tijdelijk niet bereikbare officiële illustraties blokkeren de Pages-publicatie niet meer.

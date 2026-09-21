@@ -46,11 +46,22 @@ def main():
         for name in names:
             dest=TARGET/reg/name
             if not dest.exists() or dest.stat().st_size==0: jobs.append((base+name,dest,reg,name))
-    done=0
+    done=0; failed=[]
     # De officiële repository accepteert veel losse afbeeldingen betrouwbaarder
     # met een beperkt aantal gelijktijdige verbindingen.
     with ThreadPoolExecutor(max_workers=4) as pool:
-        futures=[pool.submit(download,url,dest) for url,dest,_,_ in jobs]
-        for future in as_completed(futures): future.result();done+=1
+        futures={pool.submit(download,url,dest):(url,reg,name) for url,dest,reg,name in jobs}
+        for future in as_completed(futures):
+            url,reg,name=futures[future]
+            try:
+                future.result();done+=1
+            except Exception as error:
+                # De juridische tekst mag niet onpubliceerbaar worden door een
+                # tijdelijk onbereikbare optionele bronafbeelding. De viewer
+                # verbergt zo'n ontbrekende afbeelding zonder een kapot icoon.
+                failed.append((reg,name,str(error)))
     print(f'GESLAAGD: {done} officiële illustraties opgehaald; bestaande bestanden zijn hergebruikt.')
+    if failed:
+        print(f'WAARSCHUWING: {len(failed)} officiële illustraties waren tijdelijk niet bereikbaar; zij worden deze build niet getoond.')
+        for reg,name,error in failed[:10]: print(f'  [{reg.upper()}] {name}: {error}')
 if __name__=='__main__': main()

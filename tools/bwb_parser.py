@@ -12,6 +12,7 @@ import sys, json, re
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from collections import Counter
+from eu_references import plain_eu_refs
 
 STRUCT = {
     "hoofdstuk":"chapter",
@@ -143,6 +144,15 @@ def external_refs(e):
             "target":target,
         })
     rec(e, True)
+    # Niet iedere Europese verwijzing is in de officiële XML als <extref>
+    # gecodeerd. Voeg de gecontroleerde, zichtbare EU-namen daarom toe als
+    # virtuele externe verwijzing. Een bijlage vóór die naam blijft één link.
+    existing={clean(ref["anchor"]).casefold() for ref in refs}
+    for ref in plain_eu_refs(clean(" ".join(e.itertext()))):
+        key=clean(ref["anchor"]).casefold()
+        if key not in existing:
+            refs.append(ref)
+            existing.add(key)
     return refs
 
 def direct_visible_blocks(e):
