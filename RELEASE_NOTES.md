@@ -69,3 +69,9 @@
 
 - De Help-knop opent nu een zelfstandige, bewerkbare help-pagina in een nieuw tabblad.
 - De help-pagina beschrijft zoeken, navigatie, verwijzingen, tabellen, opmerkingen, instellingen en actualiteit.
+
+## 0.1 beta a — 2026-09-21
+
+**Kleine wijziging.**
+
+- Helppagina visueel verbeterd en de twee zoekroutes duidelijker uitgelegd.

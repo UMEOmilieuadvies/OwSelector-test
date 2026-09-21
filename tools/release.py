@@ -59,6 +59,10 @@ def main() -> None:
     replace_once(ROOT / "index.html", r"(js/app\.js\?revision=)[^\"]+", rf"\g<1>release-{cache_version}")
     replace_once(ROOT / "README.md", r"(# OwSelector — Omgevingswet Zoeker )[^\n]+", rf"\g<1>{version}")
     replace_once(ROOT / "README.md", r"(GitHub Pages-uitgave van Omgevingswet Zoeker )[^\n]+", rf"\g<1>{version}.")
+    replace_once(ROOT / "help.html", r"(<title>Help — Omgevingswet Zoeker )[^<]+", rf"\g<1>{version}")
+    replace_once(ROOT / "help.html", r"(<span class=\"helpVersion\">)[^<]+", rf"\g<1>Versie {version}")
+    replace_once(ROOT / "help.html", r"(Omgevingswet Zoeker )[^<]+(?= · <a href=\"index.html\">)", rf"\g<1>{version}")
+    replace_once(ROOT / "help.html", r"(css/app\.css\?revision=)[^\"]+", rf"\g<1>release-{cache_version}")
     record = {"version": version, "kind": args.kind, "released_at": date.today().isoformat(), "notes": args.note, "resolved_comment_ids": args.issue}
     (ROOT / "release.json").write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     lines = [f"## {version} — {record['released_at']}", "", f"**{'Grote' if args.kind == 'groot' else 'Kleine'} wijziging.**", "", *[f"- {note}" for note in args.note], ""]

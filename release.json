@@ -1,10 +1,9 @@
 {
-  "version": "0.1 beta",
-  "kind": "groot",
+  "version": "0.1 beta a",
+  "kind": "klein",
   "released_at": "2026-09-21",
   "notes": [
-    "De Help-knop opent nu een zelfstandige, bewerkbare help-pagina in een nieuw tabblad.",
-    "De help-pagina beschrijft zoeken, navigatie, verwijzingen, tabellen, opmerkingen, instellingen en actualiteit."
+    "Helppagina visueel verbeterd en de twee zoekroutes duidelijker uitgelegd."
   ],
   "resolved_comment_ids": []
 }
