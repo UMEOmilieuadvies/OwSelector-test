@@ -131,3 +131,9 @@
 - Externe EU-verwijzingen, inclusief bijlagen, worden betrouwbaar naar de Nederlandse EUR-Lex-bron geleid.
 - Een geautomatiseerde controle signaleert ontbrekende CELEX-koppelingen vóór publicatie.
 - Tijdelijk niet bereikbare officiële illustraties blokkeren de Pages-publicatie niet meer.
+
+## 0.12 beta a — 2026-09-21
+
+**Kleine wijziging.**
+
+- De rustige leefomgevingillustratie is duidelijk zichtbaar in de bestaande kop van de zoeker en de helppagina, zonder lay-outwijziging.
