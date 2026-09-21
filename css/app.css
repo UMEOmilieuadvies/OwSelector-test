@@ -164,3 +164,10 @@ button[data-regulation-info]:focus-visible{
 /* De vaste kop van de zoeker gebruikt dezelfde beeldtaal als de helppagina.
    Maten en posities blijven gelijk; alleen kleur en afwerking veranderen. */
 .topbar{background:radial-gradient(circle at 82% -180px,#ffffff17 0 88px,transparent 89px),linear-gradient(130deg,#113957,#0d7183);border-bottom:0;box-shadow:0 2px 8px #0003;color:#fff}.topbar h1{color:#fff}.topbar .tagline{color:#d6f1f3}.topbar nav button,.topbar .navHelpLink{border-color:#ffffff90;background:#ffffff12;color:#fff}.topbar nav button:hover,.topbar nav button:focus-visible,.topbar .navHelpLink:hover,.topbar .navHelpLink:focus-visible{background:#fff;color:#14516b}
+
+/* Ruimte voor de horizon onder de bediening; de zoekindeling begint daarna
+   op precies dezelfde manier als voorheen. */
+.topbar{min-height:128px;align-items:flex-start;padding-top:16px;padding-bottom:16px}.topbar::after{bottom:-8px}
+
+/* Iedere pop-up krijgt dezelfde rustige kop als Help en de vaste kop. */
+dialog{padding:0;overflow:hidden;border:0;border-radius:12px;box-shadow:0 18px 55px #102a3f66;color:#172331}dialog::backdrop{background:#102a3f80}dialog form{padding:18px}dialog form>h2:first-child,dialog .glossaryHeader{margin:-18px -18px 2px;padding:15px 18px;background:linear-gradient(130deg,#113957,#0d7183);color:#fff;box-shadow:0 2px 6px #0002}dialog form>h2:first-child{font-size:20px;line-height:1.25}dialog .glossaryHeader{align-items:center}dialog .glossaryHeader h2{color:#fff;margin:0}dialog .glossaryHeader p{color:#d6f1f3}dialog .glossaryHeader button{border-color:#ffffff90;background:#ffffff12;color:#fff}dialog .glossaryHeader button:hover,dialog .glossaryHeader button:focus-visible{background:#fff;color:#14516b}dialog .dialogActions button:last-child,dialog form>button[value="close"]{background:#14516b;border-color:#14516b;color:#fff}dialog .dialogActions button:last-child:hover,dialog form>button[value="close"]:hover{background:#0d7183}

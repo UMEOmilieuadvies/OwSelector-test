@@ -1,9 +1,10 @@
 {
-  "version": "0.12 beta b",
+  "version": "0.12 beta c",
   "kind": "klein",
   "released_at": "2026-09-21",
   "notes": [
-    "De vaste kop van de zoeker gebruikt nu dezelfde blauw-groene beeldtaal als de helppagina, zonder lay-outwijziging."
+    "De kop biedt nu voldoende ruimte voor de horizonillustratie onder de bediening.",
+    "Alle pop-upvensters gebruiken dezelfde blauw-groene kopstijl als Help."
   ],
   "resolved_comment_ids": []
 }

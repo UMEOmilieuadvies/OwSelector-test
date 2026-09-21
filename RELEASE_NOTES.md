@@ -143,3 +143,10 @@
 **Kleine wijziging.**
 
 - De vaste kop van de zoeker gebruikt nu dezelfde blauw-groene beeldtaal als de helppagina, zonder lay-outwijziging.
+
+## 0.12 beta c — 2026-09-21
+
+**Kleine wijziging.**
+
+- De kop biedt nu voldoende ruimte voor de horizonillustratie onder de bediening.
+- Alle pop-upvensters gebruiken dezelfde blauw-groene kopstijl als Help.
