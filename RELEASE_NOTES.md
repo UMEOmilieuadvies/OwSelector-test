@@ -75,3 +75,10 @@
 **Kleine wijziging.**
 
 - Helppagina visueel verbeterd en de twee zoekroutes duidelijker uitgelegd.
+
+## 0.1 beta b — 2026-09-21
+
+**Kleine wijziging.**
+
+- Helppagina hersteld zodat de kop volledig zichtbaar is en de pagina normaal kan scrollen.
+- Tabelweergave robuuster gemaakt voor bron-tabellen met een afwijkend kolomaantal.

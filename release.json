@@ -1,9 +1,10 @@
 {
-  "version": "0.1 beta a",
+  "version": "0.1 beta b",
   "kind": "klein",
   "released_at": "2026-09-21",
   "notes": [
-    "Helppagina visueel verbeterd en de twee zoekroutes duidelijker uitgelegd."
+    "Helppagina hersteld zodat de kop volledig zichtbaar is en de pagina normaal kan scrollen.",
+    "Tabelweergave robuuster gemaakt voor bron-tabellen met een afwijkend kolomaantal."
   ],
   "resolved_comment_ids": []
 }
