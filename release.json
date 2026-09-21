@@ -1,9 +1,10 @@
 {
-  "version": "0.11 beta a",
+  "version": "0.11 beta b",
   "kind": "klein",
   "released_at": "2026-09-21",
   "notes": [
-    "De illustratiedownload probeert tijdelijke verbindingsproblemen opnieuw, zodat de Pages-bouw betrouwbaar afrondt."
+    "Bij normen opent de vermelde website van de uitgever in een nieuw tabblad.",
+    "Met terug- en vooruitpijlen kan het bewandelde kruimelpad worden doorlopen."
   ],
   "resolved_comment_ids": []
 }

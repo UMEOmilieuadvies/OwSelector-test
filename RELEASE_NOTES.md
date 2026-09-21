@@ -96,3 +96,10 @@
 **Kleine wijziging.**
 
 - De illustratiedownload probeert tijdelijke verbindingsproblemen opnieuw, zodat de Pages-bouw betrouwbaar afrondt.
+
+## 0.11 beta b — 2026-09-21
+
+**Kleine wijziging.**
+
+- Bij normen opent de vermelde website van de uitgever in een nieuw tabblad.
+- Met terug- en vooruitpijlen kan het bewandelde kruimelpad worden doorlopen.
