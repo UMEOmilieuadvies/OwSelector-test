@@ -137,3 +137,9 @@
 **Kleine wijziging.**
 
 - De rustige leefomgevingillustratie is duidelijk zichtbaar in de bestaande kop van de zoeker en de helppagina, zonder lay-outwijziging.
+
+## 0.12 beta b — 2026-09-21
+
+**Kleine wijziging.**
+
+- De vaste kop van de zoeker gebruikt nu dezelfde blauw-groene beeldtaal als de helppagina, zonder lay-outwijziging.

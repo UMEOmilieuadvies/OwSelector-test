@@ -160,3 +160,7 @@ button[data-regulation-info]:focus-visible{
 
 /* Vaste, rustige beeldsignatuur zonder de bestaande lay-out te veranderen. */
 .topbar{position:relative;overflow:hidden}.topbar::after{content:"";position:absolute;right:150px;bottom:-17px;width:400px;height:105px;background:url('../images/leefomgeving-horizon.png') right bottom/contain no-repeat;opacity:.48;pointer-events:none}.topbar>div,.topbar nav{position:relative;z-index:1}.helpPageHeader::before{content:"";position:absolute;right:max(24px,calc((100vw - 1050px)/2));bottom:-12px;width:min(580px,52vw);height:150px;background:url('../images/leefomgeving-horizon.png') right bottom/contain no-repeat;opacity:.50;pointer-events:none}
+
+/* De vaste kop van de zoeker gebruikt dezelfde beeldtaal als de helppagina.
+   Maten en posities blijven gelijk; alleen kleur en afwerking veranderen. */
+.topbar{background:radial-gradient(circle at 82% -180px,#ffffff17 0 88px,transparent 89px),linear-gradient(130deg,#113957,#0d7183);border-bottom:0;box-shadow:0 2px 8px #0003;color:#fff}.topbar h1{color:#fff}.topbar .tagline{color:#d6f1f3}.topbar nav button,.topbar .navHelpLink{border-color:#ffffff90;background:#ffffff12;color:#fff}.topbar nav button:hover,.topbar nav button:focus-visible,.topbar .navHelpLink:hover,.topbar .navHelpLink:focus-visible{background:#fff;color:#14516b}

@@ -1,9 +1,9 @@
 {
-  "version": "0.12 beta a",
+  "version": "0.12 beta b",
   "kind": "klein",
   "released_at": "2026-09-21",
   "notes": [
-    "De rustige leefomgevingillustratie is duidelijk zichtbaar in de bestaande kop van de zoeker en de helppagina, zonder lay-outwijziging."
+    "De vaste kop van de zoeker gebruikt nu dezelfde blauw-groene beeldtaal als de helppagina, zonder lay-outwijziging."
   ],
   "resolved_comment_ids": []
 }
