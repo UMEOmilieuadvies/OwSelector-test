@@ -38,7 +38,7 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir -p _site/css _site/js _site/data/graph
-          cp index.html _site/index.html
+          cp index.html help.html favicon.svg _site/
           cp css/app.css _site/css/app.css
           cp js/app.js _site/js/app.js
           cp data/external_refs.json _site/data/external_refs.json
