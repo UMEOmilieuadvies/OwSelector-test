@@ -117,3 +117,9 @@
 - De helppagina scrolt weer als volledige pagina; in de zoeker blijven alleen de drie kolommen scrollen.
 - Het overzicht van opmerkingen is weer bereikbaar via de navigatie.
 - De toepassing vermeldt nu dat zij vrij gebruikt mag worden en dat feedback welkom is.
+
+## 0.11 beta e — 2026-09-21
+
+**Kleine wijziging.**
+
+- De rustige leefomgevingillustratie is als vaste, subtiele beeldsignatuur in de bestaande kopruimte toegevoegd zonder de lay-out te wijzigen.
