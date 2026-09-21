@@ -103,3 +103,9 @@
 
 - Bij normen opent de vermelde website van de uitgever in een nieuw tabblad.
 - Met terug- en vooruitpijlen kan het bewandelde kruimelpad worden doorlopen.
+
+## 0.11 beta c — 2026-09-21
+
+**Kleine wijziging.**
+
+- Webadressen in de uitgeverskolom van Bijlage II openen nu de website van de uitgever in een nieuw tabblad.
