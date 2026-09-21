@@ -62,3 +62,10 @@
 - Terugverwijzingen tonen nu ook inhoudelijke bronfragmenten buiten artikelen, waaronder tabellen en bijlagen.
 - Bij BAL artikel 4.421 opent de relevante tabel uit bijlage VII van het BKL in kolom 3.
 - Tabelteksten blijven binnen hun cellen; bezoekers kunnen kolombreedtes met de muis aanpassen en die voorkeur wordt lokaal onthouden.
+
+## 0.1 beta — 2026-09-21
+
+**Grote wijziging.**
+
+- De Help-knop opent nu een zelfstandige, bewerkbare help-pagina in een nieuw tabblad.
+- De help-pagina beschrijft zoeken, navigatie, verwijzingen, tabellen, opmerkingen, instellingen en actualiteit.
