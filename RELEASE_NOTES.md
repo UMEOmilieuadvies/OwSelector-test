@@ -90,3 +90,9 @@
 - Verwijzingen naar bijlagen met een toevoeging openen nu de exacte bijlage.
 - Verwijzingen naar normen openen de officiële normregel uit Bijlage II van de Omgevingsregeling.
 - Officiële illustraties worden tijdens de Pages-build opgehaald en opgenomen.
+
+## 0.11 beta a — 2026-09-21
+
+**Kleine wijziging.**
+
+- De illustratiedownload probeert tijdelijke verbindingsproblemen opnieuw, zodat de Pages-bouw betrouwbaar afrondt.

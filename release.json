@@ -1,11 +1,9 @@
 {
-  "version": "0.11 beta",
-  "kind": "groot",
+  "version": "0.11 beta a",
+  "kind": "klein",
   "released_at": "2026-09-21",
   "notes": [
-    "Verwijzingen naar bijlagen met een toevoeging openen nu de exacte bijlage.",
-    "Verwijzingen naar normen openen de officiële normregel uit Bijlage II van de Omgevingsregeling.",
-    "Officiële illustraties worden tijdens de Pages-build opgehaald en opgenomen."
+    "De illustratiedownload probeert tijdelijke verbindingsproblemen opnieuw, zodat de Pages-bouw betrouwbaar afrondt."
   ],
   "resolved_comment_ids": []
 }
