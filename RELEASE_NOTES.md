@@ -109,3 +109,11 @@
 **Kleine wijziging.**
 
 - Webadressen in de uitgeverskolom van Bijlage II openen nu de website van de uitgever in een nieuw tabblad.
+
+## 0.11 beta d — 2026-09-21
+
+**Kleine wijziging.**
+
+- De helppagina scrolt weer als volledige pagina; in de zoeker blijven alleen de drie kolommen scrollen.
+- Het overzicht van opmerkingen is weer bereikbaar via de navigatie.
+- De toepassing vermeldt nu dat zij vrij gebruikt mag worden en dat feedback welkom is.

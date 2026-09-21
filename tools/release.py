@@ -54,7 +54,7 @@ def main() -> None:
     replace_once(ROOT / "js/app.js", r"const VERSION='[^']+';", f"const VERSION='{version}';")
     replace_once(ROOT / "index.html", r"<title>Omgevingswet Zoeker [^<]+</title>", f"<title>Omgevingswet Zoeker {version}</title>")
     replace_once(ROOT / "index.html", r"(<span id=\"version\">)[^<]+", rf"\g<1>{version}")
-    replace_once(ROOT / "index.html", r"(<strong>)[^<]+(?=</strong></p><p>\(c\) HHR)", rf"\g<1>{version}")
+    replace_once(ROOT / "index.html", r"(<dialog id=\"aboutModal\"><form method=\"dialog\"><h2>Over</h2><p>Omgevingswet Zoeker <strong>)[^<]+", rf"\g<1>{version}")
     replace_once(ROOT / "index.html", r"(css/app\.css\?revision=)[^\"]+", rf"\g<1>release-{cache_version}")
     replace_once(ROOT / "index.html", r"(js/app\.js\?revision=)[^\"]+", rf"\g<1>release-{cache_version}")
     replace_once(ROOT / "README.md", r"(# OwSelector — Omgevingswet Zoeker )[^\n]+", rf"\g<1>{version}")
