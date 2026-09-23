@@ -158,3 +158,9 @@
 - Een aparte pagina met officiële toelichtingen is toegevoegd per geselecteerde regeling, buiten de gewone zoekindex.
 - De zes oorspronkelijke toelichtingen zijn opgenomen met verwijzingen naar de officiële publicaties.
 - De kop biedt ruimte voor de illustratie en alle pop-upvensters gebruiken dezelfde vormgeving.
+
+## 0.2a beta — 2026-09-23
+
+**Kleine wijziging.**
+
+- Het venster Over vermeldt Henry Hiltjesdam en de versie 0.2a beta.
