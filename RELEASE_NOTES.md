@@ -177,3 +177,11 @@
 
 - Memories van toelichting worden lokaal opgebouwd en binnen de applicatie weergegeven, buiten de gewone zoekindex.
 - De knop Oorspronkelijk document opent de gekozen regeling op wetten.nl in een nieuw tabblad.
+
+## 0.3a beta — 2026-09-23
+
+**Kleine wijziging.**
+
+- Kolom 2 heeft terug, vooruit, reset en een teller voor de sessiegeschiedenis.
+- Reset keert terug naar de startregeling en leegt kolom 2 en 3.
+- De bediening heet Memorie van toelichting.

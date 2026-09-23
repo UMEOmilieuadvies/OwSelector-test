@@ -1,10 +1,11 @@
 {
-  "version": "0.3 beta",
-  "kind": "groot",
+  "version": "0.3a beta",
+  "kind": "klein",
   "released_at": "2026-09-23",
   "notes": [
-    "Memories van toelichting worden lokaal opgebouwd en binnen de applicatie weergegeven, buiten de gewone zoekindex.",
-    "De knop Oorspronkelijk document opent de gekozen regeling op wetten.nl in een nieuw tabblad."
+    "Kolom 2 heeft terug, vooruit, reset en een teller voor de sessiegeschiedenis.",
+    "Reset keert terug naar de startregeling en leegt kolom 2 en 3.",
+    "De bediening heet Memorie van toelichting."
   ],
   "resolved_comment_ids": []
 }
