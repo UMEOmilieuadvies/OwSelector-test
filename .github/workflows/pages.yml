@@ -37,9 +37,11 @@ jobs:
         run: python tools/build_all.py
       - name: Verify graphs
         run: python tools/verify_runtime.py
+      - name: Download official explanatory notes
+        run: python tools/build_nvt_documents.py
       - name: Assemble static site
         run: |
-          mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations
+          mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations _site/data/nvt
           cp index.html help.html nvt.html nvt_catalog.json favicon.svg _site/
           cp -R images _site/images
           cp css/app.css _site/css/app.css
@@ -49,6 +51,7 @@ jobs:
           cp data/back_references.json _site/data/back_references.json
           cp data/graph/*_legal_graph.json _site/data/graph/
           cp -R data/illustrations/. _site/data/illustrations/
+          cp -R data/nvt/. _site/data/nvt/
           touch _site/.nojekyll
       - name: Determine whether legal data changed
         id: change_check

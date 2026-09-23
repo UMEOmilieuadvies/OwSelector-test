@@ -170,3 +170,10 @@
 **Kleine wijziging.**
 
 - De knop Naar de zoeker is verwijderd uit de afzonderlijke pagina met nota’s van toelichting.
+
+## 0.3 beta — 2026-09-23
+
+**Grote wijziging.**
+
+- Memories van toelichting worden lokaal opgebouwd en binnen de applicatie weergegeven, buiten de gewone zoekindex.
+- De knop Oorspronkelijk document opent de gekozen regeling op wetten.nl in een nieuw tabblad.
