@@ -150,3 +150,11 @@
 
 - De kop biedt nu voldoende ruimte voor de horizonillustratie onder de bediening.
 - Alle pop-upvensters gebruiken dezelfde blauw-groene kopstijl als Help.
+
+## 0.2 beta — 2026-09-23
+
+**Grote wijziging.**
+
+- Een aparte pagina met officiële toelichtingen is toegevoegd per geselecteerde regeling, buiten de gewone zoekindex.
+- De zes oorspronkelijke toelichtingen zijn opgenomen met verwijzingen naar de officiële publicaties.
+- De kop biedt ruimte voor de illustratie en alle pop-upvensters gebruiken dezelfde vormgeving.

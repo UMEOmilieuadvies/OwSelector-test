@@ -40,10 +40,11 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations
-          cp index.html help.html favicon.svg _site/
+          cp index.html help.html nvt.html nvt_catalog.json favicon.svg _site/
           cp -R images _site/images
           cp css/app.css _site/css/app.css
           cp js/app.js _site/js/app.js
+          cp js/nvt.js _site/js/nvt.js
           cp data/external_refs.json _site/data/external_refs.json
           cp data/back_references.json _site/data/back_references.json
           cp data/graph/*_legal_graph.json _site/data/graph/
