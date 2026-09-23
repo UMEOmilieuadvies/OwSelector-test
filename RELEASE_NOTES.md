@@ -192,3 +192,9 @@
 
 - Kolom 2 toont bij hoofdstukken, afdelingen en paragrafen alleen een overzicht van klikbare onderdelen.
 - De volledige wetsinhoud verschijnt pas bij het openen van een artikel.
+
+## 0.3c beta — 2026-09-23
+
+**Kleine wijziging.**
+
+- De lokale Memorie van toelichting opent bij NOTA VAN TOELICHTING en toont de officiële inhoudsopgave als klikbare links.
