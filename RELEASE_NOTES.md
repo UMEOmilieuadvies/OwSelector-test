@@ -198,3 +198,10 @@
 **Kleine wijziging.**
 
 - De lokale Memorie van toelichting opent bij NOTA VAN TOELICHTING en toont de officiële inhoudsopgave als klikbare links.
+
+## 0.3d beta — 2026-09-23
+
+**Kleine wijziging.**
+
+- De inhoudsopgave van iedere lokale Memorie van toelichting wordt tijdens de publicatie uit de officiële tabel gelezen.
+- Een klik opent het gekozen onderdeel, inclusief paragraafnummer, omschrijving en paginanummer, in het document.
