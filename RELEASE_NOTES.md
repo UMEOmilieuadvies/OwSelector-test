@@ -212,3 +212,10 @@
 
 - De Memorie van toelichting bevat een waarschuwing dat aan de presentatie van de inhoud wordt gewerkt.
 - De knop Originele PDF-versie opent per regeling de officiële PDF in een nieuw venster.
+
+## 0.3f beta — 2026-09-24
+
+**Kleine wijziging.**
+
+- Zoekresultaten kunnen afzonderlijk met een ster als favoriet worden bewaard.
+- Een favoriet resultaat opent later direct het bijbehorende artikel.
