@@ -219,3 +219,9 @@
 
 - Zoekresultaten kunnen afzonderlijk met een ster als favoriet worden bewaard.
 - Een favoriet resultaat opent later direct het bijbehorende artikel.
+
+## 0.3g beta — 2026-09-24
+
+**Kleine wijziging.**
+
+- Opmerkingen zijn samengebracht in één overzicht met een knop voor een nieuwe opmerking.

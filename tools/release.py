@@ -26,11 +26,12 @@ def next_letters(value: str) -> str:
 
 
 def next_version(current: str, kind: str) -> str:
-    match = re.fullmatch(r"(\d+)\.(\d+)([a-z]*)", current.strip())
+    match = re.fullmatch(r"(\d+)\.(\d+)([a-z]*)( beta)?", current.strip())
     if not match:
         raise ValueError(f"Ongeldig versienummer: {current!r}")
-    major, minor, suffix = match.groups()
-    return f"{major}.{int(minor) + 1:02d}" if kind == "groot" else f"{major}.{int(minor):02d}{next_letters(suffix)}"
+    major, minor, suffix, beta = match.groups()
+    label = ' beta' if beta else ''
+    return (f"{major}.{int(minor) + 1}" if kind == "groot" else f"{major}.{int(minor)}{next_letters(suffix)}") + label
 
 
 def replace_once(path: Path, pattern: str, replacement: str) -> None:

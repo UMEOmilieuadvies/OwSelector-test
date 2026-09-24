@@ -1,10 +1,9 @@
 {
-  "version": "0.3f beta",
+  "version": "0.3g beta",
   "kind": "klein",
   "released_at": "2026-09-24",
   "notes": [
-    "Zoekresultaten kunnen afzonderlijk met een ster als favoriet worden bewaard.",
-    "Een favoriet resultaat opent later direct het bijbehorende artikel."
+    "Opmerkingen zijn samengebracht in één overzicht met een knop voor een nieuwe opmerking."
   ],
   "resolved_comment_ids": []
 }
