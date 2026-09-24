@@ -231,3 +231,9 @@
 **Kleine wijziging.**
 
 - Externe EU-verwijzingen met een bijlage openen als één volledige Eur-Lex-link.
+
+## 0.4 beta — 2026-09-24
+
+**Grote wijziging.**
+
+- Beheerreacties uit Supabase worden zichtbaar bij de bijbehorende opmerking.

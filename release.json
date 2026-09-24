@@ -1,9 +1,9 @@
 {
-  "version": "0.3h beta",
-  "kind": "klein",
+  "version": "0.4 beta",
+  "kind": "groot",
   "released_at": "2026-09-24",
   "notes": [
-    "Externe EU-verwijzingen met een bijlage openen als één volledige Eur-Lex-link."
+    "Beheerreacties uit Supabase worden zichtbaar bij de bijbehorende opmerking."
   ],
   "resolved_comment_ids": []
 }
