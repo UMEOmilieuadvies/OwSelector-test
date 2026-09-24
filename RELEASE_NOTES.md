@@ -205,3 +205,10 @@
 
 - De inhoudsopgave van iedere lokale Memorie van toelichting wordt tijdens de publicatie uit de officiële tabel gelezen.
 - Een klik opent het gekozen onderdeel, inclusief paragraafnummer, omschrijving en paginanummer, in het document.
+
+## 0.3e beta — 2026-09-24
+
+**Kleine wijziging.**
+
+- De Memorie van toelichting bevat een waarschuwing dat aan de presentatie van de inhoud wordt gewerkt.
+- De knop Originele PDF-versie opent per regeling de officiële PDF in een nieuw venster.

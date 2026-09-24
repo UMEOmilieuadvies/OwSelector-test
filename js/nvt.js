@@ -28,6 +28,7 @@
     $('nvtTitle').textContent=`Memorie van toelichting — ${regulation.name}`;
     $('nvtIntro').textContent=`Volledige officiële toelichtingen bij ${regulation.name}, lokaal opgenomen en buiten de gewone zoekindex.`;
     $('originalDocument').href=`https://wetten.overheid.nl/${regulation.bwb}`;
+    $('originalPdf').href=(regulation.documents[0]?.url||'').replace(/\.html(?:\?.*)?$/i,'.pdf');
     $('nvtRegulations').innerHTML=regulations.map(item=>`<a class="${item.id===regulation.id?'active':''}" href="nvt.html?regeling=${item.id}">${escapeHtml(item.short)}</a>`).join('');
     $('nvtDocuments').innerHTML=regulation.documents.map((document,index)=>`<article class="nvtDocument"><p class="helpPanelLabel">${index?'Wijziging':'Oorspronkelijke regeling'}</p><h2>${escapeHtml(document.title)}</h2><dl><div><dt>Publicatie</dt><dd>${escapeHtml(document.publication)}</dd></div><div><dt>Datum</dt><dd>${escapeHtml(document.date)}</dd></div></dl><div class="nvtTocSlot" aria-live="polite"></div><iframe class="nvtFrame" src="${documentUrl(document, nvtContents[document.file])}" title="${escapeHtml(document.title)}"></iframe></article>`).join('');
     regulation.documents.forEach((document,index)=>showContents($('nvtDocuments').children[index].querySelector('.nvtTocSlot'),document.file,nvtContents[document.file]));

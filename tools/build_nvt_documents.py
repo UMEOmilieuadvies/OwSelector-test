@@ -8,55 +8,52 @@ ROOT=Path(__file__).resolve().parents[1]; CATALOG=ROOT/'nvt_catalog.json'; OUT=R
 
 
 class NoteContentsParser(HTMLParser):
-    """Lees alleen de officiële inhoudsopgave direct na NOTA VAN TOELICHTING."""
+    """Lees de gekoppelde NvT-inhoudsopgave uit de officiële documentnavigatie."""
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.depth = 0
-        self.note_depth = None
-        self.note_heading = False
         self.note_anchor = None
-        self.table_depth = None
-        self.row_depth = None
-        self.row_text = []
-        self.row_targets = []
+        self.link_target = None
+        self.link_text = []
+        self.awaiting_contents = False
+        self.in_contents = False
+        self.contents_depth = 0
         self.items = []
 
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
         classes = set(attributes.get('class', '').split())
-        if tag == 'div' and 'nota-toelichting' in classes and self.note_depth is None:
-            self.note_depth = self.depth
-        if self.note_depth is not None and tag == 'h2' and 'nota-toelichting_kop' in classes:
-            self.note_heading = True
-        if self.note_heading and tag == 'a' and attributes.get('id') and not self.note_anchor:
-            self.note_anchor = attributes['id']
-        if self.note_heading and self.table_depth is None and tag == 'table':
-            self.table_depth = self.depth
-        if self.table_depth is not None and self.table_depth >= 0 and tag == 'tr':
-            self.row_depth = self.depth
-            self.row_text = []
-            self.row_targets = []
-        if self.row_depth is not None and tag == 'a':
+        if tag == 'ul' and 'toc' in classes:
+            if self.awaiting_contents:
+                self.in_contents = True
+                self.awaiting_contents = False
+                self.contents_depth = 1
+            elif self.in_contents:
+                self.contents_depth += 1
+        if tag == 'a':
             href = attributes.get('href', '')
-            if href.startswith('#') and len(href) > 1:
-                self.row_targets.append(href[1:])
-        self.depth += 1
+            self.link_target = href[1:] if href.startswith('#') and len(href) > 1 else None
+            self.link_text = []
+            if self.in_contents and self.link_target and not self.note_anchor:
+                self.note_anchor = self.link_target
 
     def handle_data(self, data):
-        if self.row_depth is not None:
-            self.row_text.append(data)
+        if self.link_target is not None:
+            self.link_text.append(data)
 
     def handle_endtag(self, tag):
-        self.depth -= 1
-        if tag == 'tr' and self.row_depth is not None and self.depth == self.row_depth:
-            label = ' '.join(' '.join(self.row_text).split())
-            if label and self.row_targets:
-                self.items.append({'target': self.row_targets[0], 'label': label})
-            self.row_depth = None
-            self.row_text = []
-            self.row_targets = []
-        if self.table_depth is not None and self.table_depth >= 0 and self.depth == self.table_depth and tag == 'table':
-            self.table_depth = -1
+        if tag == 'a' and self.link_target is not None:
+            label = ' '.join(''.join(self.link_text).split())
+            if label.upper() == 'NOTA VAN TOELICHTING':
+                self.note_anchor = self.link_target
+                self.awaiting_contents = True
+            elif self.in_contents and label:
+                self.items.append({'target': self.link_target, 'label': label, 'level': self.contents_depth})
+            self.link_target = None
+            self.link_text = []
+        if tag == 'ul' and self.in_contents:
+            self.contents_depth -= 1
+            if self.contents_depth == 0:
+                self.in_contents = False
 
 
 def extract_note_contents(raw: bytes) -> dict:
