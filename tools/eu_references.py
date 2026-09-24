@@ -46,31 +46,34 @@ def eu_url(celex: str) -> str:
 def plain_eu_refs(text: str) -> list[dict]:
     """Vind niet-gemarkeerde EU-verwijzingen, inclusief eventuele bijlage ervoor.
 
-    De hele zinsnede ``bijlage I bij de ...`` wordt doelbewust één link. Dat
-    voorkomt dat de browser eerst ``bijlage I`` als bijlage I van de actuele
-    Nederlandse regeling oplost.
+    Overlappende vondsten worden teruggebracht tot de langste zichtbare
+    verwijzing. Daardoor wordt bijvoorbeeld alleen ``bijlage I bij de
+    Seveso-richtlijn`` opgeslagen en nooit óók de kortere ``Seveso-richtlijn``.
     """
     raw = str(text or "")
-    found: list[dict] = []
+    candidates: list[tuple[int, int, dict]] = []
     for match in _EU_NAME_RE.finditer(raw):
         start, end = match.span()
-        before = raw[max(0, start - 180):start]
-        prefix = _ANNEX_PREFIX_RE.search(before)
+        before_start = max(0, start - 180)
+        prefix = _ANNEX_PREFIX_RE.search(raw[before_start:start])
         if prefix:
-            start = max(0, start - 180) + prefix.start()
+            start = before_start + prefix.start()
         name = match.group(1).casefold()
         celex, title = _BY_NAME[name]
-        found.append({
+        candidates.append((start, end, {
             "anchor": raw[start:end],
             "doc": celex,
             "bwb_id": None,
             "target": {},
             "source": "plain_eu_name",
             "title": title,
-        })
-    # Langste eerst: bijvoorbeeld een bijlageverwijzing vóór alleen de naam.
-    return sorted(found, key=lambda item: (raw.find(item["anchor"]), -len(item["anchor"])))
+        }))
 
-
+    selected: list[tuple[int, int, dict]] = []
+    for start, end, ref in sorted(candidates, key=lambda item: (item[0], -(item[1] - item[0]))):
+        if any(start < selected_end and end > selected_start for selected_start, selected_end, _ in selected):
+            continue
+        selected.append((start, end, ref))
+    return [ref for _, _, ref in selected]
 def known_eu_name(text: str) -> bool:
     return bool(_EU_NAME_RE.search(str(text or "")))

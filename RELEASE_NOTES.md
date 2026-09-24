@@ -225,3 +225,9 @@
 **Kleine wijziging.**
 
 - Opmerkingen zijn samengebracht in één overzicht met een knop voor een nieuwe opmerking.
+
+## 0.3h beta — 2026-09-24
+
+**Kleine wijziging.**
+
+- Externe EU-verwijzingen met een bijlage openen als één volledige Eur-Lex-link.

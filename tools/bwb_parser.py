@@ -108,7 +108,7 @@ def own_illustrations(e):
     rec(e,True)
     return out
 
-def external_refs(e):
+def external_refs(e, visible_text=None):
     """Bewaar officiële externe XML-verwijzingen bij het zichtbare bronblok.
 
     De browser kan daardoor iedere <extref> als link tonen, zonder op een
@@ -148,7 +148,7 @@ def external_refs(e):
     # gecodeerd. Voeg de gecontroleerde, zichtbare EU-namen daarom toe als
     # virtuele externe verwijzing. Een bijlage vóór die naam blijft één link.
     existing={clean(ref["anchor"]).casefold() for ref in refs}
-    for ref in plain_eu_refs(clean(" ".join(e.itertext()))):
+    for ref in plain_eu_refs(visible_text if visible_text is not None else own_visible_text(e)):
         key=clean(ref["anchor"]).casefold()
         if key not in existing:
             refs.append(ref)
@@ -711,7 +711,7 @@ def parse(input_path,output_path):
             n={"id":nid,"type":"table","number":table_identity(e),
                "title":title(e),"parent":parent["id"] if parent else None,
                "text":clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows)),
-               "external_refs":external_refs(e),
+               "external_refs":external_refs(e, clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows))),
                "search_text_exact":clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows)),
                "rows":rows,"columns":table_columns(e),"table_layout_version":3,"children":[],"_xml_order":len(nodes),
                "_ancestors":[{k:v for k,v in x.items() if not k.startswith("_") and k not in {"external_refs"}} for x in stack]}

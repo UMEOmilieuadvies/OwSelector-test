@@ -1,9 +1,9 @@
 {
-  "version": "0.3g beta",
+  "version": "0.3h beta",
   "kind": "klein",
   "released_at": "2026-09-24",
   "notes": [
-    "Opmerkingen zijn samengebracht in één overzicht met een knop voor een nieuwe opmerking."
+    "Externe EU-verwijzingen met een bijlage openen als één volledige Eur-Lex-link."
   ],
   "resolved_comment_ids": []
 }
