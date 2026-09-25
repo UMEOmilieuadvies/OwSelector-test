@@ -1,4 +1,5 @@
 import subprocess, sys
+import json
 import shutil
 import time
 from datetime import date
@@ -27,6 +28,17 @@ if not DOWN.exists():
     print(f"FOUT: downloader ontbreekt: {DOWN}")
     raise SystemExit(1)
 SOURCE.mkdir(parents=True, exist_ok=True)
+VERSION_FILE = DATA / "regulation_versions.json"
+
+def load_versions():
+    try:
+        return json.loads(VERSION_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {"schema_version": 1, "regulations": {}}
+
+versions = load_versions()
+versions.setdefault("schema_version", 1)
+versions.setdefault("regulations", {})
 
 failed = []
 reused = []
@@ -70,6 +82,7 @@ for rid, bwb, filename in REGULATIONS:
             print(f"  FOUT: XML niet aangemaakt: {target}")
         else:
             print(f"  GESLAAGD: {target}")
+            versions["regulations"][rid] = {"imported_on": PEILDATUM, "bwb_id": bwb}
 
 print()
 if reused:
@@ -77,5 +90,10 @@ if reused:
 if failed:
     print("API-ophalen mislukt en geen bruikbare XML beschikbaar voor:", ", ".join(f"{r}(code {c})" for r,c in failed))
     raise SystemExit(1)
+
+# De datum is alleen de datum waarop deze officiële bron met succes is opgehaald.
+# Bij een tijdelijke fout blijft de eerder bekende datum van een hergebruikt bestand staan.
+VERSION_FILE.write_text(json.dumps(versions, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("Versieoverzicht bijgewerkt:", VERSION_FILE)
 
 print("Downloadfase voltooid in één enkele cyclus (maximaal 3 pogingen per regeling).")
