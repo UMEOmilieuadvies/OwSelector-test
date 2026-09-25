@@ -195,8 +195,11 @@ def appendix_source_tree(e):
                         "width":illustration.get("breedte") or "","height":illustration.get("hoogte") or "",
                         "display":illustration.get("display") or "block","attrs":attrs_of(x)}
         if tag=="table":
+            rows=table_rows(x)
+            columns=table_columns(x)
             return {"kind":"table","tag":tag,"number":table_identity(x),"title":title(x),
-                    "rows":table_rows(x),"columns":table_columns(x),"attrs":attrs_of(x)}
+                    "rows":rows,"columns":columns,"attrs":attrs_of(x),
+                    **table_layout(rows,columns)}
         if tag=="kop":
             nr=""; ttl=""
             for c in list(x):
@@ -305,33 +308,99 @@ def table_rows(e):
     """
     colspec_map=_table_colspecs(e)
     rows=[]
+    # CALS tables omit cells that are covered by a vertical span.  Keep an
+    # occupancy map so that every source cell receives its actual column.
+    # This makes the browser rendering and the validation deterministic.
+    active_spans={}
     header_rows={id(r) for sec in e.iter() if ln(sec.tag)=="thead" for r in sec.iter() if ln(r.tag)=="row"}
-    for row in e.iter():
-        if ln(row.tag)!="row": continue
+    for row_index,row in enumerate(x for x in e.iter() if ln(x.tag)=="row"):
         is_header=id(row) in header_rows
         cells=[]
+        occupied=set(active_spans)
         current_col=0
+        next_spans={column:{"remaining":span["remaining"]-1,"cell":span["cell"]}
+                    for column,span in active_spans.items() if span["remaining"]>1}
         for c in list(row):
             if ln(c.tag) not in {"entry","cell"}:
                 continue
             text=clean(" ".join(c.itertext()))
-            rowspan,colspan=_cell_span(c,colspec_map,current_col)
+            preferred=colspec_map.get(c.get("colname") or c.get("namest") or c.get("start"))
+            if preferred is None:
+                while current_col in occupied:
+                    current_col += 1
+                column=current_col
+            else:
+                column=preferred
+            rowspan,colspan=_cell_span(c,colspec_map,column)
+            # An explicit CALS colname starts a new visual cell. Some official
+            # BWB tables use it to terminate an earlier morerows span one row
+            # before its nominal end. Clamp that preceding span here instead
+            # of shifting the new cell into a non-existent extra column.
+            if preferred is not None:
+                # A few BWB header rows contain an empty spanning cell followed
+                # by an explicitly placed cell in its final column.  Clip the
+                # earlier empty span to that boundary so HTML receives one
+                # unambiguous cell per grid position.
+                for prior in list(cells):
+                    prior_start=int(prior["column"])
+                    prior_end=prior_start+int(prior["colspan"])
+                    if prior_start<column<prior_end:
+                        prior["colspan"]=max(1,column-prior_start)
+                occupied=set(active_spans)
+                for prior in cells:
+                    occupied.update(range(int(prior["column"]),int(prior["column"])+int(prior["colspan"])))
+                conflicts={id(active_spans[col]["cell"]):active_spans[col]["cell"]
+                           for col in range(column,column+colspan) if col in active_spans}
+                for prior in conflicts.values():
+                    prior["rowspan"]=max(1,row_index-int(prior["row"]))
+                    for col,span in list(active_spans.items()):
+                        if span["cell"] is prior:
+                            active_spans.pop(col,None)
+                            next_spans.pop(col,None)
+                    occupied=set(active_spans)
+            current_col=column+colspan
             attrs={}
-            for key in ("align","valign","colwidth","morerows","rowspan","colspan",
+            for key in ("align","valign","colwidth","morerows","rowspan","colspan","colname","colnum",
                         "namest","nameend","start","end"):
                 if c.get(key) is not None:
                     attrs[key]=c.get(key)
             cells.append({
                 "text":text,
+                "row":row_index,
+                "column":column,
                 "rowspan":rowspan,
                 "colspan":colspan,
                 "attrs":attrs,
                 "header":is_header
             })
-            current_col += colspan
+            for covered in range(column,column+colspan):
+                occupied.add(covered)
+                if rowspan>1:
+                    next_spans[covered]={"remaining":rowspan-1,"cell":cells[-1]}
         if cells:
             rows.append(cells)
+        active_spans=next_spans
     return rows
+
+def table_layout(rows, columns):
+    """Return structural facts about a parsed table for rendering and checks."""
+    expected=len(columns)
+    width=max([expected]+[max((int(c.get("column",0))+int(c.get("colspan",1)) for c in row),default=0) for row in rows])
+    issues=[]
+    occupied={}
+    for ri,row in enumerate(rows):
+        current=set()
+        for cell in row:
+            start=int(cell.get("column",0)); span=max(1,int(cell.get("colspan",1)))
+            for col in range(start,start+span):
+                if (ri,col) in occupied or col in current:
+                    issues.append(f"overlap row={ri} column={col}")
+                current.add(col)
+                for offset in range(max(1,int(cell.get("rowspan",1)))):
+                    occupied[(ri+offset,col)]=True
+        if expected and any(int(c.get("column",0))+int(c.get("colspan",1))>expected for c in row):
+            issues.append(f"outside declared columns row={ri}")
+    return {"grid_columns":width,"layout_issues":issues}
 
 def table_identity(e):
     """Return a stable legal table number independent of XML id/label spelling."""
@@ -708,12 +777,14 @@ def parse(input_path,output_path):
         if tag=="table":
             nid=f"n{len(nodes)+1}"
             rows=table_rows(e)
+            columns=table_columns(e)
             n={"id":nid,"type":"table","number":table_identity(e),
                "title":title(e),"parent":parent["id"] if parent else None,
                "text":clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows)),
                "external_refs":external_refs(e, clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows))),
                "search_text_exact":clean(" ".join(" | ".join(str(c.get("text","")) if isinstance(c,dict) else str(c) for c in r) for r in rows)),
-               "rows":rows,"columns":table_columns(e),"table_layout_version":3,"children":[],"_xml_order":len(nodes),
+               "rows":rows,"columns":columns,"table_layout_version":4,"children":[],"_xml_order":len(nodes),
+               **table_layout(rows,columns),
                "_ancestors":[{k:v for k,v in x.items() if not k.startswith("_") and k not in {"external_refs"}} for x in stack]}
             nodes.append(n)
             if parent: parent["children"].append(nid)

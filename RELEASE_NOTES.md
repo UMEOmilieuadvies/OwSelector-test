@@ -253,3 +253,11 @@
 - Bijlagen tonen geen dubbel samengevoegde tekst meer en bron-tabellen zijn per kolom verstelbaar.
 - Opmerkingen zijn gescheiden in actuele opmerkingen en historie; geen actie nodig verhuist na tien dagen.
 - Interne verwijzingen gebruiken een informatieknop en openen de gekoppelde regeling in kolom 2.
+
+## 0.7 beta — 2026-09-25
+
+**Grote wijziging.**
+
+- Tabellen worden nu als volledig bronraster opgebouwd; samengevoegde cellen blijven op hun juiste positie.
+- Brede bron-tabellen behouden een leesbare breedte en zijn horizontaal verschuifbaar en per kolom verstelbaar.
+- De build controleert voortaan alle tabellen uit de zes regelingen op een geldig raster.

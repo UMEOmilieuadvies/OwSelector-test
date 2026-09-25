@@ -21,6 +21,7 @@ PARSER = BASE / "bwb_parser.py"
 EXTERNAL_REFS = BASE / "build_external_refs.py"
 BACK_REFERENCES = BASE / "build_back_references.py"
 VERIFY_EXTERNAL_REFERENCES = BASE / "verify_external_references.py"
+VERIFY_TABLE_LAYOUTS = BASE / "verify_table_layouts.py"
 
 def log(msg):
     print(msg, flush=True)
@@ -102,6 +103,10 @@ def main():
         result = subprocess.run([sys.executable, str(VERIFY_EXTERNAL_REFERENCES)], cwd=BASE)
         if result.returncode != 0:
             log("FOUT EU-verwijzingen konden niet volledig worden gecontroleerd.")
+            return 1
+        result = subprocess.run([sys.executable, str(VERIFY_TABLE_LAYOUTS)], cwd=BASE)
+        if result.returncode != 0:
+            log("FOUT tabelstructuur kon niet volledig worden gecontroleerd.")
             return 1
         log("ALLE ZES REGELINGEN ZIJN GEBOUWD.")
         return 0
