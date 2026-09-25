@@ -138,6 +138,9 @@ button[data-regulation-info]:focus-visible{
 .commentResolution{margin-top:8px;padding:7px 9px;border-left:3px solid #187449;background:#edf8f0;color:#235b36;white-space:pre-wrap}
 .externalRef{font:inherit;cursor:pointer}
 
+/* Verwijzingen naar een opgenomen regeling: bronwoordelijk en via een informatie-icoon. */
+.internalRefInfo{display:inline-flex;align-items:center;justify-content:center;padding:0 2px;border:0;background:transparent;color:#0667a6;font:inherit;font-size:1em;line-height:1;vertical-align:baseline;cursor:pointer}.internalRefInfo:hover,.internalRefInfo:focus-visible{color:#034d7d;text-decoration:underline;outline:0}
+
 
 /* Terugverwijzingen en tabellen: elk gevonden bronfragment opent in kolom 3.
    Tabellen houden hun inhoud binnen de cel; sleep een scheidingslijn in de eerste rij
@@ -186,3 +189,12 @@ dialog{padding:0;overflow:hidden;border:0;border-radius:12px;box-shadow:0 18px 5
 
 /* Q&A: inhoud uit Supabase, met kleine schermachtige illustraties in plaats van grote afbeeldingen. */
 .qnaPageMain{max-width:920px}.qnaContent{margin-top:28px}.qnaSection{margin:0 0 30px}.qnaSectionHead{display:flex;align-items:center;gap:12px;margin:0 0 11px}.qnaSectionHead h2{margin:0;color:#164e72;font-size:24px}.qnaItems{display:grid;gap:8px}.qnaItem{border:1px solid #d1dfe8;border-radius:8px;background:#fff;box-shadow:0 3px 10px #18334608}.qnaItem summary{position:relative;cursor:pointer;padding:14px 44px 14px 16px;color:#173a59;font-weight:700;line-height:1.4;list-style:none}.qnaItem summary::-webkit-details-marker{display:none}.qnaItem summary::after{content:'+';position:absolute;right:16px;top:11px;color:#17617e;font-size:24px;font-weight:400}.qnaItem[open] summary{border-bottom:1px solid #d8e5ec}.qnaItem[open] summary::after{content:'–'}.qnaAnswer{padding:14px 16px 17px;line-height:1.55;overflow-wrap:anywhere}.qnaLoading{padding:18px;border:1px solid #d1dfe8;border-radius:8px;background:#fff;color:#526f86}.qnaVersions{margin:15px 0 0;padding:12px 14px;border-left:4px solid #278256;border-radius:5px;background:#eaf6ef}.qnaVersions strong{color:#235b36}.qnaVersions ul{margin:8px 0 0;padding-left:20px}.qnaVersions li{margin:3px 0}.qnaVisual{position:relative;flex:0 0 auto;width:51px;height:34px;border:1px solid #9fc0d2;border-radius:5px;background:#fff;overflow:hidden}.qnaVisualSearch span{position:absolute;left:6px;top:7px;width:27px;height:7px;border-radius:5px;background:#d8eaf1}.qnaVisualSearch i{position:absolute;right:6px;top:6px;width:11px;height:11px;border:2px solid #16738d;border-radius:50%}.qnaVisualSearch b{position:absolute;right:5px;top:18px;width:8px;height:2px;background:#16738d;transform:rotate(45deg)}.qnaVisualColumns{display:grid;grid-template-columns:1fr 1.25fr .9fr;gap:2px;padding:4px}.qnaVisualColumns span{display:grid;place-items:center;background:#ddecf3;color:#174e72;font-size:11px;font-weight:700}.qnaVisualLinks span,.qnaVisualLinks i,.qnaVisualLinks b{position:absolute;height:4px;border-radius:5px;background:#1b75a7}.qnaVisualLinks span{left:6px;top:8px;width:20px}.qnaVisualLinks i{left:18px;top:15px;width:26px;transform:rotate(-25deg)}.qnaVisualLinks b{right:6px;bottom:8px;width:19px}.qnaVisualUpdate span{position:absolute;left:7px;top:3px;color:#278256;font-size:24px;line-height:1}.qnaVisualUpdate i{position:absolute;right:6px;bottom:7px;width:17px;height:6px;border-radius:4px;background:#d9e9ef}@media(max-width:600px){.qnaSectionHead h2{font-size:21px}.qnaItem summary{padding-left:13px}.qnaAnswer{padding-left:13px}}
+
+/* Bijlagetabellen: vaste kolommen, duidelijke koppen en leesbare tussenruimte. */
+.commentStatus.noAction{background:#edf0f3;color:#435464}
+.appendixSourceTableWrap{border:1px solid #b8c8d4;border-radius:4px;background:#fff}
+.appendixSourceTable{margin:0}
+.appendixSourceTable th{background:#edf4f8;color:#173a59;font-weight:700;text-align:left}
+.appendixSourceTable td,.appendixSourceTable th{padding:8px 9px;line-height:1.4}
+.appendixSourceContainer>.appendixSourceHeading{margin-top:18px;padding:8px 10px;background:#eef5f9;border-left:4px solid #377a9b}
+.appendixSourceOwnText{margin:8px 0 12px;padding:9px 11px;background:#f7fafc;border-left:3px solid #b7cedd;line-height:1.5}

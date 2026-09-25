@@ -245,3 +245,11 @@
 - Q&A-pagina met beheerbare vragen en antwoorden toegevoegd.
 - Algemene statusopzoektabel voor opmerkingen toegevoegd.
 - Regelingen tonen de datum van de laatst geïmporteerde versie en registerattenties worden in kolom 3 getoond.
+
+## 0.6 beta — 2026-09-25
+
+**Grote wijziging.**
+
+- Bijlagen tonen geen dubbel samengevoegde tekst meer en bron-tabellen zijn per kolom verstelbaar.
+- Opmerkingen zijn gescheiden in actuele opmerkingen en historie; geen actie nodig verhuist na tien dagen.
+- Interne verwijzingen gebruiken een informatieknop en openen de gekoppelde regeling in kolom 2.
