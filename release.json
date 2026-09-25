@@ -1,9 +1,11 @@
 {
-  "version": "0.4 beta",
+  "version": "0.5 beta",
   "kind": "groot",
-  "released_at": "2026-09-24",
+  "released_at": "2026-09-25",
   "notes": [
-    "Beheerreacties uit Supabase worden zichtbaar bij de bijbehorende opmerking."
+    "Q&A-pagina met beheerbare vragen en antwoorden toegevoegd.",
+    "Algemene statusopzoektabel voor opmerkingen toegevoegd.",
+    "Regelingen tonen de datum van de laatst geïmporteerde versie en registerattenties worden in kolom 3 getoond."
   ],
   "resolved_comment_ids": []
 }

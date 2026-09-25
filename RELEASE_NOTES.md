@@ -237,3 +237,11 @@
 **Grote wijziging.**
 
 - Beheerreacties uit Supabase worden zichtbaar bij de bijbehorende opmerking.
+
+## 0.5 beta — 2026-09-25
+
+**Grote wijziging.**
+
+- Q&A-pagina met beheerbare vragen en antwoorden toegevoegd.
+- Algemene statusopzoektabel voor opmerkingen toegevoegd.
+- Regelingen tonen de datum van de laatst geïmporteerde versie en registerattenties worden in kolom 3 getoond.
