@@ -2,6 +2,8 @@ import subprocess, sys
 import json
 import shutil
 import time
+import re
+import xml.etree.ElementTree as ET
 from datetime import date
 from pathlib import Path
 
@@ -35,6 +37,19 @@ def load_versions():
         return json.loads(VERSION_FILE.read_text(encoding="utf-8"))
     except Exception:
         return {"schema_version": 1, "regulations": {}}
+
+def official_version_date(xml_file):
+    """Return the official state date advertised by the downloaded BWB XML."""
+    try:
+        root = ET.parse(xml_file).getroot()
+        value = root.attrib.get("inwerkingtreding", "")
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+            return value
+        source = root.attrib.get("bwb-ng-vast-deel", "")
+        match = re.search(r"/(\d{4}-\d{2}-\d{2})/", source)
+        return match.group(1) if match else None
+    except (OSError, ET.ParseError):
+        return None
 
 versions = load_versions()
 versions.setdefault("schema_version", 1)
@@ -82,7 +97,12 @@ for rid, bwb, filename in REGULATIONS:
             print(f"  FOUT: XML niet aangemaakt: {target}")
         else:
             print(f"  GESLAAGD: {target}")
-            versions["regulations"][rid] = {"imported_on": PEILDATUM, "bwb_id": bwb}
+            previous = versions["regulations"].get(rid, {})
+            versions["regulations"][rid] = {
+                "imported_on": PEILDATUM,
+                "official_version_date": official_version_date(target) or previous.get("official_version_date"),
+                "bwb_id": bwb,
+            }
 
 print()
 if reused:
