@@ -3,7 +3,8 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.request import Request, urlopen
-import json, time
+from urllib.parse import quote
+import json, os, time
 ROOT=Path(__file__).resolve().parents[1]; CATALOG=ROOT/'nvt_catalog.json'; OUT=ROOT/'data'/'nvt'
 
 
@@ -69,6 +70,7 @@ def extract_note_contents(raw: bytes) -> dict:
     return {'note_anchor': parser.note_anchor, 'items': items}
 def main():
  data=json.loads(CATALOG.read_text(encoding='utf8')); OUT.mkdir(parents=True,exist_ok=True)
+ fallback_base=os.environ.get('NVT_FALLBACK_BASE','').rstrip('/')
  toc = {}
  for reg in data['regulations']:
   for doc in reg['documents']:
@@ -84,6 +86,21 @@ def main():
      break
     except Exception as exc:
      last=exc; time.sleep(attempt+1)
-   else: raise RuntimeError(f"NvT niet opgehaald: {doc['url']}") from last
+   else:
+    # Een tijdelijke blokkade van de bron mag een Pages-publicatie niet stoppen.
+    # Gebruik dan de laatst gepubliceerde, lokaal beschikbare NvT als terugval.
+    if fallback_base:
+     try:
+      fallback_url=f"{fallback_base}/{quote(doc['file'])}"
+      req=Request(fallback_url,headers={'User-Agent':'Omgevingswet-Zoeker'})
+      with urlopen(req,timeout=90) as r: raw=r.read()
+      if not raw: raise RuntimeError('lege terugvalbron')
+      target.write_bytes(raw)
+      toc[doc['file']] = extract_note_contents(raw)
+      print(f"[{reg['id']}] WAARSCHUWING: {target.name} hergebruikt uit de vorige publicatie na bronfout.")
+      continue
+     except Exception as fallback_error:
+      raise RuntimeError(f"NvT niet opgehaald: {doc['url']}; terugval mislukt: {fallback_error}") from last
+    raise RuntimeError(f"NvT niet opgehaald: {doc['url']}") from last
  (OUT / 'toc.json').write_text(json.dumps(toc, ensure_ascii=False), encoding='utf-8')
 if __name__=='__main__': main()

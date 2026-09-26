@@ -38,6 +38,8 @@ jobs:
       - name: Verify graphs
         run: python tools/verify_runtime.py
       - name: Download official explanatory notes
+        env:
+          NVT_FALLBACK_BASE: https://umeomilieuadvies.github.io/OwSelector/data/nvt
         run: python tools/build_nvt_documents.py
       - name: Assemble static site
         run: |
