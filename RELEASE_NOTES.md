@@ -268,3 +268,10 @@
 
 - Herstelt de standaardregeling bij het opstarten en het zoeken na een regelingwissel.
 - Maakt de registratie van een Pages-release opnieuw uitvoerbaar zonder dubbele versieconflicten.
+
+## 0.7e beta — 2026-09-28
+
+**Kleine wijziging.**
+
+- Verwijdert de instelling voor een voorkeursregeling.
+- De toepassing start en reset voortaan altijd met het Besluit activiteiten leefomgeving (BAL).
