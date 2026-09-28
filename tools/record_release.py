@@ -9,7 +9,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def request(method: str, url: str, key: str, payload: object | None = None) -> None:
     data = None if payload is None else json.dumps(payload).encode("utf-8")
-    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    headers = {
+        "apikey": key,
+        "Authorization": f"Bearer {key}",
+        # Een herstart van een workflow mag dezelfde versie bijwerken in plaats
+        # van te mislukken op de unieke versiecode.
+        "Prefer": "resolution=merge-duplicates",
+    }
     if data:
         headers["Content-Type"] = "application/json"
     try:

@@ -1,11 +1,10 @@
 {
-  "version": "0.7 beta",
-  "kind": "groot",
-  "released_at": "2026-09-25",
+  "version": "0.7d beta",
+  "kind": "klein",
+  "released_at": "2026-09-28",
   "notes": [
-    "Tabellen worden nu als volledig bronraster opgebouwd; samengevoegde cellen blijven op hun juiste positie.",
-    "Brede bron-tabellen behouden een leesbare breedte en zijn horizontaal verschuifbaar en per kolom verstelbaar.",
-    "De build controleert voortaan alle tabellen uit de zes regelingen op een geldig raster."
+    "Herstelt de standaardregeling bij het opstarten en het zoeken na een regelingwissel.",
+    "Maakt de registratie van een Pages-release opnieuw uitvoerbaar zonder dubbele versieconflicten."
   ],
   "resolved_comment_ids": []
 }

@@ -261,3 +261,10 @@
 - Tabellen worden nu als volledig bronraster opgebouwd; samengevoegde cellen blijven op hun juiste positie.
 - Brede bron-tabellen behouden een leesbare breedte en zijn horizontaal verschuifbaar en per kolom verstelbaar.
 - De build controleert voortaan alle tabellen uit de zes regelingen op een geldig raster.
+
+## 0.7d beta — 2026-09-28
+
+**Kleine wijziging.**
+
+- Herstelt de standaardregeling bij het opstarten en het zoeken na een regelingwissel.
+- Maakt de registratie van een Pages-release opnieuw uitvoerbaar zonder dubbele versieconflicten.
