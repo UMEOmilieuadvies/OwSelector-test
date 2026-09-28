@@ -269,6 +269,13 @@
 - Herstelt de standaardregeling bij het opstarten en het zoeken na een regelingwissel.
 - Maakt de registratie van een Pages-release opnieuw uitvoerbaar zonder dubbele versieconflicten.
 
+## 0.7f beta — 2026-09-28
+
+**Kleine wijziging.**
+
+- Zoekresultaten tonen elk artikel één keer; het label geeft het aantal gevonden teksttreffers weer.
+- Bij een aannemelijke typefout verschijnt een klikbare spellingssuggestie.
+- Nieuwe opmerkingen gebruiken weer automatisch de standaardstatus uit de opmerkingenadministratie.
 ## 0.7e beta — 2026-09-28
 
 **Kleine wijziging.**

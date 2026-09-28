@@ -1,10 +1,11 @@
 {
   "kind": "klein",
-  "version": "0.7e beta",
+  "version": "0.7f beta",
   "released_at": "2026-09-28",
   "resolved_comment_ids": [],
   "notes": [
-    "Verwijdert de instelling voor een voorkeursregeling.",
-    "De toepassing start en reset voortaan altijd met het Besluit activiteiten leefomgeving (BAL)."
+    "Zoekresultaten tonen ieder artikel nog maar één keer, met het aantal gevonden teksttreffers.",
+    "Bij een aannemelijke verschrijving verschijnt een klikbare suggestie voor de bedoelde zoekterm.",
+    "Nieuwe opmerkingen gebruiken weer de standaardstatus uit de opmerkingenadministratie."
   ]
 }
