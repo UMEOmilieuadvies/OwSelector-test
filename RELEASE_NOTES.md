@@ -282,3 +282,11 @@
 
 - Verwijdert de instelling voor een voorkeursregeling.
 - De toepassing start en reset voortaan altijd met het Besluit activiteiten leefomgeving (BAL).
+
+
+## 1.0 — 2026-09-29
+
+**Grote wijziging.**
+
+- Eerste stabiele productierelease van Omgevingswet Zoeker.
+- Bezoekmetingen zijn privacyvriendelijk toegevoegd: aantallen bezoeken en unieke bezoekers per week en maand.

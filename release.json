@@ -1,11 +1,10 @@
 {
-  "kind": "klein",
-  "version": "0.7f beta",
-  "released_at": "2026-09-28",
+  "version": "1.0",
+  "kind": "groot",
+  "released_at": "2026-09-29",
   "resolved_comment_ids": [],
   "notes": [
-    "Zoekresultaten tonen ieder artikel nog maar één keer, met het aantal gevonden teksttreffers.",
-    "Bij een aannemelijke verschrijving verschijnt een klikbare suggestie voor de bedoelde zoekterm.",
-    "Nieuwe opmerkingen gebruiken weer de standaardstatus uit de opmerkingenadministratie."
+    "Eerste stabiele productierelease van Omgevingswet Zoeker.",
+    "Bezoekmetingen zijn privacyvriendelijk toegevoegd: aantallen bezoeken en unieke bezoekers per week en maand."
   ]
 }
