@@ -290,3 +290,12 @@
 
 - Eerste stabiele productierelease van Omgevingswet Zoeker.
 - Bezoekmetingen zijn privacyvriendelijk toegevoegd: aantallen bezoeken en unieke bezoekers per week en maand.
+
+
+## 1.01a — 2026-09-30
+
+**Kleine wijziging.**
+
+- Zoeken werkt met betekenisvolle losse woorden; woordvolgorde en verbindingswoorden zijn niet meer bepalend.
+- Exacte woordgroepen en woorden die dicht bij elkaar staan worden hoger getoond.
+- Typefoutsuggesties werken per woord in een zoekopdracht.
