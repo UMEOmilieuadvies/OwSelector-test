@@ -315,3 +315,10 @@
 
 - De helppagina beschrijft de actuele zoekwijze met losse woorden, vrije woordvolgorde en woordstammen.
 - Verouderde informatie over een standaardregeling is verwijderd.
+
+## 1.01d — 2026-09-30
+
+**Kleine wijziging.**
+
+- De knop Regels op de kaart opent de officiële locatiegebonden regels in een nieuw tabblad.
+- Het opslaan van openbare opmerkingen is robuuster gemaakt en de databaseherstelling is als migratie vastgelegd.

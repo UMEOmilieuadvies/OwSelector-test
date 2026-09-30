@@ -1,10 +1,10 @@
 {
-  "version": "1.01c",
+  "version": "1.01d",
   "kind": "klein",
   "released_at": "2026-09-30",
-  "resolved_comment_ids": [],
   "notes": [
-    "De helppagina beschrijft de actuele zoekwijze met losse woorden, vrije woordvolgorde en woordstammen.",
-    "Verouderde informatie over een standaardregeling is uit de helptekst verwijderd."
-  ]
+    "De knop Regels op de kaart opent de officiële locatiegebonden regels in een nieuw tabblad.",
+    "Het opslaan van openbare opmerkingen is robuuster gemaakt en de databaseherstelling is als migratie vastgelegd."
+  ],
+  "resolved_comment_ids": []
 }
