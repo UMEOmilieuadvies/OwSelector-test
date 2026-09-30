@@ -349,3 +349,10 @@
 
 - Regels op de kaart opent rechtstreeks de officiële locatiekiezer in een nieuw tabblad.
 - De niet-functionele gemeentekeuze is verwijderd.
+
+## 1.01i — 2026-09-30
+
+**Kleine wijziging.**
+
+- Zoeksuggesties beoordelen volledige woordcombinaties op juridische resultaten en titels.
+- Typefouten zoals opsan gevaarliken stoffen leiden naar opslaan gevaarlijke stoffen.

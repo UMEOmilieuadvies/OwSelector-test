@@ -1,10 +1,10 @@
 {
-  "version": "1.01h",
+  "version": "1.01i",
   "kind": "klein",
   "released_at": "2026-09-30",
   "notes": [
-    "Regels op de kaart opent rechtstreeks de officiële locatiekiezer in een nieuw tabblad.",
-    "De niet-functionele gemeentekeuze is verwijderd."
+    "Zoeksuggesties beoordelen volledige woordcombinaties op juridische resultaten en titels.",
+    "Typefouten zoals opsan gevaarliken stoffen leiden naar opslaan gevaarlijke stoffen."
   ],
   "resolved_comment_ids": []
 }
