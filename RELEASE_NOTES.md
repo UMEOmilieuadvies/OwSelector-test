@@ -322,3 +322,9 @@
 
 - De knop Regels op de kaart opent de officiële locatiegebonden regels in een nieuw tabblad.
 - Het opslaan van openbare opmerkingen is robuuster gemaakt en de databaseherstelling is als migratie vastgelegd.
+
+## 1.01e — 2026-09-30
+
+**Kleine wijziging.**
+
+- De knop Regels op de kaart staat in de vaste kop direct rechts van Home.
