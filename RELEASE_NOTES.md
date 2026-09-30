@@ -307,3 +307,11 @@
 
 - De zoekfunctie herkent veelvoorkomende Nederlandse woordstammen, waaronder enkelvoud en meervoud.
 - De zoekopdracht blijft exact en juridisch gericht: alleen overeenkomende woorden of woordstammen tellen mee.
+
+
+## 1.01c — 2026-09-30
+
+**Kleine wijziging.**
+
+- De helppagina beschrijft de actuele zoekwijze met losse woorden, vrije woordvolgorde en woordstammen.
+- Verouderde informatie over een standaardregeling is verwijderd.
