@@ -1,10 +1,10 @@
 {
-  "version": "1.01f",
+  "version": "1.01g",
   "kind": "klein",
   "released_at": "2026-09-30",
   "notes": [
-    "Regels op de kaart vraagt eerst om een gemeente en opent daarna de officiële kaart voor die gemeente of opgegeven locatie.",
-    "De gekozen gemeente en locatie worden alleen lokaal in de browser onthouden."
+    "Regels op de kaart opent rechtstreeks de officiële locatiekiezer; er worden geen gemeente- of adresgegevens in de verwijzing verwerkt.",
+    "De knop gebruikt een herkenbare groen-oranje kaartstijl in de bestaande kop."
   ],
   "resolved_comment_ids": []
 }

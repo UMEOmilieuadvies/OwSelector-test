@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Omgevingswet Zoeker 1.01f</title>
+<title>Omgevingswet Zoeker 1.01g</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/app.css?revision=release-1.01f">
+<link rel="stylesheet" href="css/app.css?revision=release-1.01g">
 </head>
 <body>
 <header class="topbar">
-  <div><h1>Omgevingswet Zoeker <span id="version">1.01f</span></h1><div class="tagline">Op weg naar een veilige en gezonde leefomgeving</div></div>
-  <nav><button id="homeButton">Home</button><button id="rulesOnMapButton" type="button" title="Open de officiële locatiegebonden regels in een nieuw tabblad">Regels op de kaart</button><button id="commentsButton">Opmerkingen</button><button id="settingsButton">Instellingen</button><a id="qnaButton" class="navHelpLink" href="qna.html" target="_blank" rel="noopener">Q&amp;A</a><a id="helpButton" class="navHelpLink" href="help.html" target="_blank" rel="noopener">Help</a><button id="aboutButton">Over</button></nav>
+  <div><h1>Omgevingswet Zoeker <span id="version">1.01g</span></h1><div class="tagline">Op weg naar een veilige en gezonde leefomgeving</div></div>
+  <nav><button id="homeButton">Home</button><button id="rulesOnMapButton" class="rulesOnMapButton" type="button" title="Kies eerst een gemeente en open daarna de officiële locatiekiezer"><span class="rulesOnMapMark" aria-hidden="true"><span></span></span><span>Regels op de kaart</span></button><button id="commentsButton">Opmerkingen</button><button id="settingsButton">Instellingen</button><a id="qnaButton" class="navHelpLink" href="qna.html" target="_blank" rel="noopener">Q&amp;A</a><a id="helpButton" class="navHelpLink" href="help.html" target="_blank" rel="noopener">Help</a><button id="aboutButton">Over</button></nav>
 </header>
 <section class="searchbar" aria-label="Zoeken">
   <div class="searchrow">
@@ -36,14 +36,14 @@
 </main>
 <div id="status" class="status" aria-live="polite"></div>
 <dialog id="settingsModal"><form method="dialog"><h2>Instellingen</h2><label>Maximum recente zoekopdrachten <input id="historyLimit" type="number" min="1" max="100" value="10"></label><div class="dialogActions"><button type="button" id="clearHistory">Geschiedenis wissen</button><button type="button" id="clearFavorites">Alle favorieten wissen</button><button value="close">Sluiten</button></div></form></dialog>
-<dialog id="rulesOnMapModal" class="rulesOnMapModal"><form id="rulesOnMapForm"><h2>Regels op de kaart</h2><p>Kies een gemeente. Voeg voor een precieze selectie een adres, postcode of locatie toe.</p><label for="rulesMunicipality">Gemeente <input id="rulesMunicipality" type="text" autocomplete="address-level2" placeholder="Bijvoorbeeld Utrecht" required></label><label for="rulesLocation">Adres of locatie <input id="rulesLocation" type="text" autocomplete="street-address" placeholder="Bijvoorbeeld Stadhuisbrug 1"></label><p class="formMessage">De officiële kaart toont de geldende regels voor de gekozen locatie. De gemeentekeuze wordt alleen in deze browser onthouden.</p><div class="dialogActions"><button type="button" id="cancelRulesOnMap">Annuleren</button><button type="submit">Open officiële kaart</button></div></form></dialog>
+<dialog id="rulesOnMapModal" class="rulesOnMapModal"><form id="rulesOnMapForm"><h2>Regels op de kaart</h2><p>Kies een gemeente. Daarna opent de officiële locatiekiezer in een nieuw tabblad.</p><label for="rulesMunicipality">Gemeente <input id="rulesMunicipality" type="text" autocomplete="address-level2" placeholder="Bijvoorbeeld Urk" required></label><p class="formMessage">Kies vervolgens de precieze locatie in het Omgevingsloket. De gemeentekeuze wordt alleen in deze browser onthouden.</p><div class="dialogActions"><button type="button" id="cancelRulesOnMap">Annuleren</button><button type="submit">Open officiële kaart</button></div></form></dialog>
 <dialog id="commentModal"><form id="commentForm"><h2>Opmerking plaatsen</h2><p>Deel geen persoonsgegevens of vertrouwelijke informatie. Je opmerking wordt openbaar weergegeven.</p><label for="commentMessage">Opmerking <textarea id="commentMessage" maxlength="2000" required></textarea></label><p id="commentError" class="formMessage" role="alert"></p><div class="dialogActions"><button type="button" id="cancelComment">Annuleren</button><button id="submitComment" type="submit">Versturen</button></div></form></dialog>
 <dialog id="commentThanksModal"><form method="dialog"><h2>Dank voor het meedenken!</h2><p>Je opmerking is opgeslagen.</p><button value="close">Sluiten</button></form></dialog>
   <dialog id="commentsModal" class="commentsModal"><form method="dialog"><div class="glossaryHeader"><h2>Opmerkingen</h2><div class="commentsHeaderActions"><button type="button" id="newCommentButton">Nieuwe opmerking</button><button type="button" id="commentHistoryButton" data-comment-mode="history">Historie</button><button value="close">Sluiten</button></div></div><p id="commentsMeta"></p><div id="commentsList" class="commentsList" aria-live="polite"></div></form></dialog>
 <dialog id="termDefinitionModal" class="termDefinitionModal"><form method="dialog"><h2 id="termDialogTitle">Begrip</h2><div id="termDialogDefinition" class="termDefinition"></div><button value="close">Sluiten</button></form></dialog>
 <dialog id="glossaryModal" class="glossaryModal"><form method="dialog"><div class="glossaryHeader"><div><h2 id="glossaryTitle">Begrippenlijst per regeling</h2><p id="glossaryMeta"></p></div><button value="close">Sluiten</button></div><div id="glossaryRegulations" class="glossaryRegulations" aria-label="Kies regeling"></div><div class="glossaryTableWrap"><table class="glossaryTable"><thead><tr><th>Nr.</th><th>Begrip</th><th>Omschrijving / definitie</th></tr></thead><tbody id="glossaryBody"></tbody></table></div></form></dialog>
 <dialog id="notImplementedModal"><form method="dialog"><h2>Regeling niet geïmplementeerd</h2><p><strong id="notImplementedName">Deze regeling</strong> is nog niet geïmplementeerd in de Omgevingswet Zoeker.</p><button value="close">Sluiten</button></form></dialog>
-<dialog id="aboutModal"><form method="dialog"><h2>Over</h2><p>Omgevingswet Zoeker <strong>1.01f</strong></p><p>Deze applicatie mag vrij worden gebruikt. Opmerkingen en verbetervoorstellen helpen om de toepassing beter te maken en worden zeer op prijs gesteld.</p><p>Henry Hiltjesdam</p><button value="close">Sluiten</button></form></dialog>
-<script src="js/app.js?revision=release-1.01f"></script>
+<dialog id="aboutModal"><form method="dialog"><h2>Over</h2><p>Omgevingswet Zoeker <strong>1.01g</strong></p><p>Deze applicatie mag vrij worden gebruikt. Opmerkingen en verbetervoorstellen helpen om de toepassing beter te maken en worden zeer op prijs gesteld.</p><p>Henry Hiltjesdam</p><button value="close">Sluiten</button></form></dialog>
+<script src="js/app.js?revision=release-1.01g"></script>
 </body>
 </html>

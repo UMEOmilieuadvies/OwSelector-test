@@ -335,3 +335,10 @@
 
 - Regels op de kaart vraagt eerst om een gemeente en opent daarna de officiële kaart voor die gemeente of opgegeven locatie.
 - De gekozen gemeente en locatie worden alleen lokaal in de browser onthouden.
+
+## 1.01g — 2026-09-30
+
+**Kleine wijziging.**
+
+- Regels op de kaart opent rechtstreeks de officiële locatiekiezer; er worden geen gemeente- of adresgegevens in de verwijzing verwerkt.
+- De knop gebruikt een herkenbare groen-oranje kaartstijl in de bestaande kop.
