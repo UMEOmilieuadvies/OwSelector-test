@@ -342,3 +342,10 @@
 
 - Regels op de kaart opent rechtstreeks de officiële locatiekiezer; er worden geen gemeente- of adresgegevens in de verwijzing verwerkt.
 - De knop gebruikt een herkenbare groen-oranje kaartstijl in de bestaande kop.
+
+## 1.01h — 2026-09-30
+
+**Kleine wijziging.**
+
+- Regels op de kaart opent rechtstreeks de officiële locatiekiezer in een nieuw tabblad.
+- De niet-functionele gemeentekeuze is verwijderd.
