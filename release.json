@@ -1,9 +1,10 @@
 {
-  "version": "1.01e",
+  "version": "1.01f",
   "kind": "klein",
   "released_at": "2026-09-30",
   "notes": [
-    "De knop Regels op de kaart staat in de vaste kop direct rechts van Home."
+    "Regels op de kaart vraagt eerst om een gemeente en opent daarna de officiële kaart voor die gemeente of opgegeven locatie.",
+    "De gekozen gemeente en locatie worden alleen lokaal in de browser onthouden."
   ],
   "resolved_comment_ids": []
 }

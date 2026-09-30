@@ -328,3 +328,10 @@
 **Kleine wijziging.**
 
 - De knop Regels op de kaart staat in de vaste kop direct rechts van Home.
+
+## 1.01f — 2026-09-30
+
+**Kleine wijziging.**
+
+- Regels op de kaart vraagt eerst om een gemeente en opent daarna de officiële kaart voor die gemeente of opgegeven locatie.
+- De gekozen gemeente en locatie worden alleen lokaal in de browser onthouden.
