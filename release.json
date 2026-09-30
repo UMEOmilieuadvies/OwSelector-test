@@ -1,10 +1,10 @@
 {
-  "version": "1.01a",
+  "version": "1.01b",
   "kind": "klein",
   "released_at": "2026-09-30",
   "resolved_comment_ids": [],
   "notes": [
-    "Zoeken werkt met betekenisvolle losse woorden; woordvolgorde en verbindingswoorden zijn niet meer bepalend.",
-    "Exacte woordgroepen en woorden die dicht bij elkaar staan worden hoger getoond; typefoutsuggesties werken per woord."
+    "Zoeken herkent betekenisvolle losse woorden, ongeacht woordvolgorde.",
+    "Veelvoorkomende Nederlandse woordstammen, zoals enkelvoud en meervoud, worden als dezelfde zoekvorm behandeld."
   ]
 }

@@ -299,3 +299,11 @@
 - Zoeken werkt met betekenisvolle losse woorden; woordvolgorde en verbindingswoorden zijn niet meer bepalend.
 - Exacte woordgroepen en woorden die dicht bij elkaar staan worden hoger getoond.
 - Typefoutsuggesties werken per woord in een zoekopdracht.
+
+
+## 1.01b — 2026-09-30
+
+**Kleine wijziging.**
+
+- De zoekfunctie herkent veelvoorkomende Nederlandse woordstammen, waaronder enkelvoud en meervoud.
+- De zoekopdracht blijft exact en juridisch gericht: alleen overeenkomende woorden of woordstammen tellen mee.
