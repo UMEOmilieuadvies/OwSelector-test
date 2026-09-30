@@ -356,3 +356,9 @@
 
 - Zoeksuggesties beoordelen volledige woordcombinaties op juridische resultaten en titels.
 - Typefouten zoals opsan gevaarliken stoffen leiden naar opslaan gevaarlijke stoffen.
+
+## 1.01j — 2026-09-30
+
+**Kleine wijziging.**
+
+- Typefoutcontrole verwijderd om de zoektijd voorspelbaar en snel te houden.

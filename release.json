@@ -1,10 +1,9 @@
 {
-  "version": "1.01i",
+  "version": "1.01j",
   "kind": "klein",
   "released_at": "2026-09-30",
   "notes": [
-    "Zoeksuggesties beoordelen volledige woordcombinaties op juridische resultaten en titels.",
-    "Typefouten zoals opsan gevaarliken stoffen leiden naar opslaan gevaarlijke stoffen."
+    "Typefoutcontrole verwijderd om de zoektijd voorspelbaar en snel te houden."
   ],
   "resolved_comment_ids": []
 }
