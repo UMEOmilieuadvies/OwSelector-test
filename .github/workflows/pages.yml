@@ -44,10 +44,10 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations _site/data/nvt
-          cp index.html help.html qna.html nvt.html nvt_catalog.json favicon.svg _site/
+          cp index.html help.html qna.html nvt.html nvt_catalog.json beheer.html favicon.svg _site/
           cp -R images _site/images
           cp css/app.css _site/css/app.css
-          cp js/app.js _site/js/app.js
+          cp js/app.js js/beheer.js _site/js/
           cp js/nvt.js _site/js/nvt.js
           cp js/qna.js _site/js/qna.js
           cp data/external_refs.json _site/data/external_refs.json
@@ -71,7 +71,7 @@ jobs:
           for graph in _site/data/graph/*_legal_graph.json; do
             name=$(basename "$graph")
             if ! curl --fail --silent --show-error \
-              "https://umeomilieuadvies.github.io/OwSelector/data/graph/$name" \
+              "https://umeomilieuadvies.github.io/OwSelector-test/data/graph/$name" \
               --output "previous-graph/$name"; then
               changed=true
               break

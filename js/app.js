@@ -1,8 +1,8 @@
 'use strict';
 (() => {
 const VERSION='1.01i';
-const SUPABASE_URL='https://pqpsajcjydvagrfxfeye.supabase.co';
-const SUPABASE_KEY='sb_publishable_Xa5PS_17HKGY-f_LQAPbUA_u0J0-49V';
+const SUPABASE_URL='https://lemcbncvqcsffatsxpdq.supabase.co';
+const SUPABASE_KEY='sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O';
 const REGS=[
  {id:'OW',name:'Omgevingswet',bwb:'BWBR0037885',file:'ow_legal_graph.json'},
  {id:'BAL',name:'Besluit activiteiten leefomgeving (BAL)',bwb:'BWBR0041330',file:'bal_legal_graph.json'},

@@ -204,3 +204,7 @@ dialog{padding:0;overflow:hidden;border:0;border-radius:12px;box-shadow:0 18px 5
 
 /* Herkenbare verwijzing naar de officiële locatiekiezer, binnen de bestaande kop. */
 .topbar nav .rulesOnMapButton{display:inline-flex;align-items:center;gap:7px;padding:5px 10px 5px 6px;border-color:#a9cc85;background:#fff;color:#39751f;font-weight:700;white-space:nowrap}.topbar nav .rulesOnMapButton:hover,.topbar nav .rulesOnMapButton:focus-visible{border-color:#6d9d45;background:#f5faef;color:#245c17}.rulesOnMapMark{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#4b901e;box-shadow:inset 0 0 0 4px #d2e4aa}.rulesOnMapMark>span{width:11px;height:11px;border-radius:50%;background:#f39b16}.rulesOnMapButton:focus-visible{outline:3px solid #c5dfab;outline-offset:2px}
+
+/* Alleen testomgeving */
+.environmentBanner{padding:7px 16px;background:#7a4a00;color:#fff;font-size:13px;font-weight:700;text-align:center}
+body:has(.environmentBanner){grid-template-rows:auto auto auto 1fr auto}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beheer · Omgevingswet Zoeker test</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/app.css?revision=beheer-test-1">
+</head>
+<body class="adminPage">
+<header class="topbar"><div><h1>Omgevingswet Zoeker <span>testbeheer</span></h1><div class="tagline">Beheeromgeving — alleen voor geautoriseerde beheerders</div></div><nav><a class="navHelpLink" href="index.html">Naar de testsite</a></nav></header>
+<main class="adminMain">
+  <section id="adminLogin" class="adminCard">
+    <h2>Inloggen voor beheer</h2>
+    <p>Log in met uw e-mailadres. Daarna bevestigt u de toegang met uw authenticator-app.</p>
+    <form id="emailForm"><label>E-mailadres <input id="email" type="email" autocomplete="email" required></label><button>Stuur inlogcode</button></form>
+    <form id="codeForm" hidden><label>Code uit e-mail <input id="emailCode" inputmode="numeric" autocomplete="one-time-code" required></label><button>Controleer e-mailcode</button></form>
+    <p id="loginMessage" class="formMessage" role="status"></p>
+  </section>
+  <section id="mfaSetup" class="adminCard" hidden>
+    <h2>Authenticator-app koppelen</h2><p>Scan de QR-code met uw authenticator-app en voer daarna de zescijferige code in.</p>
+    <img id="mfaQr" alt="QR-code voor authenticator-app" hidden><p id="mfaSecret" class="adminSecret" hidden></p>
+    <form id="mfaEnrollForm"><button>Toon QR-code</button></form>
+    <form id="mfaVerifyForm" hidden><label>Code uit authenticator <input id="mfaCode" inputmode="numeric" autocomplete="one-time-code" required></label><button>Authenticator activeren</button></form>
+    <p id="mfaMessage" class="formMessage" role="status"></p>
+  </section>
+  <section id="mfaChallenge" class="adminCard" hidden>
+    <h2>Bevestig met authenticator-app</h2><p>Open uw authenticator-app en voer de actuele zescijferige code in.</p>
+    <form id="mfaChallengeForm"><label>Authenticator-code <input id="challengeCode" inputmode="numeric" autocomplete="one-time-code" required></label><button>Bevestig</button></form><p id="challengeMessage" class="formMessage" role="status"></p>
+  </section>
+  <section id="adminWorkspace" class="adminWorkspace" hidden>
+    <header><div><h2>Beheer</h2><p id="adminIdentity"></p></div><button id="signOut">Uitloggen</button></header>
+    <nav class="adminTabs"><button data-admin-tab="comments" class="active">Opmerkingen</button><button data-admin-tab="statuses">Statussen</button><button data-admin-tab="qna">Q&amp;A</button><button data-admin-tab="releases">Versies</button><button data-admin-tab="visits">Bezoekcijfers</button></nav>
+    <div id="adminContent" class="adminContent"></div>
+  </section>
+</main>
+<script type="module" src="js/beheer.js?revision=beheer-test-1"></script>
+</body>
+</html>
