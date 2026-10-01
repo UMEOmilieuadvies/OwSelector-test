@@ -1,9 +1,9 @@
 {
-  "version": "1.01j",
+  "version": "1.01k",
   "kind": "klein",
-  "released_at": "2026-09-30",
+  "released_at": "2026-10-01",
   "notes": [
-    "Typefoutcontrole verwijderd om de zoektijd voorspelbaar en snel te houden."
+    "Zoeken versneld; typefoutcontrole en woordvormherkenning verwijderd voor exacte resultaten."
   ],
   "resolved_comment_ids": []
 }

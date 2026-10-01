@@ -362,3 +362,9 @@
 **Kleine wijziging.**
 
 - Typefoutcontrole verwijderd om de zoektijd voorspelbaar en snel te houden.
+
+## 1.01k — 2026-10-01
+
+**Kleine wijziging.**
+
+- Zoeken versneld; typefoutcontrole en woordvormherkenning verwijderd voor exacte resultaten.
