@@ -368,3 +368,9 @@
 **Kleine wijziging.**
 
 - Zoeken versneld; typefoutcontrole en woordvormherkenning verwijderd voor exacte resultaten.
+
+## 1.01l — 2026-10-01
+
+**Kleine wijziging.**
+
+- Zoekinstructie verduidelijkt en direct onder het zoekveld geplaatst.

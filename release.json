@@ -1,9 +1,9 @@
 {
-  "version": "1.01k",
+  "version": "1.01l",
   "kind": "klein",
   "released_at": "2026-10-01",
   "notes": [
-    "Zoeken versneld; typefoutcontrole en woordvormherkenning verwijderd voor exacte resultaten."
+    "Zoekinstructie verduidelijkt en direct onder het zoekveld geplaatst."
   ],
   "resolved_comment_ids": []
 }
