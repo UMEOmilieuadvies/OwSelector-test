@@ -1,10 +1,9 @@
 {
-  "version": "1.01i",
+  "version": "1.01l",
   "kind": "klein",
-  "released_at": "2026-09-30",
+  "released_at": "2026-10-01",
   "notes": [
-    "Zoeksuggesties beoordelen volledige woordcombinaties op juridische resultaten en titels.",
-    "Typefouten zoals opsan gevaarliken stoffen leiden naar opslaan gevaarlijke stoffen."
+    "Zoekinstructie verduidelijkt en direct onder het zoekveld geplaatst."
   ],
   "resolved_comment_ids": []
 }
