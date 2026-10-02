@@ -208,3 +208,5 @@ dialog{padding:0;overflow:hidden;border:0;border-radius:12px;box-shadow:0 18px 5
 /* Alleen testomgeving */
 .environmentBanner{padding:7px 16px;background:#7a4a00;color:#fff;font-size:13px;font-weight:700;text-align:center}
 body:has(.environmentBanner){grid-template-rows:auto auto auto 1fr auto}
+
+.navRow{padding:0}.navToggle{flex:0 0 25px;border:0;border-radius:0;padding:5px 4px;background:transparent;color:#536778}.navTitle{flex:1;border:0;border-radius:0;padding:5px 6px;text-align:left;background:transparent}.navTitle:hover,.navToggle:hover{background:#f0f5f9}.paragraphReader{max-width:100%}.paragraphReaderHeader{margin:0 0 14px;padding:10px 12px;border-left:4px solid #145ea8;background:#f4f8fb}.paragraphReaderHeader p{margin:4px 0 0;color:#526777;font-size:13px;line-height:1.4}.paragraphArticle{margin:16px 0;padding:0 0 16px;border-bottom:1px solid #d7e1e8}.paragraphArticle:last-child{border-bottom:0}.paragraphArticle article>.legalHead{font-size:16px;color:#164e72}
