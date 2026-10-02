@@ -1,9 +1,11 @@
 {
-  "version": "1.01l",
-  "kind": "klein",
-  "released_at": "2026-10-01",
+  "version": "1.01m-test",
+  "kind": "test",
+  "released_at": "2026-10-02",
   "notes": [
-    "Zoekinstructie verduidelijkt en direct onder het zoekveld geplaatst."
+    "GitHub-reacties kunnen vanuit Opmerkingen als vooraf ingevuld Issue worden geopend.",
+    "Gebruiksketen en de rechtstreekse artikelweergave in kolom 2 staan ter beoordeling in test.",
+    "E-mailmelding bij een nieuwe opmerking is voorbereid, maar nog niet geconfigureerd."
   ],
   "resolved_comment_ids": []
 }

@@ -1,4 +1,11 @@
 # Versiehistorie
+## 1.01m-test — 2 oktober 2026
+
+**Testuitgave.**
+
+- Het venster Opmerkingen biedt een openbare route voor technische reacties via een vooraf ingevuld GitHub Issue.
+- De gebruiksketen en de consistente, rechtstreekse artikelweergave in kolom 2 staan ter beoordeling.
+- De beveiligde e-mailmelding voor nieuwe opmerkingen is voorbereid; activering vereist nog de testconfiguratie in Supabase en bij de e-maildienst.
 
 ## 0.01 — 17 september 2026
 
