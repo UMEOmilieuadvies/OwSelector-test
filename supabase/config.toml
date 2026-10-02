@@ -1,0 +1,2 @@
+[functions.notify-new-comment]
+verify_jwt = false
