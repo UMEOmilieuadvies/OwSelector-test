@@ -1,7 +1,7 @@
 'use strict';
 (() => {
-const SUPABASE_URL='https://pqpsajcjydvagrfxfeye.supabase.co';
-const SUPABASE_KEY='sb_publishable_Xa5PS_17HKGY-f_LQAPbUA_u0J0-49V';
+const SUPABASE_URL='https://lemcbncvqcsffatsxpdq.supabase.co';
+const SUPABASE_KEY='sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O';
 const REGS=[
  {id:'OW',name:'Omgevingswet'}, {id:'BAL',name:'Besluit activiteiten leefomgeving (BAL)'},
  {id:'BBL',name:'Besluit bouwwerken leefomgeving (BBL)'}, {id:'BKL',name:'Besluit kwaliteit leefomgeving (BKL)'},

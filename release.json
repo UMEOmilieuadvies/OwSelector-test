@@ -4,7 +4,8 @@
   "released_at": "2026-10-05",
   "notes": [
     "Kolom 3 toont bij een geopende paragraaf gegroepeerde verwijzingen vanuit andere opgenomen regelingen naar de zichtbare artikelen in kolom 2.",
-    "De verwijzingen blijven aanklikbaar en openen de officiële vindplaats in kolom 3."
+    "De verwijzingen blijven aanklikbaar en openen de officiële vindplaats in kolom 3.",
+    "Hersteld: zichtbare testversie, cacheverwijzingen en Q&A-koppeling gebruiken uitsluitend de testomgeving."
   ],
   "resolved_comment_ids": []
 }

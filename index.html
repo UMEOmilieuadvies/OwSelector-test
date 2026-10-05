@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Omgevingswet Zoeker 1.01m-test</title>
+<title>Omgevingswet Zoeker 1.01n-test</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/app.css?revision=release-1.01m-test">
+<link rel="stylesheet" href="css/app.css?revision=release-1.01n-test">
 </head>
 <body><div class="environmentBanner" role="status">Testomgeving — wijzigingen zijn nog niet definitief.</div>
 <header class="topbar">
-  <div><h1>Omgevingswet Zoeker <span id="version">1.01m-test</span></h1><div class="tagline">Op weg naar een veilige en gezonde leefomgeving</div></div>
+  <div><h1>Omgevingswet Zoeker <span id="version">1.01n-test</span></h1><div class="tagline">Op weg naar een veilige en gezonde leefomgeving</div></div>
   <nav><button id="homeButton">Home</button><button id="rulesOnMapButton" class="rulesOnMapButton" type="button" title="Open de officiële locatiekiezer in een nieuw tabblad"><span class="rulesOnMapMark" aria-hidden="true"><span></span></span><span>Regels op de kaart</span></button><button id="commentsButton">Opmerkingen</button><button id="settingsButton">Instellingen</button><a id="qnaButton" class="navHelpLink" href="qna.html" target="_blank" rel="noopener">Q&amp;A</a><a id="helpButton" class="navHelpLink" href="help.html" target="_blank" rel="noopener">Help</a><button id="aboutButton">Over</button></nav>
 </header>
 <section class="searchbar" aria-label="Zoeken">
@@ -39,12 +39,12 @@
 
 <dialog id="commentModal"><form id="commentForm"><h2>Opmerking plaatsen</h2><p>Deel geen persoonsgegevens of vertrouwelijke informatie. Je opmerking wordt openbaar weergegeven.</p><label for="commentMessage">Opmerking <textarea id="commentMessage" maxlength="2000" required></textarea></label><p id="commentError" class="formMessage" role="alert"></p><div class="dialogActions"><button type="button" id="cancelComment">Annuleren</button><button id="submitComment" type="submit">Versturen</button></div></form></dialog>
 <dialog id="commentThanksModal"><form method="dialog"><h2>Dank voor het meedenken!</h2><p>Je opmerking is opgeslagen.</p><button value="close">Sluiten</button></form></dialog>
-  <dialog id="commentsModal" class="commentsModal"><form method="dialog"><div class="glossaryHeader"><h2>Opmerkingen</h2><div class="commentsHeaderActions"><button type="button" id="newCommentButton">Nieuwe opmerking</button><a class="githubFeedbackLink" href="https://github.com/UMEOmilieuadvies/OwSelector/issues/new?title=Technische%20reactie%3A%20&body=%23%23%20Wat%20wilt%20u%20melden%3F%0A%0A%23%23%20Wat%20verwacht%20u%3F%0A%0A%23%23%20Wat%20gebeurt%20er%3F%0A%0A%23%23%20Regeling%20en%20artikel%20%28indien%20bekend%29%0A" target="_blank" rel="noopener">Technische reactie via GitHub</a><button type="button" id="commentHistoryButton" data-comment-mode="history">Historie</button><button value="close">Sluiten</button></div></div><p class="githubFeedbackNotice">GitHub is bedoeld voor technische reacties. Uw reactie is daar openbaar; deel geen persoonsgegevens of vertrouwelijke informatie.</p><p id="commentsMeta"></p><div id="commentsList" class="commentsList" aria-live="polite"></div></form></dialog>
+  <dialog id="commentsModal" class="commentsModal"><form method="dialog"><div class="glossaryHeader"><h2>Opmerkingen</h2><div class="commentsHeaderActions"><button type="button" id="newCommentButton">Nieuwe opmerking</button><button type="button" id="commentHistoryButton" data-comment-mode="history">Historie</button><button value="close">Sluiten</button></div></div><p id="commentsMeta"></p><div id="commentsList" class="commentsList" aria-live="polite"></div><p class="githubFeedback"><a href="https://github.com/UMEOmilieuadvies/OwSelector/issues/new?title=Technische%20reactie%3A%20&body=%23%23%20Wat%20wilt%20u%20melden%3F%0A%0A%23%23%20Wat%20verwacht%20u%3F%0A%0A%23%23%20Wat%20gebeurt%20er%3F%0A%0A%23%23%20Regeling%20en%20artikel%20%28indien%20bekend%29%0A" target="_blank" rel="noopener">Technische vraag of fout melden via GitHub</a><span> · opent openbaar formulier</span></p></form></dialog>
 <dialog id="termDefinitionModal" class="termDefinitionModal"><form method="dialog"><h2 id="termDialogTitle">Begrip</h2><div id="termDialogDefinition" class="termDefinition"></div><button value="close">Sluiten</button></form></dialog>
 <dialog id="glossaryModal" class="glossaryModal"><form method="dialog"><div class="glossaryHeader"><div><h2 id="glossaryTitle">Begrippenlijst per regeling</h2><p id="glossaryMeta"></p></div><button value="close">Sluiten</button></div><div id="glossaryRegulations" class="glossaryRegulations" aria-label="Kies regeling"></div><div class="glossaryTableWrap"><table class="glossaryTable"><thead><tr><th>Nr.</th><th>Begrip</th><th>Omschrijving / definitie</th></tr></thead><tbody id="glossaryBody"></tbody></table></div></form></dialog>
 <dialog id="notImplementedModal"><form method="dialog"><h2>Regeling niet geïmplementeerd</h2><p><strong id="notImplementedName">Deze regeling</strong> is nog niet geïmplementeerd in de Omgevingswet Zoeker.</p><button value="close">Sluiten</button></form></dialog>
 <dialog id="chainLimitModal"><form method="dialog"><h2>Gebruiksketen</h2><p>U heeft <strong id="chainCount">10</strong> stappen in deze sessie. Wilt u de keten houden of opnieuw beginnen?</p><div class="dialogActions"><button type="button" id="chainContinue">Keten behouden</button><button type="button" id="chainReset">Keten resetten</button></div></form></dialog>
-<dialog id="aboutModal"><form method="dialog"><h2>Over</h2><p>Omgevingswet Zoeker <strong>1.01m-test</strong></p><p>Deze applicatie mag vrij worden gebruikt. Opmerkingen en verbetervoorstellen helpen om de toepassing beter te maken en worden zeer op prijs gesteld.</p><p>Henry Hiltjesdam</p><button value="close">Sluiten</button></form></dialog>
-<script src="js/app.js?revision=release-1.01m-test"></script>
+<dialog id="aboutModal"><form method="dialog"><h2>Over</h2><p>Omgevingswet Zoeker <strong>1.01n-test</strong></p><p>Deze applicatie mag vrij worden gebruikt. Opmerkingen en verbetervoorstellen helpen om de toepassing beter te maken en worden zeer op prijs gesteld.</p><p>Henry Hiltjesdam</p><button value="close">Sluiten</button></form></dialog>
+<script src="js/app.js?revision=release-1.01n-test"></script>
 </body>
 </html>

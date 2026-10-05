@@ -109,8 +109,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     env:
-      SUPABASE_URL: https://pqpsajcjydvagrfxfeye.supabase.co
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      SUPABASE_URL: https://lemcbncvqcsffatsxpdq.supabase.co
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.TEST_SUPABASE_SERVICE_ROLE_KEY }}
       PAGES_URL: ${{ needs.deploy.outputs.page_url }}
     steps:
       - name: Checkout
