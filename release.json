@@ -1,11 +1,10 @@
 {
-  "version": "1.01m-test",
+  "version": "1.01n-test",
   "kind": "test",
-  "released_at": "2026-10-02",
+  "released_at": "2026-10-05",
   "notes": [
-    "GitHub-reacties kunnen vanuit Opmerkingen als vooraf ingevuld Issue worden geopend.",
-    "Gebruiksketen en de rechtstreekse artikelweergave in kolom 2 staan ter beoordeling in test.",
-    "E-mailmelding bij een nieuwe opmerking is voorbereid, maar nog niet geconfigureerd."
+    "Kolom 3 toont bij een geopende paragraaf gegroepeerde verwijzingen vanuit andere opgenomen regelingen naar de zichtbare artikelen in kolom 2.",
+    "De verwijzingen blijven aanklikbaar en openen de officiële vindplaats in kolom 3."
   ],
   "resolved_comment_ids": []
 }

@@ -381,3 +381,10 @@
 **Kleine wijziging.**
 
 - Zoekinstructie verduidelijkt en direct onder het zoekveld geplaatst.
+
+## 1.01n-test — 2026-10-05
+
+**Testwijziging.**
+
+- Kolom 3 verzamelt bij een geopend onderdeel de verwijzingen uit andere opgenomen regelingen naar de artikelen die in kolom 2 zichtbaar zijn.
+- De vindplaatsen zijn gegroepeerd per bronartikel en blijven aanklikbaar.
