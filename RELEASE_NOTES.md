@@ -1,4 +1,9 @@
 # Versiehistorie
+## 1.01p-test — 6 oktober 2026
+
+- Verwijzingen vanuit de XML naar een van de zes opgenomen regelingen worden als volledige klikbare tekst weergegeven.
+- Een verwijzing naar een artikel opent dat artikel in kolom 2; verwijzingen naar een hoger niveau openen het overzicht van de betreffende regeling.
+- Deze herstelactie vervangt de eerdere weergave waarbij alleen een klein informatie-symbool klikbaar was.
 ## 1.01m-test — 2 oktober 2026
 
 **Testuitgave.**
