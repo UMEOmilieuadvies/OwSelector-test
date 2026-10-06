@@ -389,3 +389,10 @@
 - Kolom 3 verzamelt bij een geopend onderdeel de verwijzingen uit andere opgenomen regelingen naar de artikelen die in kolom 2 zichtbaar zijn.
 - De vindplaatsen zijn gegroepeerd per bronartikel en blijven aanklikbaar.
 - Hersteld: zichtbaar versienummer, cacheverwijzingen en de Q&A-koppeling gebruiken uitsluitend de testomgeving.
+
+## 1.01o-test — 2026-10-06
+
+**Testwijziging.**
+
+- Kolom 3 groepeert gelijke leesbare vindplaatsen uit andere regelingen bij een geopende paragraaf.
+- Bij meerdere technische verwijzingen vanuit dezelfde vindplaats toont de toepassing één regel met het aantal verwijzingen.

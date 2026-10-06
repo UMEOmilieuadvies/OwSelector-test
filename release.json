@@ -1,11 +1,10 @@
 {
-  "version": "1.01n-test",
+  "version": "1.01o-test",
   "kind": "test",
-  "released_at": "2026-10-05",
+  "released_at": "2026-10-06",
   "notes": [
-    "Kolom 3 toont bij een geopende paragraaf gegroepeerde verwijzingen vanuit andere opgenomen regelingen naar de zichtbare artikelen in kolom 2.",
-    "De verwijzingen blijven aanklikbaar en openen de officiële vindplaats in kolom 3.",
-    "Hersteld: zichtbare testversie, cacheverwijzingen en Q&A-koppeling gebruiken uitsluitend de testomgeving."
+    "Kolom 3 groepeert gelijke leesbare vindplaatsen uit andere regelingen bij een geopende paragraaf.",
+    "Bij meerdere technische verwijzingen vanuit dezelfde vindplaats toont de toepassing één regel met het aantal verwijzingen."
   ],
   "resolved_comment_ids": []
 }
