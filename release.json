@@ -1,10 +1,10 @@
 {
-  "version": "1.01p-test",
+  "version": "1.01q-test",
   "kind": "test",
   "released_at": "2026-10-06",
   "notes": [
-    "Interne XML-verwijzingen naar de zes opgenomen regelingen zijn als volledige klikbare tekst zichtbaar.",
-    "Een verwijzing naar een artikel opent dat artikel in kolom 2; verwijzingen naar een hoger niveau openen het overzicht van de betreffende regeling."
+    "Favorieten bestaan uitsluitend uit bewaarde onderdelen van regelingen; losse zoekopdrachten worden niet meer bewaard.",
+    "Onderdelen zijn te bewaren vanuit de navigatie en zoekresultaten; favorieten openen het juridische onderdeel rechtstreeks."
   ],
   "resolved_comment_ids": []
 }

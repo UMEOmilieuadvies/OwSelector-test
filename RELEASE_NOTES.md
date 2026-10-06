@@ -1,4 +1,11 @@
 # Versiehistorie
+## 1.01q-test — 6 oktober 2026
+
+**Testwijziging.**
+
+- Favorieten bestaan uitsluitend uit bewaarde onderdelen van regelingen; losse zoekopdrachten worden niet meer bewaard.
+- Een onderdeel kan vanuit kolom 1 of een zoekresultaat worden bewaard en opent vanuit Favorieten rechtstreeks op die juridische plaats.
+
 ## 1.01p-test — 6 oktober 2026
 
 - Verwijzingen vanuit de XML naar een van de zes opgenomen regelingen worden als volledige klikbare tekst weergegeven.
