@@ -1,3 +1,10 @@
+## 1.01r-test — 2026-10-12
+
+**Testwijziging.**
+
+- De regelingkeuze toont alleen de regelingnaam. Via de i-knop zijn de laatste officiële versie en de officiële versiehistorie bereikbaar.
+- Artikelen krijgen een knop Historie (n). De afzonderlijke historiepagina toont alleen officiële wijzigingsmomenten en bekendmakingen; dagelijkse controles tellen niet mee.
+- Tekstverwijzingen naar herkenbare bijlagetabellen, zoals 	abel A.7, zijn binnen dezelfde bijlage klikbaar. De toepassing springt naar de gemarkeerde tabel; tabelvervolgen worden als één juridische tabel behandeld.
 # Versiehistorie
 ## 1.01q-test — 6 oktober 2026
 

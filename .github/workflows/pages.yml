@@ -35,6 +35,13 @@ jobs:
         run: python tools/download_illustrations.py
       - name: Build legal graphs
         run: python tools/build_all.py
+      - name: Retrieve previous article history cache
+        run: |
+          curl --fail --silent --show-error \
+            https://umeomilieuadvies.github.io/OwSelector-test/data/article_history.json \
+            --output data/article_history.json || true
+      - name: Build official article history
+        run: python tools/build_article_history.py
       - name: Verify graphs
         run: python tools/verify_runtime.py
       - name: Download official explanatory notes
@@ -44,15 +51,16 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations _site/data/nvt
-          cp index.html help.html qna.html nvt.html nvt_catalog.json beheer.html favicon.svg _site/
+          cp index.html help.html qna.html nvt.html nvt_catalog.json beheer.html historie.html favicon.svg _site/
           cp -R images _site/images
           cp css/app.css _site/css/app.css
-          cp js/app.js js/beheer.js _site/js/
+          cp js/app.js js/beheer.js js/article-history.js _site/js/
           cp js/nvt.js _site/js/nvt.js
           cp js/qna.js _site/js/qna.js
           cp data/external_refs.json _site/data/external_refs.json
           cp data/back_references.json _site/data/back_references.json
           cp data/regulation_versions.json _site/data/regulation_versions.json
+          cp data/article_history.json _site/data/article_history.json
           cp data/graph/*_legal_graph.json _site/data/graph/
           cp -R data/illustrations/. _site/data/illustrations/
           cp -R data/nvt/. _site/data/nvt/
