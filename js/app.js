@@ -1,6 +1,6 @@
 'use strict';
 (() => {
-const VERSION='1.01s-test';
+const VERSION='1.01t-test';
 const SUPABASE_URL='https://lemcbncvqcsffatsxpdq.supabase.co';
 const SUPABASE_KEY='sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O';
 const REGS=[
@@ -92,7 +92,8 @@ function favoriteLabel(n){const path=ancestors(n).map(label).filter(Boolean);ret
 function nodeFavorite(n){return favorites().some(x=>x.nodeId===nid(n)&&x.reg===(n.regId||state.regulation))}
 function toggleNodeFavorite(n){if(!n)return;const reg=n.regId||state.regulation;let a=favorites();const i=a.findIndex(x=>x.nodeId===nid(n)&&x.reg===reg);if(i>=0)a.splice(i,1);else a.unshift({nodeId:nid(n),reg,label:favoriteLabel(n)});localStorage.setItem('owz_favorites',JSON.stringify(a));renderNavigation();if(state.search.active)renderSearchResults();if(state.historyTab==='favorites'&&!historyPanelHidden())renderHistory();setStatus(i>=0?`Favoriet verwijderd: ${label(n)}.`:`Favoriet bewaard: ${label(n)}.`)}
 function historyPanelHidden(){return $('historyPanel').hidden}
-function renderHistory(){const data=state.historyTab==='favorites'?favorites():history(),box=$('historyPanel');if(!data.length){box.innerHTML='<div class="empty">Geen items.</div>';box.hidden=false;return}box.innerHTML=state.historyTab==='favorites'?data.slice(0,50).map((x,i)=>`<div class="favoriteItem"><button class="historyItem" data-history="${i}">${esc(x.label)}</button><button class="favoriteRemove" type="button" data-favorite-remove="${i}" title="Favoriet verwijderen" aria-label="Favoriet verwijderen">★</button></div>`).join(''):data.slice(0,7).map((x,i)=>`<button class="historyItem" data-history="${i}">${esc(x.label||x.query||'')}</button>`).join('');box.hidden=false}
+function favoriteDropdownLabel(item){const saved=String(item?.label||'').trim(),target=node(item?.nodeId,item?.reg);return `${String(item?.reg||'').toUpperCase()} · ${target?label(target):saved.split(' › ').at(-1)||saved}`}
+function renderHistory(){const data=state.historyTab==='favorites'?favorites():history(),box=$('historyPanel');if(!data.length){box.innerHTML='<div class="empty">Geen items.</div>';box.hidden=false;return}box.innerHTML=state.historyTab==='favorites'?data.slice(0,50).map((x,i)=>`<div class="favoriteItem"><button class="historyItem favoriteHistoryItem" data-history="${i}" title="${esc(x.label)}"><span>${esc(favoriteDropdownLabel(x))}</span></button><button class="favoriteRemove" type="button" data-favorite-remove="${i}" title="Favoriet verwijderen" aria-label="Favoriet verwijderen">★</button></div>`).join(''):data.slice(0,7).map((x,i)=>`<button class="historyItem" data-history="${i}">${esc(x.label||x.query||'')}</button>`).join('');box.hidden=false}
 function closeHistory(){$('historyPanel').hidden=true}
 function setStatus(s){$('status').textContent=s}
 function commentHeaders(){return {'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}

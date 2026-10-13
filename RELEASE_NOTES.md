@@ -1,3 +1,9 @@
+## 1.01t-test — 2026-10-13
+
+**Testwijziging.**
+
+- De favorietendropdown blijft een overlay, maar toont favorieten compact op één regel met regeling en onderdeel. Het volledige pad staat als toelichting bij aanwijzen.
+
 ## 1.01s-test — 2026-10-13
 
 **Testwijziging.**

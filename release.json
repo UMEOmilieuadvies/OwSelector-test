@@ -1,9 +1,9 @@
 {
-  "released_at": "2026-10-13",
-  "version": "1.01s-test",
-  "kind": "test",
+  "version": "1.01t-test",
   "notes": [
-    "Tabelverwijzingen binnen een zichtbaar bijlageoverzicht zijn gewone tekst. De bijbehorende tabel krijgt een duidelijk opschrift, zoals Tabel A.7."
+    "De favorietendropdown blijft een overlay, maar toont favorieten compact op één regel met regeling en onderdeel. Het volledige pad staat als toelichting bij aanwijzen."
   ],
-  "resolved_comment_ids": []
+  "resolved_comment_ids": [],
+  "kind": "test",
+  "released_at": "2026-10-13"
 }
