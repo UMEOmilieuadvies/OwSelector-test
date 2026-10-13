@@ -1,3 +1,9 @@
+## 1.01s-test — 2026-10-13
+
+**Testwijziging.**
+
+- Tabelverwijzingen binnen een zichtbaar bijlageoverzicht zijn gewone tekst. De bijbehorende tabel krijgt een duidelijk opschrift, zoals **Tabel A.7**.
+
 ## 1.01r-test — 2026-10-12
 
 **Testwijziging.**

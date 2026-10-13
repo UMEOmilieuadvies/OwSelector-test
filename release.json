@@ -1,11 +1,9 @@
 {
-  "resolved_comment_ids": [],
-  "released_at": "2026-10-12",
+  "released_at": "2026-10-13",
+  "version": "1.01s-test",
   "kind": "test",
   "notes": [
-    "De regelingkeuze toont alleen de regelingnaam. Via de i-knop zijn de laatste officiële versie en de officiële versiehistorie bereikbaar.",
-    "Artikelen krijgen een knop Historie (n). De afzonderlijke historiepagina toont alleen officiële wijzigingsmomenten en bekendmakingen; dagelijkse controles tellen niet mee.",
-    "Tekstverwijzingen naar herkenbare bijlagetabellen, zoals tabel A.7, zijn binnen dezelfde bijlage klikbaar. De toepassing springt naar de gemarkeerde tabel; tabelvervolgen worden als één juridische tabel behandeld."
+    "Tabelverwijzingen binnen een zichtbaar bijlageoverzicht zijn gewone tekst. De bijbehorende tabel krijgt een duidelijk opschrift, zoals Tabel A.7."
   ],
-  "version": "1.01r-test"
+  "resolved_comment_ids": []
 }
