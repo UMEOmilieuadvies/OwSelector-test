@@ -434,3 +434,9 @@
 
 - Tabellen behouden voortaan alle alinea's uit de officiële bron in afzonderlijke regels binnen dezelfde cel.
 - Opsommingen met `a.`, `b.` en vergelijkbare aanduidingen worden herkenbaar en uitgelijnd weergegeven.
+## 1.01v-test — 2026-10-14
+
+**Testwijziging.**
+
+- Zoeken herkent een beheerde lijst van juridische woordvormen, zoals `opslag`, `opslaan` en `opgeslagen`.
+- De zoekactie blijft een directe indexzoekopdracht; er is geen typefoutcontrole of algemene woordstamherkenning toegevoegd.
