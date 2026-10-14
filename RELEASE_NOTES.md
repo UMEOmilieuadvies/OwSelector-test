@@ -427,3 +427,10 @@
 
 - Kolom 3 groepeert gelijke leesbare vindplaatsen uit andere regelingen bij een geopende paragraaf.
 - Bij meerdere technische verwijzingen vanuit dezelfde vindplaats toont de toepassing één regel met het aantal verwijzingen.
+
+## 1.01u-test — 2026-10-14
+
+**Testwijziging.**
+
+- Tabellen behouden voortaan alle alinea's uit de officiële bron in afzonderlijke regels binnen dezelfde cel.
+- Opsommingen met `a.`, `b.` en vergelijkbare aanduidingen worden herkenbaar en uitgelijnd weergegeven.

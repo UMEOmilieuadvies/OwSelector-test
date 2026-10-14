@@ -1,9 +1,9 @@
 {
-  "version": "1.01t-test",
+  "version": "1.01u-test",
   "notes": [
-    "De favorietendropdown blijft een overlay, maar toont favorieten compact op één regel met regeling en onderdeel. Het volledige pad staat als toelichting bij aanwijzen."
+    "Tabelcellen behouden de alinea-indeling van de officiële bron. Opsommingen zoals a. en b. verschijnen als afzonderlijke, uitgelijnde regels."
   ],
   "resolved_comment_ids": [],
   "kind": "test",
-  "released_at": "2026-10-13"
+  "released_at": "2026-10-14"
 }

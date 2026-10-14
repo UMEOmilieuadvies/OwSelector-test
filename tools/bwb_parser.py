@@ -296,6 +296,33 @@ def _cell_span(cell, colspec_map, current_col):
 
     return rowspan,colspan
 
+def table_cell_paragraphs(cell, fallback_text):
+    """Keep official paragraph boundaries inside a table cell for the viewer."""
+    blocks=[]
+
+    def add_paragraph(node, *, emphasis=False):
+        value=clean(" ".join(node.itertext()))
+        if value:
+            blocks.append({"text":value,"emphasis":emphasis})
+
+    def visit(node):
+        tag=ln(node.tag)
+        if tag=="al":
+            children=[child for child in list(node) if ln(child.tag)!="meta-data"]
+            emphasized=bool(children) and all(ln(child.tag)=="nadruk" for child in children)
+            add_paragraph(node, emphasis=emphasized)
+            return
+        if tag=="li":
+            add_paragraph(node)
+            return
+        if tag in {"alineagroep","lijst"}:
+            for child in list(node):
+                visit(child)
+
+    for child in list(cell):
+        visit(child)
+    return blocks or [{"text":fallback_text,"emphasis":False}]
+
 def table_rows(e):
     """
     Preserve the table structure, not just flattened cell text.
@@ -324,6 +351,7 @@ def table_rows(e):
             if ln(c.tag) not in {"entry","cell"}:
                 continue
             text=clean(" ".join(c.itertext()))
+            paragraphs=table_cell_paragraphs(c,text)
             preferred=colspec_map.get(c.get("colname") or c.get("namest") or c.get("start"))
             if preferred is None:
                 while current_col in occupied:
@@ -366,6 +394,7 @@ def table_rows(e):
                     attrs[key]=c.get(key)
             cells.append({
                 "text":text,
+                "paragraphs":paragraphs,
                 "row":row_index,
                 "column":column,
                 "rowspan":rowspan,
