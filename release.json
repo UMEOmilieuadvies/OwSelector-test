@@ -1,7 +1,7 @@
 {
-  "version": "1.01v-test",
+  "version": "1.01w-test",
   "notes": [
-    "Zoeken herkent vaste, juridische woordvormen zoals opslag en opslaan zonder typefoutcontrole of algemene woordstammen."
+    "Officiële sub- en superscriptopmaak en bronwitruimte worden in artikelen, bijlagen en tabellen getrouw weergegeven."
   ],
   "resolved_comment_ids": [],
   "kind": "test",

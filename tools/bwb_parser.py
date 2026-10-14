@@ -45,8 +45,50 @@ def ln(tag):
 def clean(s):
     return re.sub(r"\s+"," ",s or "").strip()
 
+def _normalized_inline_parts(parts):
+    """Collapse source whitespace while retaining official sub/sup markup."""
+    out=[]
+    pending_space=False
+    def add(style, value):
+        if not value:return
+        if out and out[-1].get("style")==style:
+            out[-1]["text"]+=value
+        else:
+            item={"text":value}
+            if style:item["style"]=style
+            out.append(item)
+    for style,value in parts:
+        for char in str(value or ""):
+            if char.isspace():
+                pending_space=bool(out) or pending_space
+                continue
+            if pending_space and out and char not in ",.;:)]}":
+                add(None," ")
+            add(style,char)
+            pending_space=False
+    return out
+
+def source_text_with_inline(e, own_only=False):
+    """Return official visible text and, only where needed, its sub/sup fragments."""
+    raw=[]
+    def rec(x,isroot=False,style=None):
+        tag=ln(x.tag)
+        if tag=="meta-data": return
+        if own_only and not isroot and tag in BOUNDARY: return
+        if own_only and tag in {"kop","lidnr","li.nr"}: return
+        current_style=tag if tag in {"sup","sub"} else style
+        if x.text: raw.append((current_style,x.text))
+        for c in list(x):
+            rec(c,False,current_style)
+            if c.tail: raw.append((current_style,c.tail))
+    rec(e,True)
+    parts=_normalized_inline_parts(raw)
+    text="".join(part["text"] for part in parts)
+    inline=parts if any(part.get("style") in {"sup","sub"} for part in parts) else None
+    return text,inline
+
 def text_all(e):
-    return clean(" ".join(e.itertext()))
+    return source_text_with_inline(e)[0]
 
 def title(e):
     for c in list(e):
@@ -80,18 +122,10 @@ def li_number(e):
     return None
 
 def own_visible_text(e):
-    out=[]
-    def rec(x,isroot=False):
-        tag=ln(x.tag)
-        if tag=="meta-data": return
-        if not isroot and tag in BOUNDARY: return
-        if tag=="kop" or tag in {"lidnr","li.nr"}: return
-        if x.text: out.append(x.text)
-        for c in list(x):
-            rec(c)
-            if c.tail: out.append(c.tail)
-    rec(e,True)
-    return clean("".join(out))
+    return source_text_with_inline(e,own_only=True)[0]
+
+def own_visible_inline(e):
+    return source_text_with_inline(e,own_only=True)[1]
 
 def own_illustrations(e):
     """Illustrations that belong to this legal node, excluding nested legal nodes."""
@@ -165,12 +199,14 @@ def direct_visible_blocks(e):
                 if ln(c.tag) in {"al","alineagroep"}:
                     add_block(c, depth + (1 if ln(c.tag)=="alineagroep" else 0))
             return
-        txt=text_all(x)
+        txt,inline=source_text_with_inline(x)
         if not txt: return
         attrs={}
         for key in ("align","valign","role","class","type"):
             if x.get(key) is not None: attrs[key]=x.get(key)
-        blocks.append({"text":txt,"indent":depth,"attrs":attrs})
+        block={"text":txt,"indent":depth,"attrs":attrs}
+        if inline:block["inline"]=inline
+        blocks.append(block)
     for c in list(e):
         if ln(c.tag) in {"al","alineagroep"}: add_block(c,0)
     return blocks
@@ -205,26 +241,37 @@ def appendix_source_tree(e):
             for c in list(x):
                 if ln(c.tag)=="nr": nr=text_all(c)
                 elif ln(c.tag)=="titel": ttl=text_all(c)
-            return {"kind":"heading","tag":tag,"number":nr,"title":ttl,
-                    "text":text_all(x),"attrs":attrs_of(x)}
+            txt,inline=source_text_with_inline(x)
+            result={"kind":"heading","tag":tag,"number":nr,"title":ttl,
+                    "text":txt,"attrs":attrs_of(x)}
+            if inline:result["inline"]=inline
+            return result
         if tag in {"al","alineagroep"}:
             # Alineagroep is a container; keep nested paragraphs separate.
             nested=[convert(c) for c in list(x) if ln(c.tag) in {"al","alineagroep","table","lijst","li"}]
             nested=[v for v in nested if v]
             if tag=="alineagroep" and nested:
                 return {"kind":"group","tag":tag,"attrs":attrs_of(x),"children":nested}
-            return {"kind":"paragraph","tag":tag,"text":text_all(x),"attrs":attrs_of(x)}
+            txt,inline=source_text_with_inline(x)
+            result={"kind":"paragraph","tag":tag,"text":txt,"attrs":attrs_of(x)}
+            if inline:result["inline"]=inline
+            return result
         if tag=="li":
             kids=[convert(c) for c in list(x) if ln(c.tag) not in {"li.nr","kop"}]
             kids=[v for v in kids if v]
-            return {"kind":"list_item","tag":tag,"number":li_number(x),
-                    "text":own_visible_text(x),"attrs":attrs_of(x),"children":kids}
+            txt,inline=source_text_with_inline(x,own_only=True)
+            result={"kind":"list_item","tag":tag,"number":li_number(x),
+                    "text":txt,"attrs":attrs_of(x),"children":kids}
+            if inline:result["inline"]=inline
+            return result
         kids=[convert(c) for c in list(x)]
         kids=[v for v in kids if v]
-        own=own_visible_text(x) if tag not in SKIP else ""
+        own,inline=source_text_with_inline(x,own_only=True) if tag not in SKIP else ("",None)
         if kids or own:
-            return {"kind":"container","tag":tag,"number":number(x,STRUCT.get(tag,"")) if tag in STRUCT else None,
+            result={"kind":"container","tag":tag,"number":number(x,STRUCT.get(tag,"")) if tag in STRUCT else None,
                     "title":title(x),"text":own,"attrs":attrs_of(x),"children":kids}
+            if inline:result["inline"]=inline
+            return result
         return None
     out=[]
     for c in list(e):
@@ -301,9 +348,11 @@ def table_cell_paragraphs(cell, fallback_text):
     blocks=[]
 
     def add_paragraph(node, *, emphasis=False):
-        value=clean(" ".join(node.itertext()))
+        value,inline=source_text_with_inline(node)
         if value:
-            blocks.append({"text":value,"emphasis":emphasis})
+            block={"text":value,"emphasis":emphasis}
+            if inline:block["inline"]=inline
+            blocks.append(block)
 
     def visit(node):
         tag=ln(node.tag)
@@ -350,7 +399,7 @@ def table_rows(e):
         for c in list(row):
             if ln(c.tag) not in {"entry","cell"}:
                 continue
-            text=clean(" ".join(c.itertext()))
+            text,inline=source_text_with_inline(c)
             paragraphs=table_cell_paragraphs(c,text)
             preferred=colspec_map.get(c.get("colname") or c.get("namest") or c.get("start"))
             if preferred is None:
@@ -392,7 +441,7 @@ def table_rows(e):
                         "namest","nameend","start","end"):
                 if c.get(key) is not None:
                     attrs[key]=c.get(key)
-            cells.append({
+            cell={
                 "text":text,
                 "paragraphs":paragraphs,
                 "row":row_index,
@@ -401,7 +450,9 @@ def table_rows(e):
                 "colspan":colspan,
                 "attrs":attrs,
                 "header":is_header
-            })
+            }
+            if inline:cell["inline"]=inline
+            cells.append(cell)
             for covered in range(column,column+colspan):
                 occupied.add(covered)
                 if rowspan>1:
@@ -777,10 +828,11 @@ def parse(input_path,output_path):
         current=parent
         if typ:
             nid=f"n{len(nodes)+1}"
+            visible_text,visible_inline=source_text_with_inline(e,own_only=True)
             n={
               "id":nid,"type":typ,"number":number(e,typ),
               "title":title(e),"parent":parent["id"] if parent else None,
-              "text":own_visible_text(e),
+              "text":visible_text,
               "illustrations":own_illustrations(e),
               "external_refs":external_refs(e),
               "blocks":direct_visible_blocks(e) if typ=="appendix" else [],
@@ -791,6 +843,7 @@ def parse(input_path,output_path):
               "_ancestors":[{k:v for k,v in x.items() if not k.startswith("_") and k not in {"external_refs"}}
                             for x in stack]
             }
+            if visible_inline:n["inline"]=visible_inline
             if typ=="member" and not n["number"]: n["number"]=number(e,typ)
             if tag=="li":
                 n["type"]="item"; n["number"]=li_number(e)

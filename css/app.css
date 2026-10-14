@@ -216,3 +216,4 @@ body:has(.environmentBanner){grid-template-rows:auto auto auto 1fr auto}
 .tableReferenceLabel{display:inline-block;margin:12px 0 4px;padding:3px 7px;border-radius:4px;background:#eaf4fa;color:#14516b;font-size:12px;font-weight:700}
 
 .tableCellParagraph{margin:0 0 5px}.tableCellParagraph:last-child{margin-bottom:0}.tableCellSubparagraph{padding-left:1.5em;text-indent:-1.5em}
+.legalText sup,.legalText sub,.legalTable sup,.legalTable sub,.appendixContent sup,.appendixContent sub{font-size:.75em;line-height:0}.legalText sup,.legalTable sup,.appendixContent sup{vertical-align:super}.legalText sub,.legalTable sub,.appendixContent sub{vertical-align:sub}

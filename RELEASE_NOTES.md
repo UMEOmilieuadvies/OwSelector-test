@@ -440,3 +440,9 @@
 
 - Zoeken herkent een beheerde lijst van juridische woordvormen, zoals `opslag`, `opslaan` en `opgeslagen`.
 - De zoekactie blijft een directe indexzoekopdracht; er is geen typefoutcontrole of algemene woordstamherkenning toegevoegd.
+## 1.01w-test — 2026-10-14
+
+**Testwijziging.**
+
+- Behoud van officiële subscript- en superscriptmarkeringen in artikelen, bijlagen en tabellen.
+- XML-witruimte wordt genormaliseerd zonder extra spaties vóór leestekens.
