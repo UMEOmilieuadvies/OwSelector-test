@@ -1,3 +1,9 @@
+## 1.01y-test — 15 oktober 2026
+
+**Testwijziging.**
+
+- Kolom 3 toont bij een geopende paragraaf directe terugverwijzingen naar die paragraaf of subparagraaf, gescheiden van verwijzingen naar de artikelen daarbinnen.
+
 ## 1.01x-test — 15 oktober 2026
 
 **Testwijziging.**

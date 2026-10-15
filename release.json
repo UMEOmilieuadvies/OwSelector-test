@@ -1,9 +1,9 @@
 {
+  "kind": "test",
+  "released_at": "2026-10-15",
+  "version": "1.01y-test",
   "resolved_comment_ids": [],
   "notes": [
-    "Kolom 3 toont terugverwijzingen binnen dezelfde regeling afzonderlijk van verwijzingen uit andere opgenomen regelingen."
-  ],
-  "kind": "test",
-  "version": "1.01x-test",
-  "released_at": "2026-10-15"
+    "Kolom 3 toont nu ook directe terugverwijzingen naar paragrafen en subparagrafen, afzonderlijk voor de eigen regeling en andere opgenomen regelingen."
+  ]
 }

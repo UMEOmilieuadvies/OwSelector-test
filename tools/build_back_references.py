@@ -19,9 +19,15 @@ def number(node: dict) -> str:
     return str(node.get("number_display") or node.get("number") or "").strip().lower()
 
 
-def article_label(node: dict) -> str:
+def target_label(node: dict) -> str:
+    kind = str(node.get("type") or "")
+    prefix = {"article": "Artikel", "paragraph": "Paragraaf", "subparagraph": "Paragraaf"}.get(kind, "Onderdeel")
     title = str(node.get("title") or "").strip()
-    return f"Artikel {number(node)} {title}".strip()
+    return f"{prefix} {number(node)} {title}".strip()
+
+
+def article_label(node: dict) -> str:
+    return target_label(node)
 
 
 def parent_of(node: dict, by_id: dict[str, dict]) -> dict | None:
@@ -61,8 +67,9 @@ def main() -> None:
         nodes = json.loads(path.read_text(encoding="utf-8")).get("nodes", [])
         graphs[reg] = nodes
         for node in nodes:
-            if node.get("type") == "article" and number(node):
-                targets[(reg, number(node))] = node
+            target_type = str(node.get("type") or "")
+            if target_type in {"article", "paragraph", "subparagraph"} and number(node):
+                targets[(reg, target_type, number(node))] = node
 
     found: dict[str, list[dict]] = defaultdict(list)
     seen: set[tuple[str, str, str, str]] = set()
@@ -76,12 +83,13 @@ def main() -> None:
                 target_reg = REGULATIONS.get(str(ref.get("bwb_id") or "").upper())
                 target = ref.get("target") or {}
                 target_number = str(target.get("number") or "").strip().lower()
-                if not target_reg or target.get("type") != "article" or not target_number:
+                target_type = str(target.get("type") or "")
+                if not target_reg or target_type not in {"article", "paragraph", "subparagraph"} or not target_number:
                     continue
-                target_article = targets.get((target_reg, target_number))
-                if not target_article:
+                target_node = targets.get((target_reg, target_type, target_number))
+                if not target_node:
                     continue
-                key = f"{target_reg}:{target_article['id']}"
+                key = f"{target_reg}:{target_node['id']}"
                 anchor = str(ref.get("anchor") or "").strip()
                 unique = (key, source_reg, source_id, anchor)
                 if unique in seen:
@@ -99,7 +107,7 @@ def main() -> None:
         rows.sort(key=lambda row: (row["regulation"], row["label"].casefold(), row["anchor"].casefold()))
     payload = {"references": found, "count": sum(len(rows) for rows in found.values())}
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Terugverwijzingen: {payload['count']} naar {len(found)} artikelen.")
+    print(f"Terugverwijzingen: {payload['count']} naar {len(found)} artikelen en paragrafen.")
 
 
 if __name__ == "__main__":
