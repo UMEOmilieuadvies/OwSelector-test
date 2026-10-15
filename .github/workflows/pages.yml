@@ -29,6 +29,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify client-side source
+        run: |
+          node --check js/app.js
+          node --check js/qna.js
+          if grep -q 'pqpsajcjydvagrfxfeye' js/app.js js/qna.js; then
+            echo 'Productie-Supabase gevonden in testcode.'
+            exit 1
+          fi
       - name: Download official regulations
         run: python tools/download_all.py
       - name: Download official illustrations
@@ -46,7 +54,7 @@ jobs:
         run: python tools/verify_runtime.py
       - name: Download official explanatory notes
         env:
-          NVT_FALLBACK_BASE: https://umeomilieuadvies.github.io/OwSelector/data/nvt
+          NVT_FALLBACK_BASE: https://umeomilieuadvies.github.io/OwSelector-test/data/nvt
         run: python tools/build_nvt_documents.py
       - name: Assemble static site
         run: |

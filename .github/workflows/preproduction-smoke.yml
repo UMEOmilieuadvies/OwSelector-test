@@ -1,0 +1,31 @@
+name: Pre-production browser smoke test
+
+on:
+  workflow_run:
+    workflows: ["Validate and deploy OwSelector pre-production to GitHub Pages"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop when the deployment workflow failed
+        run: |
+          node -e "const e=require(process.env.GITHUB_EVENT_PATH); process.exit(e.workflow_run.conclusion === 'success' ? 0 : 78)"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test
+        run: |
+          npm install --no-save playwright@1.52.0
+          npx playwright install --with-deps chromium
+      - name: Verify loaded application
+        env:
+          PREPRODUCTION_URL: https://umeomilieuadvies.github.io/OwSelector-test/
+        run: node tools/verify_preproduction_browser.mjs
