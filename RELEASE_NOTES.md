@@ -1,3 +1,9 @@
+## 1.01x-test — 15 oktober 2026
+
+**Testwijziging.**
+
+- Kolom 3 onderscheidt nu terugverwijzingen binnen dezelfde regeling van verwijzingen vanuit de andere opgenomen regelingen.
+
 ## 1.01t-test — 2026-10-13
 
 **Testwijziging.**

@@ -1,9 +1,9 @@
 {
-  "version": "1.01w-test",
-  "notes": [
-    "Officiële sub- en superscriptopmaak en bronwitruimte worden in artikelen, bijlagen en tabellen getrouw weergegeven."
-  ],
   "resolved_comment_ids": [],
+  "notes": [
+    "Kolom 3 toont terugverwijzingen binnen dezelfde regeling afzonderlijk van verwijzingen uit andere opgenomen regelingen."
+  ],
   "kind": "test",
-  "released_at": "2026-10-14"
+  "version": "1.01x-test",
+  "released_at": "2026-10-15"
 }
