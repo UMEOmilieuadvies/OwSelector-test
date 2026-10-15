@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -13,6 +14,9 @@ REGULATIONS = {
     "BWBR0041313": "BKL", "BWBR0041278": "OB", "BWBR0045528": "OR",
 }
 FILES = {"OW": "ow", "BAL": "bal", "BBL": "bbl", "BKL": "bkl", "OB": "ob", "OR": "or"}
+TARGET_TYPES = {"article", "paragraph", "subparagraph"}
+INTERNAL_REFERENCE_RE = re.compile(r"\b(artikel|art\.?|paragraaf|afdeling|hoofdstuk|bijlage)\s+([0-9]+(?:\.[0-9]+)*[a-z]?|[A-Z]\.[0-9]+[a-z]?|[IVXLCDM]+(?:[a-z]+)?)", re.IGNORECASE)
+REFERENCE_TYPES = {"artikel": "article", "art": "article", "paragraaf": "paragraph", "afdeling": "section", "hoofdstuk": "chapter", "bijlage": "appendix"}
 
 
 def number(node: dict) -> str:
@@ -68,7 +72,7 @@ def main() -> None:
         graphs[reg] = nodes
         for node in nodes:
             target_type = str(node.get("type") or "")
-            if target_type in {"article", "paragraph", "subparagraph"} and number(node):
+            if target_type in TARGET_TYPES and number(node):
                 targets[(reg, target_type, number(node))] = node
 
     found: dict[str, list[dict]] = defaultdict(list)
@@ -84,13 +88,37 @@ def main() -> None:
                 target = ref.get("target") or {}
                 target_number = str(target.get("number") or "").strip().lower()
                 target_type = str(target.get("type") or "")
-                if not target_reg or target_type not in {"article", "paragraph", "subparagraph"} or not target_number:
+                if not target_reg or target_type not in TARGET_TYPES or not target_number:
                     continue
                 target_node = targets.get((target_reg, target_type, target_number))
                 if not target_node:
                     continue
                 key = f"{target_reg}:{target_node['id']}"
                 anchor = str(ref.get("anchor") or "").strip()
+                unique = (key, source_reg, source_id, anchor)
+                if unique in seen:
+                    continue
+                seen.add(unique)
+                found[key].append({
+                    "regulation": source_reg,
+                    "source_id": source_id,
+                    "source_type": str(source.get("type") or ""),
+                    "label": source_label(source, by_id),
+                    "anchor": anchor,
+                })
+
+            # De officiële XML bevat interne tekstverwijzingen vaak zonder external_ref.
+            # Neem die alleen op wanneer het genoemde onderdeel in dezelfde regeling bestaat.
+            for match in INTERNAL_REFERENCE_RE.finditer(str(source.get("text") or "")):
+                reference_type = REFERENCE_TYPES.get(match.group(1).lower().rstrip("."))
+                target_number = match.group(2).strip().lower()
+                if reference_type not in TARGET_TYPES or not target_number:
+                    continue
+                target_node = targets.get((source_reg, reference_type, target_number))
+                if not target_node:
+                    continue
+                key = f"{source_reg}:{target_node['id']}"
+                anchor = match.group(0).strip()
                 unique = (key, source_reg, source_id, anchor)
                 if unique in seen:
                     continue

@@ -1,6 +1,6 @@
 'use strict';
 (() => {
-const VERSION='1.01y-test';
+const VERSION='1.1-test';
 const SUPABASE_URL='https://lemcbncvqcsffatsxpdq.supabase.co';
 const SUPABASE_KEY='sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O';
 const REGS=[

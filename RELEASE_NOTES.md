@@ -1,3 +1,9 @@
+## 1.1-test — 15 oktober 2026
+
+**Testwijziging.**
+
+- Terugverwijzingen verwerken nu ook interne juridische tekstverwijzingen. Daardoor verschijnt Bal artikel 3.29 bij Bal paragraaf 4.98 in kolom 3.
+
 ## 1.01y-test — 15 oktober 2026
 
 **Testwijziging.**
