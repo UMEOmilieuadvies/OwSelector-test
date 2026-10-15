@@ -1,3 +1,9 @@
+## 1.1a-test — 15 oktober 2026
+
+**Testcorrectie.**
+
+- Een selectie in kolom 1 synchroniseert kolom 3 direct met de terugverwijzingen van het gekozen onderdeel.
+
 ## 1.1-test — 15 oktober 2026
 
 **Testwijziging.**

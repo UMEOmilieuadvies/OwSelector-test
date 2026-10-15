@@ -1,9 +1,9 @@
 {
   "kind": "test",
+  "version": "1.1a-test",
+  "released_at": "2026-10-15",
   "resolved_comment_ids": [],
   "notes": [
-    "Kolom 3 toont terugverwijzingen naar paragrafen en subparagrafen, inclusief interne tekstverwijzingen zoals Bal artikel 3.29 naar Bal paragraaf 4.98."
-  ],
-  "released_at": "2026-10-15",
-  "version": "1.1-test"
+    "Een selectie van een paragraaf in kolom 1 vult kolom 3 nu direct met de bijbehorende terugverwijzingen."
+  ]
 }
