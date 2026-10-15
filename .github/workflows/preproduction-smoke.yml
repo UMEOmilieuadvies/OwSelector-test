@@ -2,7 +2,7 @@ name: Pre-production browser smoke test
 
 on:
   workflow_run:
-    workflows: ["Validate and deploy OwSelector pre-production to GitHub Pages"]
+    workflows: ["Build and deploy OwSelector to GitHub Pages"]
     types: [completed]
 
 permissions:
