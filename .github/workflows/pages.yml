@@ -34,7 +34,7 @@ jobs:
           node --check js/app.js
           node --check js/qna.js
           if grep -q 'pqpsajcjydvagrfxfeye' js/app.js js/qna.js; then
-            echo 'Productie-Supabase gevonden in testcode.'
+            echo 'Productiekoppeling gevonden in testcode.'
             exit 1
           fi
       - name: Download official regulations
@@ -57,14 +57,18 @@ jobs:
           NVT_FALLBACK_BASE: https://umeomilieuadvies.github.io/OwSelector-test/data/nvt
         run: python tools/build_nvt_documents.py
       - name: Assemble static site
+        env:
+          TEST_COMMENTS_API_URL: ${{ vars.TEST_COMMENTS_API_URL }}
         run: |
           mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations _site/data/nvt
           cp index.html help.html qna.html nvt.html nvt_catalog.json beheer.html historie.html favicon.svg _site/
           cp -R images _site/images
           cp css/app.css _site/css/app.css
-          cp js/app.js js/beheer.js js/article-history.js _site/js/
+          cp js/app.js js/article-history.js _site/js/
+          node -e "process.stdout.write('window.OWZ_COMMENTS_API = '+JSON.stringify(process.env.TEST_COMMENTS_API_URL||'')+';\n')" > _site/js/comments-api-config.js
           cp js/nvt.js _site/js/nvt.js
           cp js/qna.js _site/js/qna.js
+          cp data/qna.json _site/data/qna.json
           cp data/external_refs.json _site/data/external_refs.json
           cp data/back_references.json _site/data/back_references.json
           cp data/regulation_versions.json _site/data/regulation_versions.json
@@ -120,17 +124,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-  record-release:
-    if: ${{ github.event_name == 'push' && needs.deploy.result == 'success' }}
-    runs-on: ubuntu-latest
-    needs: deploy
-    env:
-      SUPABASE_URL: https://lemcbncvqcsffatsxpdq.supabase.co
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.TEST_SUPABASE_SERVICE_ROLE_KEY }}
-      PAGES_URL: ${{ needs.deploy.outputs.page_url }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Record release and resolved issues
-        if: ${{ env.SUPABASE_SERVICE_ROLE_KEY != '' }}
-        run: python tools/record_release.py

@@ -1,0 +1,7 @@
+{
+  "rubriek": "Tekst en verwijzingen",
+  "vraag": "Wat toont kolom 3 wanneer een paragraaf is geopend?",
+  "antwoord": "Kolom 2 toont de artikelen binnen de geopende paragraaf. Kolom 3 verzamelt de verwijzingen vanuit andere opgenomen regelingen naar een of meer van die zichtbare artikelen. De vindplaatsen zijn gegroepeerd per bronartikel en blijven aanklikbaar.",
+  "zichtbaar": true,
+  "volgorde": 10
+}

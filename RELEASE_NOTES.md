@@ -1,3 +1,10 @@
+## 1.1c-test — 19 oktober 2026
+
+**Testrelease.**
+
+- Vervangt Supabase in de testsite door een Cloudflare Worker met D1 voor opmerkingen en anonieme bezoekmetingen.
+- Q&A en releasenotities worden statisch en versiebeheerbaar aangeboden.
+
 ## 1.1b-test — 19 oktober 2026
 
 **Testwijziging.**

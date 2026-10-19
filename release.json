@@ -1,9 +1,10 @@
 {
   "released_at": "2026-10-19",
   "kind": "test",
-  "version": "1.1b-test",
+  "version": "1.1c-test",
   "resolved_comment_ids": [],
   "notes": [
-    "Interne terugverwijzingen worden nu per bronparagraaf samengevat. Hoofdstuk-, afdeling-, paragraaf-, artikel- en bijlageverwijzingen worden meegenomen."
+    "Vervangt de testkoppeling met Supabase door een voorbereide Cloudflare Worker met D1 voor opmerkingen en anonieme bezoekmetingen.",
+    "Q&A en releasenotities worden als versiebeheerbare bestanden in de testsite aangeboden."
   ]
 }
