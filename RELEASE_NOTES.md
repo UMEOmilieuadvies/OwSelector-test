@@ -1,15 +1,9 @@
-## 1.1d-test — 19 oktober 2026
+## 1.1e-test — 19 oktober 2026
 
 **Testherstel.**
 
-- Past het D1-schema en de Worker in afzonderlijke Cloudflare-stappen toe.
-
-## 1.1c-test — 19 oktober 2026
-
-**Testrelease.**
-
-- Vervangt Supabase in de testsite door een Cloudflare Worker met D1 voor opmerkingen en anonieme bezoekmetingen.
-- Q&A en releasenotities worden statisch en versiebeheerbaar aangeboden.
+- Herstelt de testsite naar de bestaande test-Supabase-koppeling voor opmerkingen, Q&A en beheer.
+- De Cloudflare D1-proef is buiten gebruik gesteld. De afzonderlijk aangemaakte database blijft onaangeroerd.
 
 ## 1.1b-test — 19 oktober 2026
 

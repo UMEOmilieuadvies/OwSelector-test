@@ -1,9 +1,10 @@
 {
   "released_at": "2026-10-19",
   "kind": "test",
-  "version": "1.1d-test",
+  "version": "1.1e-test",
   "resolved_comment_ids": [],
   "notes": [
-    "Herstelt de testpublicatie van de Cloudflare D1-voorziening door schema en Worker als afzonderlijke, gecontroleerde stappen uit te voeren."
+    "Herstelt de testsite naar de bestaande test-Supabase-koppeling voor opmerkingen, Q&A en beheer.",
+    "De Cloudflare D1-proef is buiten gebruik gesteld; de aangemaakte database blijft onaangeroerd."
   ]
 }
