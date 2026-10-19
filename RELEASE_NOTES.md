@@ -1,3 +1,9 @@
+## 1.1d-test — 19 oktober 2026
+
+**Testherstel.**
+
+- Past het D1-schema en de Worker in afzonderlijke Cloudflare-stappen toe.
+
 ## 1.1c-test — 19 oktober 2026
 
 **Testrelease.**

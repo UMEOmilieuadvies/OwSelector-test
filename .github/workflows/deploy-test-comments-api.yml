@@ -11,9 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply D1 schema and deploy Worker
+      - name: Apply D1 schema
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: d1 execute owselector-test-comments --remote --file=cloudflare/schema.sql && deploy
+          command: d1 execute owselector-test-comments --remote --file=cloudflare/schema.sql
+      - name: Deploy test Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

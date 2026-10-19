@@ -1,6 +1,6 @@
 'use strict';
 (() => {
-const VERSION='1.1c-test';
+const VERSION='1.1d-test';
 const COMMENTS_API=String(window.OWZ_COMMENTS_API||'').replace(/\/+$/,'');
 function commentApi(path){if(!COMMENTS_API)throw new Error('Opmerkingenservice is nog niet geconfigureerd.');return COMMENTS_API+path}
 const REGS=[
