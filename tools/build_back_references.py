@@ -14,7 +14,7 @@ REGULATIONS = {
     "BWBR0041313": "BKL", "BWBR0041278": "OB", "BWBR0045528": "OR",
 }
 FILES = {"OW": "ow", "BAL": "bal", "BBL": "bbl", "BKL": "bkl", "OB": "ob", "OR": "or"}
-TARGET_TYPES = {"article", "paragraph", "subparagraph"}
+TARGET_TYPES = {"article", "paragraph", "subparagraph", "chapter", "section", "appendix"}
 INTERNAL_REFERENCE_RE = re.compile(r"\b(artikel|art\.?|paragraaf|afdeling|hoofdstuk|bijlage)\s+([0-9]+(?:\.[0-9]+)*[a-z]?|[A-Z]\.[0-9]+[a-z]?|[IVXLCDM]+(?:[a-z]+)?)", re.IGNORECASE)
 REFERENCE_TYPES = {"artikel": "article", "art": "article", "paragraaf": "paragraph", "afdeling": "section", "hoofdstuk": "chapter", "bijlage": "appendix"}
 
@@ -25,7 +25,7 @@ def number(node: dict) -> str:
 
 def target_label(node: dict) -> str:
     kind = str(node.get("type") or "")
-    prefix = {"article": "Artikel", "paragraph": "Paragraaf", "subparagraph": "Paragraaf"}.get(kind, "Onderdeel")
+    prefix = {"chapter": "Hoofdstuk", "section": "Afdeling", "paragraph": "Paragraaf", "subparagraph": "Paragraaf", "article": "Artikel", "appendix": "Bijlage"}.get(kind, "Onderdeel")
     title = str(node.get("title") or "").strip()
     return f"{prefix} {number(node)} {title}".strip()
 
@@ -91,6 +91,8 @@ def main() -> None:
                 if not target_reg or target_type not in TARGET_TYPES or not target_number:
                     continue
                 target_node = targets.get((target_reg, target_type, target_number))
+                if not target_node and target_type == "paragraph":
+                    target_node = targets.get((target_reg, "subparagraph", target_number))
                 if not target_node:
                     continue
                 key = f"{target_reg}:{target_node['id']}"
@@ -115,6 +117,8 @@ def main() -> None:
                 if reference_type not in TARGET_TYPES or not target_number:
                     continue
                 target_node = targets.get((source_reg, reference_type, target_number))
+                if not target_node and reference_type == "paragraph":
+                    target_node = targets.get((source_reg, "subparagraph", target_number))
                 if not target_node:
                     continue
                 key = f"{source_reg}:{target_node['id']}"

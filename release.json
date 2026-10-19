@@ -1,9 +1,9 @@
 {
+  "released_at": "2026-10-19",
   "kind": "test",
-  "version": "1.1a-test",
-  "released_at": "2026-10-15",
+  "version": "1.1b-test",
   "resolved_comment_ids": [],
   "notes": [
-    "Een selectie van een paragraaf in kolom 1 vult kolom 3 nu direct met de bijbehorende terugverwijzingen."
+    "Interne terugverwijzingen worden nu per bronparagraaf samengevat. Hoofdstuk-, afdeling-, paragraaf-, artikel- en bijlageverwijzingen worden meegenomen."
   ]
 }

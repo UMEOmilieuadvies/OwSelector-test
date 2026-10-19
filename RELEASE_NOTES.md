@@ -1,3 +1,9 @@
+## 1.1b-test — 19 oktober 2026
+
+**Testwijziging.**
+
+- Interne terugverwijzingen worden per bronparagraaf samengevat. Ook verwijzingen naar hoofdstukken, afdelingen en bijlagen worden geïndexeerd.
+
 ## 1.1a-test — 15 oktober 2026
 
 **Testcorrectie.**
