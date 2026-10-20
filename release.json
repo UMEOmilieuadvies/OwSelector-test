@@ -1,10 +1,10 @@
 {
-  "released_at": "2026-10-19",
+  "released_at": "2026-10-20",
   "kind": "test",
-  "version": "1.1e-test",
+  "version": "1.1f-test",
   "resolved_comment_ids": [],
   "notes": [
-    "Herstelt de testsite naar de bestaande test-Supabase-koppeling voor opmerkingen, Q&A en beheer.",
-    "De Cloudflare D1-proef is buiten gebruik gesteld; de aangemaakte database blijft onaangeroerd."
+    "Testcode is opgeschoond met een centrale testconfiguratie en automatische startcontroles.",
+    "De publicatie blokkeert bij een productie-Supabase-koppeling, ontbrekende kritieke startfunctie of ongeldige testconfiguratie."
   ]
 }

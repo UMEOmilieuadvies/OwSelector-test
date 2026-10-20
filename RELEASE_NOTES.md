@@ -1,3 +1,10 @@
+## 1.1f-test — 20 oktober 2026
+
+**Testverbetering.**
+
+- Testconfiguratie, versie en test-Supabase staan centraal in pp-config.js.
+- De start controleert de testconfiguratie en kritieke schermonderdelen; de publicatie controleert daarnaast kritieke startfuncties en voorkomt een productiekoppeling in de testcode.
+
 ## 1.1e-test — 19 oktober 2026
 
 **Testherstel.**

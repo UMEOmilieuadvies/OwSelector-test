@@ -31,8 +31,10 @@ jobs:
           python-version: '3.12'
       - name: Verify client-side source
         run: |
+          node --check js/app-config.js
           node --check js/app.js
           node --check js/qna.js
+          node tests/verify-client-source.mjs
           if grep -q 'pqpsajcjydvagrfxfeye' js/app.js js/qna.js; then
             echo 'Productie-Supabase gevonden in testcode.'
             exit 1
@@ -62,7 +64,7 @@ jobs:
           cp index.html help.html qna.html nvt.html nvt_catalog.json beheer.html historie.html favicon.svg _site/
           cp -R images _site/images
           cp css/app.css _site/css/app.css
-          cp js/app.js js/beheer.js js/article-history.js _site/js/
+          cp js/app-config.js js/app.js js/beheer.js js/article-history.js _site/js/
           cp js/nvt.js _site/js/nvt.js
           cp js/qna.js _site/js/qna.js
           cp data/external_refs.json _site/data/external_refs.json

@@ -1,16 +1,15 @@
 'use strict';
 (() => {
-const VERSION='1.1e-test';
-const SUPABASE_URL='https://lemcbncvqcsffatsxpdq.supabase.co';
-const SUPABASE_KEY='sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O';
-const REGS=[
- {id:'OW',name:'Omgevingswet',bwb:'BWBR0037885',file:'ow_legal_graph.json'},
- {id:'BAL',name:'Besluit activiteiten leefomgeving (BAL)',bwb:'BWBR0041330',file:'bal_legal_graph.json'},
- {id:'BBL',name:'Besluit bouwwerken leefomgeving (BBL)',bwb:'BWBR0041297',file:'bbl_legal_graph.json'},
- {id:'BKL',name:'Besluit kwaliteit leefomgeving (BKL)',bwb:'BWBR0041313',file:'bkl_legal_graph.json'},
- {id:'OB',name:'Omgevingsbesluit (OB)',bwb:'BWBR0041278',file:'ob_legal_graph.json'},
- {id:'OR',name:'Omgevingsregeling (OR)',bwb:'BWBR0045528',file:'or_legal_graph.json'}
-];
+const CONFIG=globalThis.OWZ_CONFIG||{};
+const VERSION=String(CONFIG.version||'');
+const SUPABASE_URL=String(CONFIG.supabase?.url||'').replace(/\/+$/,'');
+const SUPABASE_KEY=String(CONFIG.supabase?.anonKey||'');
+const REGS=Array.isArray(CONFIG.regulations)?CONFIG.regulations:[];
+const REQUIRED_ELEMENT_IDS=['searchInput','searchButton','regulationSelect','navigation','viewer','side','status'];
+function startupProblems(){const problems=[];if(CONFIG.environment!=='test')problems.push('de testconfiguratie ontbreekt of is ongeldig');if(!/^1\.1f-test$/.test(VERSION))problems.push('het testversienummer ontbreekt');if(!/^https:\/\/lemcbncvqcsffatsxpdq\.supabase\.co$/.test(SUPABASE_URL))problems.push('de test-Supabase-koppeling ontbreekt');if(!SUPABASE_KEY)problems.push('de openbare test-Supabase-sleutel ontbreekt');if(REGS.length!==6||new Set(REGS.map(reg=>reg.id)).size!==6)problems.push('de zes regelingen ontbreken');for(const id of REQUIRED_ELEMENT_IDS)if(!document.getElementById(id))problems.push('schermonderdeel '+id+' ontbreekt');return problems}
+function showStartupFailure(problems){const status=document.getElementById('status');if(status)status.textContent='De toepassing kan niet starten: '+problems.join('; ')+'.';console.error('OWZ startcontrole mislukt:',problems)}
+const STARTUP_PROBLEMS=startupProblems();
+if(STARTUP_PROBLEMS.length){showStartupFailure(STARTUP_PROBLEMS);return}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const type=n=>String(n?.type||'').toLowerCase();
