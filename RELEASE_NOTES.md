@@ -1,3 +1,9 @@
+## 1.1g-test — 22 oktober 2026
+
+**Testcorrectie.**
+
+- Favorieten in test worden opgeslagen onder een eigen browsersleutel en kunnen productie niet langer overschrijven of wissen.
+
 ## 1.1f-test — 20 oktober 2026
 
 **Testverbetering.**

@@ -2,11 +2,12 @@
 /* Testomgeving: alle omgevingsafhankelijke waarden staan uitsluitend hier. */
 window.OWZ_CONFIG=Object.freeze({
   environment:'test',
-  version:'1.1f-test',
+  version:'1.1g-test',
   supabase:Object.freeze({
     url:'https://lemcbncvqcsffatsxpdq.supabase.co',
     anonKey:'sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O'
   }),
+  storage:Object.freeze({favoritesKey:'owz_test_favorites'}),
   regulations:Object.freeze([
     {id:'OW',name:'Omgevingswet',bwb:'BWBR0037885',file:'ow_legal_graph.json'},
     {id:'BAL',name:'Besluit activiteiten leefomgeving (BAL)',bwb:'BWBR0041330',file:'bal_legal_graph.json'},
