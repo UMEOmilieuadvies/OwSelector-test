@@ -111,6 +111,7 @@ const COMMENT_STATUS={
  'Ontvangen':'received',
  'In onderzoek':'investigating',
  'Geaccepteerd':'accepted',
+ 'Testfase':'testing',
  'Doorgevoerd':'implemented',
  'Niet geaccepteerd':'rejected',
  'Geen actie nodig':'noAction'

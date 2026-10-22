@@ -7,7 +7,7 @@ const context={window:{},Object};
 vm.runInNewContext(configSource,context,{filename:'js/app-config.js'});
 const config=context.window.OWZ_CONFIG;
 assert.equal(config.environment,'test','De testomgeving moet expliciet zijn ingesteld.');
-assert.equal(config.version,'1.1i-test','Configuratie en testversie moeten gelijk lopen.');
+assert.equal(config.version,'1.1j-test','Configuratie en testversie moeten gelijk lopen.');
 assert.equal(config.supabase.url,'https://lemcbncvqcsffatsxpdq.supabase.co','Alleen de test-Supabase is toegestaan.');
 assert.equal(config.storage.favoritesKey,'owz_test_favorites','Testfavorieten moeten een eigen opslag gebruiken.');
 assert.equal(config.regulations.length,6,'Exact zes regelingen moeten beschikbaar zijn.');
@@ -34,3 +34,5 @@ assert.ok(!source.includes('/^1\\.1g-test$/'),'De startcontrole mag niet op éé
 const indexSource=fs.readFileSync('index.html','utf8');
 assert.ok(indexSource.includes('__OWZ_VERSION__'),'De releasepagina moet de centrale versieplaatsaanduiding gebruiken.');
 console.log('Teststart en releasepagina gebruiken geen vast testversienummer.');
+assert.match(source,/'Testfase':'testing'/,'De status Testfase moet ongewijzigd uit Supabase worden weergegeven.');
+console.log('De opmerkingenstatus Testfase wordt rechtstreeks weergegeven.');
