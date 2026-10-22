@@ -7,7 +7,7 @@ const context={window:{},Object};
 vm.runInNewContext(configSource,context,{filename:'js/app-config.js'});
 const config=context.window.OWZ_CONFIG;
 assert.equal(config.environment,'test','De testomgeving moet expliciet zijn ingesteld.');
-assert.equal(config.version,'1.1j-test','Configuratie en testversie moeten gelijk lopen.');
+assert.equal(config.version,'1.1k-test','Configuratie en testversie moeten gelijk lopen.');
 assert.equal(config.supabase.url,'https://lemcbncvqcsffatsxpdq.supabase.co','Alleen de test-Supabase is toegestaan.');
 assert.equal(config.storage.favoritesKey,'owz_test_favorites','Testfavorieten moeten een eigen opslag gebruiken.');
 assert.equal(config.regulations.length,6,'Exact zes regelingen moeten beschikbaar zijn.');

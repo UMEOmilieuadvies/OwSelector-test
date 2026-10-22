@@ -1,3 +1,8 @@
+## 1.1k-test — 22 oktober 2026
+
+**Testherstel.**
+
+- Herstelt de Assemble-stap van de testpublicatie. De releasepagina wordt weer afzonderlijk opgebouwd vanuit het centrale versienummer.
 ## 1.1j-test — 22 oktober 2026
 
 **Testcorrectie.**
