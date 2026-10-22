@@ -217,3 +217,4 @@ body:has(.environmentBanner){grid-template-rows:auto auto auto 1fr auto}
 
 .tableCellParagraph{margin:0 0 5px}.tableCellParagraph:last-child{margin-bottom:0}.tableCellSubparagraph{padding-left:1.5em;text-indent:-1.5em}
 .legalText sup,.legalText sub,.legalTable sup,.legalTable sub,.appendixContent sup,.appendixContent sub{font-size:.75em;line-height:0}.legalText sup,.legalTable sup,.appendixContent sup{vertical-align:super}.legalText sub,.legalTable sub,.appendixContent sub{vertical-align:sub}
+.backReferenceGroup{margin-bottom:10px!important}.backReferenceCount{display:inline-block;margin:2px 0 0 6px;font-size:12px;color:#607284}.backReferenceFindings{margin:4px 0 0 16px!important;padding-left:12px!important}.backReferenceFindings li{margin:3px 0!important}.backReferenceFinding{font:inherit;text-align:left;font-size:12px;line-height:1.35}

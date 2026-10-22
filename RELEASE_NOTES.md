@@ -1,3 +1,10 @@
+## 1.1h-test — 22 oktober 2026
+
+**Testcorrectie.**
+
+- Terugverwijzingen vanuit dezelfde bronregeling worden per bronartikel samengevat, met een teller voor het aantal vindplaatsen.
+- Iedere vindplaats is afzonderlijk klikbaar en opent de juiste bron in kolom 3.
+- Herstelt de selectie van externe verwijzingen bij gefilterde contextresultaten.
 ## 1.1g-test — 22 oktober 2026
 
 **Testcorrectie.**
