@@ -17,6 +17,8 @@ jobs:
           node -e "const e=require(process.env.GITHUB_EVENT_PATH); process.exit(e.workflow_run.conclusion === 'success' ? 0 : 78)"
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -27,5 +29,5 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Verify loaded application
         env:
-          PREPRODUCTION_URL: https://umeomilieuadvies.github.io/OwSelector-test/
-        run: node tools/verify_preproduction_browser.mjs
+          PREPRODUCTION_URL: https://umeomilieuadvies.github.io/OwSelector-test/?revision=${{ github.event.workflow_run.head_sha }}
+        run: EXPECTED_VERSION="$(tr -d '\r\n' < VERSION)" node tools/verify_preproduction_browser.mjs

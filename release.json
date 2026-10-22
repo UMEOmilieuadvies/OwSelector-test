@@ -1,9 +1,10 @@
 {
   "released_at": "2026-10-22",
   "kind": "test",
-  "version": "1.1h-test",
+  "version": "1.1i-test",
   "resolved_comment_ids": [],
   "notes": [
-    "Terugverwijzingen vanuit dezelfde bronregeling worden per bronartikel gegroepeerd; afzonderlijke vindplaatsen blijven klikbaar en openen de juiste bron."
+    "Artikelen in kolom 2 kunnen als favoriet worden bewaard.",
+    "De teststart, releasepagina en browser-rooktest gebruiken voortaan dezelfde testversie en herstellen beter van GitHub Pages-verspreiding."
   ]
 }

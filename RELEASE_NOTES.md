@@ -1,3 +1,10 @@
+## 1.1i-test — 22 oktober 2026
+
+**Testverbetering en herstel.**
+
+- Artikelen die in kolom 2 zichtbaar zijn, kunnen rechtstreeks als favoriet worden bewaard of verwijderd.
+- De startcontrole accepteert geldige opvolgende testversies; versie, pagina en cacheverwijzingen worden vanuit één bron voorbereid.
+- De preproductie-rooktest controleert de exacte gepubliceerde commitversie en probeert opnieuw tijdens de verspreiding van GitHub Pages.
 ## 1.1h-test — 22 oktober 2026
 
 **Testcorrectie.**
