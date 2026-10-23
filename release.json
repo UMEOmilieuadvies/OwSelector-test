@@ -1,9 +1,8 @@
 {
-  "version": "1.3c-test",
+  "version": "1.3d-test",
   "notes": [
-    "Controleert bron, releasegegevens en samengestelde testpublicatie op versie- en omgevingsscheiding.",
-    "Publiceert een promotiekandidaat met functionele vingerafdruk voor gecontroleerde overdracht naar productie.",
-    "Herstelt de geldige JSON-opmaak van de releasenotities."
+    "Promotiecontrole vergelijkt alleen functionele inhoud; omgevingsconfiguratie en regelafbrekingen zijn toegestaan.",
+    "Blokkeert productie wanneer de functionele kandidaat uit test afwijkt."
   ],
   "resolved_comment_ids": [],
   "kind": "groot",

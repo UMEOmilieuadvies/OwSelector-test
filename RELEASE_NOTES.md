@@ -1,3 +1,10 @@
+## 1.3d-test — 23 oktober 2026
+
+**Promotiecontrole.**
+
+- Vergelijkt alleen functionele inhoud; omgevingsconfiguratie en regelafbrekingen zijn toegestaan.
+- Blokkeert productie wanneer de functionele kandidaat uit test afwijkt.
+
 ## 1.3c-test — 23 oktober 2026
 
 **Test- en promotiebeveiliging.**

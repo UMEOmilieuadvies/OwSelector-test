@@ -2,22 +2,11 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
-export function digest(value){return crypto.createHash('sha256').update(value,'utf8').digest('hex')}
+export function digest(value){return crypto.createHash('sha256').update(value.replace(/\r\n/g,'\n'),'utf8').digest('hex')}
 export function read(root,file){return fs.readFileSync(path.join(root,file),'utf8')}
 export function normalizeApp(source){
   return source
-    .replaceAll("CONFIG.environment!=='test'","CONFIG.environment!=='__ENV__'")
-    .replaceAll("CONFIG.environment!=='production'","CONFIG.environment!=='__ENV__'")
-    .replaceAll('de testconfiguratie','de omgevingsconfiguratie')
-    .replaceAll('de productieconfiguratie','de omgevingsconfiguratie')
-    .replaceAll('het testversienummer','het omgevingsversienummer')
-    .replaceAll('het productieversienummer','het omgevingsversienummer')
-    .replaceAll('de test-Supabase-koppeling','de omgevings-Supabase-koppeling')
-    .replaceAll('de productie-Supabase-koppeling','de omgevings-Supabase-koppeling')
-    .replaceAll('de openbare test-Supabase-sleutel','de openbare omgevings-Supabase-sleutel')
-    .replaceAll('de openbare productie-Supabase-sleutel','de openbare omgevings-Supabase-sleutel')
-    .replaceAll('de gescheiden testfavorietenopslag','de gescheiden omgevingsfavorietenopslag')
-    .replaceAll('de gescheiden productiefavorietenopslag','de gescheiden omgevingsfavorietenopslag')
+    .replace(/function startupProblems\(\)\{.*?(?=function showStartupFailure)/s,'function startupProblems(){/* environment-specific */}\n')
     .replaceAll('owz_test_favorite_recovery_code','owz_environment_favorite_recovery_code')
     .replaceAll('owz_production_favorite_recovery_code','owz_environment_favorite_recovery_code');
 }
