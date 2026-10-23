@@ -1,8 +1,8 @@
 {
-  "version": "1.3a-test",
+  "version": "1.3b-test",
   "notes": [
     "Favorieten worden anoniem online opgeslagen met een herstelcode; de code wordt alleen na toestemming in de browser bewaard.",
-    "Online favorieten vervallen na één jaar zonder gebruik.",`n    "Herstelcode kan worden gekopieerd; de databasefunctie gebruikt het juiste Supabase-extensieschema."
+    "Online favorieten vervallen na één jaar zonder gebruik.",`n    "Herstelcode kan worden gekopieerd; de databasefunctie gebruikt het juiste Supabase-extensieschema.",`n    "Herstelcode kan worden ingevoerd en desgewenst in de huidige browser worden bewaard."
   ],
   "resolved_comment_ids": [],
   "kind": "groot",

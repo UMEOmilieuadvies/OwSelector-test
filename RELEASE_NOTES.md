@@ -1,3 +1,10 @@
+## 1.3b-test — 23 oktober 2026
+
+**Testfunctie.**
+
+- Herstelcodes kunnen vanuit Favorieten worden ingevoerd en na toestemming in de huidige browser worden bewaard.
+- De getoonde herstelcode kan naar het klembord worden gekopieerd.
+
 ## 1.3a-test — 23 oktober 2026
 
 **Herstelrelease.**
