@@ -15,7 +15,7 @@ create or replace function public.favorites_create(p_code text, p_favorites json
 returns jsonb language plpgsql security definer set search_path=public as $$
 declare h text; begin
   if length(p_code) < 32 or jsonb_typeof(p_favorites) <> 'array' then raise exception 'Ongeldige favorietenaanvraag'; end if;
-  h := encode(digest(p_code,'sha256'),'hex');
+  h := encode(extensions.digest(p_code,'sha256'),'hex');
   insert into favorite_sets(recovery_hash,favorites) values(h,p_favorites)
   on conflict(recovery_hash) do update set favorites=excluded.favorites,last_used_at=now();
   return p_favorites;
@@ -23,7 +23,7 @@ end $$;
 create or replace function public.favorites_load(p_code text)
 returns jsonb language plpgsql security definer set search_path=public as $$
 declare h text; result jsonb; begin
-  h:=encode(digest(p_code,'sha256'),'hex');
+  h:=encode(extensions.digest(p_code,'sha256'),'hex');
   update favorite_sets set last_used_at=now() where recovery_hash=h returning favorites into result;
   return coalesce(result,'[]'::jsonb);
 end $$;
@@ -31,7 +31,7 @@ create or replace function public.favorites_save(p_code text, p_favorites jsonb)
 returns jsonb language plpgsql security definer set search_path=public as $$
 declare h text; begin
   if jsonb_typeof(p_favorites) <> 'array' then raise exception 'Ongeldige favorieten'; end if;
-  h:=encode(digest(p_code,'sha256'),'hex');
+  h:=encode(extensions.digest(p_code,'sha256'),'hex');
   update favorite_sets set favorites=p_favorites,last_used_at=now() where recovery_hash=h;
   if not found then raise exception 'Herstelcode niet gevonden'; end if;
   return p_favorites;
@@ -39,7 +39,7 @@ end $$;
 create or replace function public.favorites_clear(p_code text)
 returns jsonb language plpgsql security definer set search_path=public as $$
 declare h text; begin
-  h:=encode(digest(p_code,'sha256'),'hex');
+  h:=encode(extensions.digest(p_code,'sha256'),'hex');
   update favorite_sets set favorites='[]'::jsonb,last_used_at=now() where recovery_hash=h;
   if not found then raise exception 'Herstelcode niet gevonden'; end if;
   return '[]'::jsonb;

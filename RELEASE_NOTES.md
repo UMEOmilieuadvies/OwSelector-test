@@ -1,3 +1,10 @@
+## 1.3a-test — 23 oktober 2026
+
+**Herstelrelease.**
+
+- Een herstelcode kan direct naar het klembord worden gekopieerd.
+- De testdatabasefuncties voor online favorieten gebruiken het juiste Supabase-extensieschema.
+
 ## 1.3-test — 23 oktober 2026
 
 **Testfunctie.**
