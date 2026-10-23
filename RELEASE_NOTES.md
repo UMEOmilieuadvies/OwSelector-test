@@ -1,3 +1,9 @@
+## 1.2-test — 23 oktober 2026
+
+**Kleine correctie.**
+
+- Verwijdert de niet-beschikbare openbare GitHub-link uit het opmerkingenvenster. Opmerkingen blijven via het ingebouwde formulier beschikbaar.
+
 ## 1.1k-test — 22 oktober 2026
 
 **Testherstel.**
