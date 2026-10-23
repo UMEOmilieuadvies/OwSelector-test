@@ -1,3 +1,10 @@
+## 1.3-test — 23 oktober 2026
+
+**Testfunctie.**
+
+- Favorieten worden anoniem online opgeslagen met een herstelcode; de code wordt alleen na toestemming in de browser bewaard.
+- Online favorieten vervallen na één jaar zonder gebruik.
+
 ## 1.2-test — 23 oktober 2026
 
 **Kleine correctie.**
