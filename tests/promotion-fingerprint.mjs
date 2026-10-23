@@ -16,6 +16,7 @@ export function normalizeIndex(source){
     .replaceAll('__OWZ_VERSION__','__VERSION__')
     .replace(/release-\d+\.\d+[a-z]*/g,'release-__VERSION__')
     .replace(/Omgevingswet Zoeker \d+\.\d+[a-z]*/g,'Omgevingswet Zoeker __VERSION__')
+    .replace(/>\d+\.\d+[a-z]*</g,'>__VERSION__<')
     .replaceAll('testdatabase','omgevingsdatabase')
     .replaceAll('productiedatabase','omgevingsdatabase');
 }

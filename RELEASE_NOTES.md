@@ -1,3 +1,9 @@
+## 1.3e-test — 23 oktober 2026
+
+**Promotiecontrole.**
+
+- Vergelijkt de volledige functionele interface met test en negeert uitsluitend toegestane omgevingsgegevens.
+
 ## 1.3d-test — 23 oktober 2026
 
 **Promotiecontrole.**

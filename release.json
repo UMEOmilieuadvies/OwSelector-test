@@ -1,8 +1,7 @@
 {
-  "version": "1.3d-test",
+  "version": "1.3e-test",
   "notes": [
-    "Promotiecontrole vergelijkt alleen functionele inhoud; omgevingsconfiguratie en regelafbrekingen zijn toegestaan.",
-    "Blokkeert productie wanneer de functionele kandidaat uit test afwijkt."
+    "Promotiecontrole vergelijkt de volledige functionele interface met test en negeert uitsluitend toegestane omgevingsgegevens."
   ],
   "resolved_comment_ids": [],
   "kind": "groot",
