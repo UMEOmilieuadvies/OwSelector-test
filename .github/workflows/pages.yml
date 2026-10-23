@@ -76,6 +76,9 @@ jobs:
           cp -R data/illustrations/. _site/data/illustrations/
           cp -R data/nvt/. _site/data/nvt/
           touch _site/.nojekyll
+          node tests/create-promotion-candidate.mjs --output _site/promotion-candidate.json --commit "$GITHUB_SHA"
+      - name: Verify assembled test site
+        run: node tests/verify-release-artifact.mjs --environment test --site _site
       - name: Determine whether legal data changed
         id: change_check
         env:

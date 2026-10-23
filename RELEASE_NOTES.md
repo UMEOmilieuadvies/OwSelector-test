@@ -1,3 +1,11 @@
+## 1.3c-test — 23 oktober 2026
+
+**Test- en promotiebeveiliging.**
+
+- Controleert bron, releasegegevens en de samengestelde testpublicatie op versie- en omgevingsscheiding.
+- Publiceert een promotiekandidaat met functionele vingerafdruk voor gecontroleerde overdracht naar productie.
+- Herstelt de geldige JSON-opmaak van de releasenotities.
+
 ## 1.3b-test — 23 oktober 2026
 
 **Testfunctie.**

@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {fingerprints,read} from './promotion-fingerprint.mjs';
+const args=process.argv.slice(2);const value=name=>args[args.indexOf(name)+1];
+const candidate=JSON.parse(fs.readFileSync(value('--candidate'),'utf8'));
+assert.equal(candidate.schema,1,'Onbekende promotiekandidaat.');
+assert.equal(candidate.environment,'test','De kandidaat moet uit test afkomstig zijn.');
+assert.equal(candidate.test_version,value('--test-version'),'De gekozen testversie komt niet overeen met de kandidaat.');
+assert.equal(candidate.test_commit,value('--test-commit'),'De gekozen testcommit komt niet overeen met de kandidaat.');
+const context={window:{},Object};vm.runInNewContext(read(process.cwd(),'js/app-config.js'),context);
+assert.equal(context.window.OWZ_CONFIG.environment,'production','Alleen productie mag promoveren.');
+assert.deepEqual(fingerprints(process.cwd()),candidate.fingerprints,'Productie bevat niet exact de geteste functionele kandidaat.');
+console.log(`Promotiekandidaat ${candidate.test_version} komt functioneel overeen met productie.`);

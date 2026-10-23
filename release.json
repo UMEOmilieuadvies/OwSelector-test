@@ -1,8 +1,9 @@
 {
-  "version": "1.3b-test",
+  "version": "1.3c-test",
   "notes": [
-    "Favorieten worden anoniem online opgeslagen met een herstelcode; de code wordt alleen na toestemming in de browser bewaard.",
-    "Online favorieten vervallen na één jaar zonder gebruik.",`n    "Herstelcode kan worden gekopieerd; de databasefunctie gebruikt het juiste Supabase-extensieschema.",`n    "Herstelcode kan worden ingevoerd en desgewenst in de huidige browser worden bewaard."
+    "Controleert bron, releasegegevens en samengestelde testpublicatie op versie- en omgevingsscheiding.",
+    "Publiceert een promotiekandidaat met functionele vingerafdruk voor gecontroleerde overdracht naar productie.",
+    "Herstelt de geldige JSON-opmaak van de releasenotities."
   ],
   "resolved_comment_ids": [],
   "kind": "groot",
