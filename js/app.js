@@ -177,7 +177,7 @@ function inlineArticleAttachments(ar){
  return ids.map(id=>node(id,ar.regId)).filter(x=>['table','appendix'].includes(type(x))&&x.display_mode==='inline');
 }
 function renderIllustrations(n){const reg=String(n?.regId||state.viewer.regulation||state.regulation).toLowerCase();return (n?.illustrations||[]).map(x=>{const name=String(x.name||'').replace(/[^A-Za-z0-9._-]/g,''),alt=String(x.alt||'Officiële illustratie');return name?`<figure class="officialIllustration ${x.display==='inline'?'inline':''}"><img src="data/illustrations/${esc(reg)}/${esc(name)}" alt="${esc(alt)}"${x.width?` width="${esc(x.width)}"`:''}${x.height?` height="${esc(x.height)}"`:''} loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>${esc(alt)}</figcaption></figure>`:''}).join('')}
-function renderArticleNotesAction(ar){const reg=String(ar?.regId||state.viewer.regulation||state.regulation),article=String(num(ar)||'');return reg==='BAL'&&/^4\.\d+[a-z]*$/i.test(article)?`<a class="articleNotesButton" href="article-notes.html?regeling=BAL&amp;artikel=${encodeURIComponent(article)}" target="_blank" rel="noopener" title="Open de artikelsgewijze nota van toelichting in een nieuw tabblad">Nota van toelichting</a>`:''}
+function renderArticleNotesAction(ar){const reg=String(ar?.regId||state.viewer.regulation||state.regulation),article=String(num(ar)||'');return reg&&article?`<a class="articleNotesButton" href="article-notes.html?regeling=${encodeURIComponent(reg)}&amp;artikel=${encodeURIComponent(article)}" target="_blank" rel="noopener" title="Open de artikelsgewijze nota van toelichting in een nieuw tabblad">Nota van toelichting</a>`:''}
 function renderArticle(ar){
  const inlineAt=inlineArticleAttachments(ar);
  const inlineIds=new Set(inlineAt.map(nid));

@@ -25,16 +25,12 @@
     $('articleNotesContent').innerHTML=`<section class="articleNotesSummary"><h2>Artikelsgewijze toelichting</h2><p>Hieronder staat uitsluitend officiële toelichting die rechtstreeks aan dit artikel, of aan een gezamenlijke artikelkop waarin dit artikel voorkomt, is gekoppeld.</p></section>${record.notes.map(sourceCard).join('')}`;
   }
   async function load(){
-    if(regulation!=='BAL'||!/^4\.\d+[a-z]*$/i.test(article)){
-      $('articleNotesIntro').textContent='Deze testfunctie is momenteel gecontroleerd voor artikelen uit BAL hoofdstuk 4.';
-      $('articleNotesContent').innerHTML='<section class="articleNotesEmpty"><h2>Niet beschikbaar in deze test</h2><p>Voor dit artikel is nog geen gecontroleerde artikelsgewijze toelichtingskoppeling opgebouwd.</p></section>';
-      return;
-    }
+    if(!regulation||!article){$('articleNotesIntro').textContent='Geen artikel gekozen.';return;}
     try{
-      const response=await fetch('data/article_notes_bal_chapter4.json',{cache:'no-store'});
+      const response=await fetch('data/article_notes.json',{cache:'no-store'});
       if(!response.ok)throw new Error('gegevens ontbreken');
       const data=await response.json();
-      const record=data.articles?.[article];
+      const record=data.regulations?.[regulation]?.[article];
       if(!record)throw new Error('artikel ontbreekt');
       render(record);
     }catch(_){

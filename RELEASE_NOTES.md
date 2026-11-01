@@ -574,3 +574,9 @@
 **Kleine wijziging.**
 
 - Voegt voor BAL hoofdstuk 4 een aparte pagina met gecontroleerde artikelsgewijze nota van toelichting toe.
+
+## 1.3g-test — 2026-11-01
+
+**Kleine wijziging.**
+
+- Breidt de artikelsgewijze nota van toelichting in de testomgeving uit naar alle zes regelingen.

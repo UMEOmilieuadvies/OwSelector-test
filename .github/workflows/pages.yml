@@ -75,6 +75,7 @@ jobs:
           cp data/regulation_versions.json _site/data/regulation_versions.json
           cp data/article_history.json _site/data/article_history.json
           cp data/article_notes_bal_chapter4.json _site/data/article_notes_bal_chapter4.json
+          cp data/article_notes.json _site/data/article_notes.json
           cp data/graph/*_legal_graph.json _site/data/graph/
           cp -R data/illustrations/. _site/data/illustrations/
           cp -R data/nvt/. _site/data/nvt/

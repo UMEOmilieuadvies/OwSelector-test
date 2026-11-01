@@ -1,9 +1,9 @@
 {
-  "version": "1.3f-test",
+  "version": "1.3g-test",
   "kind": "klein",
   "released_at": "2026-11-01",
   "notes": [
-    "Voegt voor BAL hoofdstuk 4 een aparte pagina met gecontroleerde artikelsgewijze nota van toelichting toe."
+    "Breidt de artikelsgewijze nota van toelichting in de testomgeving uit naar alle zes regelingen."
   ],
   "resolved_comment_ids": []
 }
