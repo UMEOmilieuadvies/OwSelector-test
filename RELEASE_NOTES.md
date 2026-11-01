@@ -568,3 +568,9 @@
 
 - Behoud van officiële subscript- en superscriptmarkeringen in artikelen, bijlagen en tabellen.
 - XML-witruimte wordt genormaliseerd zonder extra spaties vóór leestekens.
+
+## 1.3f-test — 2026-11-01
+
+**Kleine wijziging.**
+
+- Voegt voor BAL hoofdstuk 4 een aparte pagina met gecontroleerde artikelsgewijze nota van toelichting toe.

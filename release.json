@@ -1,9 +1,9 @@
 {
-  "version": "1.3e-test",
+  "version": "1.3f-test",
+  "kind": "klein",
+  "released_at": "2026-11-01",
   "notes": [
-    "Promotiecontrole vergelijkt de volledige functionele interface met test en negeert uitsluitend toegestane omgevingsgegevens."
+    "Voegt voor BAL hoofdstuk 4 een aparte pagina met gecontroleerde artikelsgewijze nota van toelichting toe."
   ],
-  "resolved_comment_ids": [],
-  "kind": "groot",
-  "released_at": "2026-10-23"
+  "resolved_comment_ids": []
 }

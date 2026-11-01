@@ -177,6 +177,7 @@ function inlineArticleAttachments(ar){
  return ids.map(id=>node(id,ar.regId)).filter(x=>['table','appendix'].includes(type(x))&&x.display_mode==='inline');
 }
 function renderIllustrations(n){const reg=String(n?.regId||state.viewer.regulation||state.regulation).toLowerCase();return (n?.illustrations||[]).map(x=>{const name=String(x.name||'').replace(/[^A-Za-z0-9._-]/g,''),alt=String(x.alt||'Officiële illustratie');return name?`<figure class="officialIllustration ${x.display==='inline'?'inline':''}"><img src="data/illustrations/${esc(reg)}/${esc(name)}" alt="${esc(alt)}"${x.width?` width="${esc(x.width)}"`:''}${x.height?` height="${esc(x.height)}"`:''} loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>${esc(alt)}</figcaption></figure>`:''}).join('')}
+function renderArticleNotesAction(ar){const reg=String(ar?.regId||state.viewer.regulation||state.regulation),article=String(num(ar)||'');return reg==='BAL'&&/^4\.\d+[a-z]*$/i.test(article)?`<a class="articleNotesButton" href="article-notes.html?regeling=BAL&amp;artikel=${encodeURIComponent(article)}" target="_blank" rel="noopener" title="Open de artikelsgewijze nota van toelichting in een nieuw tabblad">Nota van toelichting</a>`:''}
 function renderArticle(ar){
  const inlineAt=inlineArticleAttachments(ar);
  const inlineIds=new Set(inlineAt.map(nid));
@@ -187,7 +188,7 @@ function renderArticle(ar){
  const collect=n=>{if(!n||rendered.has(nid(n)))return;rendered.add(nid(n));for(const c of children(n))collect(c)};
  for(const c of children(ar))collect(c);
  const fallback=inlineAt.filter(a=>!rendered.has(nid(a))).map(renderAttachment).join('');
- return `<article><div class="legalHead articleHeading"><span>${esc(label(ar))}</span>${renderArticleFavoriteAction(ar)}${renderArticleHistoryAction(ar)}</div>${ownText(ar)?`<div class="legalText">${renderInline(ar,inlineContent(ar,ownText(ar)))}</div>`:''}${renderIllustrations(ar)}<div class="legalChildren">${bodyChildren}${fallback}</div></article>`;
+ return `<article><div class="legalHead articleHeading"><span>${esc(label(ar))}</span>${renderArticleFavoriteAction(ar)}${renderArticleHistoryAction(ar)}${renderArticleNotesAction(ar)}</div>${ownText(ar)?`<div class="legalText">${renderInline(ar,inlineContent(ar,ownText(ar)))}</div>`:''}${renderIllustrations(ar)}<div class="legalChildren">${bodyChildren}${fallback}</div></article>`;
 }
 function renderArticleFavoriteAction(ar){const saved=nodeFavorite(ar),action=saved?'Favoriet verwijderen':'Als favoriet bewaren';return `<button class="articleFavorite ${saved?'isFavorite':''}" type="button" data-article-favorite="${esc(nid(ar))}" data-article-favorite-reg="${esc(ar.regId||state.viewer.regulation||state.regulation)}" title="${action}" aria-label="${action}">${saved?'★':'☆'}</button>`}function articleHistoryKey(ar){return `${String(ar?.regId||state.regulation)}:${normNum(num(ar))}`}
 function articleHistoryRecord(ar){return state.articleHistory?.[articleHistoryKey(ar)]||null}

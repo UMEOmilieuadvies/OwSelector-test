@@ -33,6 +33,11 @@ console.log('Terugverwijzingen zijn gegroepeerd en vindplaatsen openen gericht.'
 assert.match(source,/function renderArticleFavoriteAction\(ar\)/,'Artikelen in kolom 2 moeten een favorietenactie tonen.');
 assert.match(source,/data-article-favorite/,'De favorietenknop in kolom 2 moet een artikel identificeren.');
 console.log('Artikelen in kolom 2 kunnen als favoriet worden bewaard.');
+assert.match(source,/function renderArticleNotesAction\(ar\)/,'BAL-artikelen moeten een toelichtingsactie kunnen tonen.');
+assert.ok(fs.existsSync('article-notes.html'),'De pagina met de artikelsgewijze toelichting ontbreekt.');
+assert.ok(fs.existsSync('js/article-notes.js'),'De bediening van de artikelsgewijze toelichting ontbreekt.');
+assert.ok(fs.existsSync('data/article_notes_bal_chapter4.json'),'De gecontroleerde BAL-toelichtingsgegevens ontbreken.');
+console.log('De testfunctie voor artikelsgewijze toelichting is aanwezig.');
 assert.ok(!source.includes('/^1\\.1g-test$/'),'De startcontrole mag niet op één vaste testversie zijn vastgezet.');
 const indexSource=fs.readFileSync('index.html','utf8');
 assert.ok(indexSource.includes('__OWZ_VERSION__'),'De releasepagina moet de centrale versieplaatsaanduiding gebruiken.');
