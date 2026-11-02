@@ -1,6 +1,6 @@
-# OwSelector — Omgevingswet Zoeker 1.3g-test
+# OwSelector — Omgevingswet Zoeker 1.3h-test
 
-GitHub Pages-uitgave van Omgevingswet Zoeker 1.3g-test.
+GitHub Pages-uitgave van Omgevingswet Zoeker 1.3h-test.
 
 De website wordt bij iedere push en dagelijks met GitHub Actions gebouwd. Tijdens de build worden de zes officiële regelingen opgehaald via de bestaande KOOP/BWB-downloader, met de dag van de build als peildatum, en omgezet naar de legal graphs die de browser gebruikt. De dagelijkse build publiceert alleen als de inhoud is gewijzigd. De gepubliceerde website bevat alleen statische HTML, CSS, JavaScript en JSON.
 

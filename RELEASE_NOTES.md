@@ -580,3 +580,9 @@
 **Kleine wijziging.**
 
 - Breidt de artikelsgewijze nota van toelichting in de testomgeving uit naar alle zes regelingen.
+
+## 1.3h-test — 2026-11-02
+
+**Kleine wijziging.**
+
+- Verwijdert de algemene knop voor de memorie van toelichting uit de bovenbalk.

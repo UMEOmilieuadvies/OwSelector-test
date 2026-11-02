@@ -1,9 +1,9 @@
 {
-  "version": "1.3g-test",
+  "version": "1.3h-test",
   "kind": "klein",
-  "released_at": "2026-11-01",
+  "released_at": "2026-11-02",
   "notes": [
-    "Breidt de artikelsgewijze nota van toelichting in de testomgeving uit naar alle zes regelingen."
+    "Verwijdert de algemene knop voor de memorie van toelichting uit de bovenbalk."
   ],
   "resolved_comment_ids": []
 }
