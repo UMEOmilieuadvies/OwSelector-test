@@ -1,3 +1,8 @@
+## 1.4d-test — leesbare externe verwijzingen
+
+- Toont waar beschikbaar de regelingsnaam in plaats van een technische BWB-code.
+- Voegt de Monumentenwet 1988 toe aan het externe-verwijzingenregister.
+
 ## 1.4c-test — volledige Help-pagina
 
 - Neemt de actuele Help-pagina mee in de testrelease.

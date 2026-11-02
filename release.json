@@ -1,5 +1,5 @@
 {
-  "version": "1.4c-test",
+  "version": "1.4d-test",
   "kind": "groot",
   "released_at": "2026-11-02",
   "notes": [
@@ -8,7 +8,8 @@
     "Gebruikt één centrale versie voor alle vaste pagina's en controleert het werkelijke aantal regelingen bij het laden.",
     "Herstelt de testbuildcontrole en laat de hoofdindeling op tablet en telefoon leesbaar onder elkaar doorlopen.",
     "Herstelt de verwerking van de Invoeringswet: het officiële BWB-nummer uit de bron blijft leidend en een onvolledige gegevensbouw blokkeert publicatie.",
-    "Voltooit de actuele Help-pagina, inclusief uitleg over online favorieten, herstelcodes, privacy en alle zeven regelingen."
+    "Voltooit de actuele Help-pagina, inclusief uitleg over online favorieten, herstelcodes, privacy en alle zeven regelingen.",
+    "Toont bij externe verwijzingen leesbare regelingsnamen in plaats van technische BWB-codes."
   ],
   "resolved_comment_ids": []
 }

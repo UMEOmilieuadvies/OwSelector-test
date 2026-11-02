@@ -21,6 +21,7 @@ KNOWN_TITLES = {
     "BWBR0041278": "Omgevingsbesluit",
     "BWBR0045528": "Omgevingsregeling",
     "BWBR0043660": "Invoeringswet Omgevingswet",
+    "BWBR0004471": "Monumentenwet 1988",
 }
 
 
