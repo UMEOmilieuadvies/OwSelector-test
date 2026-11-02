@@ -23,12 +23,15 @@ try {
       await page.waitForFunction(version => {
         const input = document.getElementById('searchInput');
         const status = document.getElementById('status');
-        return window.OWZ_CONFIG?.version === version && input && !input.disabled && /6\/6 regelingen geladen/.test(status?.textContent || '');
+        const regulations = window.OWZ_CONFIG?.regulations || [];
+        const loaded = new RegExp(`${regulations.length}/${regulations.length} regelingen geladen`);
+        return window.OWZ_CONFIG?.version === version && input && !input.disabled && loaded.test(status?.textContent || '');
       }, expectedVersion, { timeout: 60000 });
       if (errors.length) throw new Error('Browserfout: ' + errors.join(' | '));
       const regulations = await page.locator('#regulationSelect option').count();
-      if (regulations !== 6) throw new Error('Verwacht 6 regelingen, vond ' + regulations + '.');
-      console.log(`Pre-productiesmoketest geslaagd op poging ${attempt}: ${expectedVersion}, 6 regelingen geladen en zoeken is actief.`);
+      const expectedRegulations = await page.evaluate(() => window.OWZ_CONFIG?.regulations?.length || 0);
+      if (regulations !== expectedRegulations) throw new Error(`Verwacht ${expectedRegulations} regelingen, vond ${regulations}.`);
+      console.log(`Pre-productiesmoketest geslaagd op poging ${attempt}: ${expectedVersion}, ${expectedRegulations} regelingen geladen en zoeken is actief.`);
       succeeded = true;
       break;
     } catch (error) {

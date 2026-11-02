@@ -1,4 +1,4 @@
-"""Prepare the GitHub Pages entry page from the central release version."""
+"""Prepare every fixed GitHub Pages page from the central release version."""
 from __future__ import annotations
 
 import argparse
@@ -10,6 +10,15 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSION_PATTERN = re.compile(r"1\.\d+[a-z]*-test\Z")
 CONFIG_PATTERN = re.compile(r"version\s*:\s*'([^']+)'")
 PLACEHOLDER = "__OWZ_VERSION__"
+STATIC_PAGES = (
+    "index.html",
+    "help.html",
+    "qna.html",
+    "nvt.html",
+    "beheer.html",
+    "historie.html",
+    "article-notes.html",
+)
 
 
 def read_version() -> str:
@@ -26,24 +35,28 @@ def read_version() -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--output", default="_site/index.html")
+    parser.add_argument("--output-dir", default="_site")
     args = parser.parse_args()
     try:
         version = read_version()
-        source = (ROOT / "index.html").read_text(encoding="utf-8")
-        if PLACEHOLDER not in source:
-            raise ValueError("index.html bevat geen versieplaatsaanduiding.")
-        rendered = source.replace(PLACEHOLDER, version)
-        if PLACEHOLDER in rendered:
-            raise ValueError("Niet alle versieplaatsaanduidingen zijn ingevuld.")
+        rendered_pages = {}
+        for page_name in STATIC_PAGES:
+            source = (ROOT / page_name).read_text(encoding="utf-8")
+            if PLACEHOLDER not in source:
+                raise ValueError(f"{page_name} bevat geen versieplaatsaanduiding.")
+            rendered = source.replace(PLACEHOLDER, version)
+            if PLACEHOLDER in rendered or version not in rendered:
+                raise ValueError(f"{page_name} bevat geen volledig ingevuld versienummer.")
+            rendered_pages[page_name] = rendered
         if not args.check:
-            output = ROOT / args.output
-            output.parent.mkdir(parents=True, exist_ok=True)
-            output.write_text(rendered, encoding="utf-8")
+            output_dir = ROOT / args.output_dir
+            output_dir.mkdir(parents=True, exist_ok=True)
+            for page_name, rendered in rendered_pages.items():
+                (output_dir / page_name).write_text(rendered, encoding="utf-8")
     except (OSError, ValueError) as error:
         print(f"Releasepagina kan niet worden voorbereid: {error}", file=sys.stderr)
         return 1
-    print(f"Testrelease {version} is consistent voorbereid.")
+    print(f"Testrelease {version} is consistent voorbereid voor {len(STATIC_PAGES)} vaste pagina's.")
     return 0
 
 

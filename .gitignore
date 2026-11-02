@@ -1,0 +1,17 @@
+# Lokale, tijdelijke producten van testbouw en beoordeling.
+# Deze blijven binnen deze testmap en mogen nooit per ongeluk worden gecommit.
+/.cache/
+/_site/
+/previous-graph/
+/review/
+/tools/__pycache__/
+
+# Opnieuw op te bouwen, lokale gegevensproducten.
+/data/source/
+/data/graph/
+/data/nvt/
+/data/illustrations/
+/data/article_history.json
+/data/back_references.json
+/data/external_refs.json
+/data/regulation_versions.json

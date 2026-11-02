@@ -42,8 +42,12 @@ assert.ok(fs.existsSync('js/article-notes.js'),'De bediening van de artikelsgewi
 assert.ok(fs.existsSync('data/article_notes_bal_chapter4.json'),'De gecontroleerde BAL-toelichtingsgegevens ontbreken.');
 console.log('De testfunctie voor artikelsgewijze toelichting is aanwezig.');
 assert.ok(!source.includes('/^1\\.1g-test$/'),'De startcontrole mag niet op één vaste testversie zijn vastgezet.');
+const staticPages=['index.html','help.html','qna.html','nvt.html','beheer.html','historie.html','article-notes.html'];
+for(const page of staticPages){
+  const pageSource=fs.readFileSync(page,'utf8');
+  assert.ok(pageSource.includes('__OWZ_VERSION__'),`${page} moet de centrale versieplaatsaanduiding gebruiken.`);
+}
 const indexSource=fs.readFileSync('index.html','utf8');
-assert.ok(indexSource.includes('__OWZ_VERSION__'),'De releasepagina moet de centrale versieplaatsaanduiding gebruiken.');
 assert.ok(indexSource.includes('Testomgeving — wijzigingen zijn nog niet definitief.'),'De testpagina moet een zichtbare testaanduiding hebben.');
 console.log('Teststart en releasepagina gebruiken geen vast testversienummer.');
 assert.match(source,/'Testfase':'testing'/,'De status Testfase moet ongewijzigd uit Supabase worden weergegeven.');

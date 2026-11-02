@@ -1,3 +1,9 @@
+## 1.4-test — centrale versiesturing en robuuste laadcontrole
+
+- Alle vaste pagina's krijgen hun zichtbare versienummer en cacheversie uit dezelfde bron: `VERSION`.
+- De laadmelding en de pre-productiesmoketest gebruiken het werkelijke aantal geconfigureerde regelingen.
+- Daardoor kan een toevoeging van een regeling niet meer ongemerkt leiden tot een oud versienummer of een foutieve 6/6-controle.
+
 ## 1.3e-test — 23 oktober 2026
 
 **Promotiecontrole.**

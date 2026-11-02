@@ -19,10 +19,14 @@ const config=context.window.OWZ_CONFIG;
 assert.equal(config.version,version,'De samengestelde site gebruikt niet het centrale versienummer.');
 assert.equal(config.environment,environment,'De samengestelde site heeft de verkeerde omgevingsmarkering.');
 
+const staticPages=['index.html','help.html','qna.html','nvt.html','beheer.html','historie.html','article-notes.html'];
+for(const page of staticPages){
+  const rendered=fs.readFileSync(path.join(siteDir,page),'utf8');
+  assert.ok(!rendered.includes('__OWZ_VERSION__'),`${page} bevat een onvervangen versieplaatsaanduiding.`);
+  assert.ok(rendered.includes(version),`${page} toont niet het centrale versienummer.`);
+  assert.ok(rendered.includes(`release-${version}`),`${page} gebruikt geen cacheversie die bij de release past.`);
+}
 const index=fs.readFileSync(path.join(siteDir,'index.html'),'utf8');
-assert.ok(!index.includes('__OWZ_VERSION__'),'De samengestelde startpagina bevat een onvervangen versieplaatsaanduiding.');
-assert.ok(index.includes(`Omgevingswet Zoeker ${version}`),'De samengestelde startpagina toont niet het juiste versienummer.');
-assert.ok(index.includes(`release-${version}`),'De samengestelde startpagina gebruikt geen cacheversie die bij de release past.');
 assert.ok(fs.existsSync(path.join(siteDir,'article-notes.html')),'De pagina met artikelsgewijze toelichting ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'js','article-notes.js')),'De bediening van artikelsgewijze toelichting ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','article_notes_bal_chapter4.json')),'De toelichtingsgegevens ontbreken in de publicatiebundel.');
