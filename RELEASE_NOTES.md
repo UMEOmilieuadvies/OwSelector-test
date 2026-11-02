@@ -1,3 +1,8 @@
+## 1.4e-test — bezoekoverzicht afgelopen maand
+
+- Toont in Beheer één compact overzicht voor de laatste volledige kalendermaand.
+- Geeft alleen bezoeken en unieke bezoekers weer; de lopende maand blijft buiten beeld.
+
 ## 1.4d-test — leesbare externe verwijzingen
 
 - Toont waar beschikbaar de regelingsnaam in plaats van een technische BWB-code.

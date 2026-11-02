@@ -1,5 +1,5 @@
 {
-  "version": "1.4d-test",
+  "version": "1.4e-test",
   "kind": "groot",
   "released_at": "2026-11-02",
   "notes": [
@@ -9,7 +9,8 @@
     "Herstelt de testbuildcontrole en laat de hoofdindeling op tablet en telefoon leesbaar onder elkaar doorlopen.",
     "Herstelt de verwerking van de Invoeringswet: het officiële BWB-nummer uit de bron blijft leidend en een onvolledige gegevensbouw blokkeert publicatie.",
     "Voltooit de actuele Help-pagina, inclusief uitleg over online favorieten, herstelcodes, privacy en alle zeven regelingen.",
-    "Toont bij externe verwijzingen leesbare regelingsnamen in plaats van technische BWB-codes."
+    "Toont bij externe verwijzingen leesbare regelingsnamen in plaats van technische BWB-codes.",
+    "Toont in Beheer alleen bezoeken en unieke bezoekers van de laatst volledig afgesloten maand."
   ],
   "resolved_comment_ids": []
 }
