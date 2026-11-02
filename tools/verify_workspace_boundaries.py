@@ -14,8 +14,10 @@ PARENT_PATH = re.compile(r"(?:['\"]|\b)\.\.[\\/]")
 
 def main() -> int:
     errors: list[str] = []
-    if ROOT.name != "test-cloudflare-d1":
-        errors.append("Deze controle mag alleen vanuit de afzonderlijke testmap draaien.")
+    required_root_files = ("VERSION", "index.html", ".github/workflows/pages.yml")
+    for relative_path in required_root_files:
+        if not (ROOT / relative_path).is_file():
+            errors.append(f"Testprojectbestand ontbreekt: {relative_path}")
 
     config = CONFIG.read_text(encoding="utf-8")
     if "environment:'test'" not in config:

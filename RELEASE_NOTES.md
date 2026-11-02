@@ -1,3 +1,8 @@
+## 1.4a-test — responsieve indeling en herstel testbuild
+
+- Zet de navigatie, het resultaat en het aanvullende materiaal op kleinere schermen onder elkaar.
+- Herstelt de werkruimtecontrole: GitHub mag de testbron in een andere mapnaam uitchecken.
+
 ## 1.4-test — centrale versiesturing en robuuste laadcontrole
 
 - Alle vaste pagina's krijgen hun zichtbare versienummer en cacheversie uit dezelfde bron: `VERSION`.

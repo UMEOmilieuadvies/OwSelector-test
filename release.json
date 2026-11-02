@@ -1,11 +1,12 @@
 {
-  "version": "1.4-test",
+  "version": "1.4a-test",
   "kind": "groot",
   "released_at": "2026-11-02",
   "notes": [
     "Voegt de Invoeringswet Omgevingswet (IWO) als zevende regeling toe, inclusief officiële bron, historie en verwijzingen.",
     "Maakt de artikelsgewijze toelichting overzichtelijker met gescheiden wettekst, logische alinea's en juridische inspringingen.",
-    "Gebruikt één centrale versie voor alle vaste pagina's en controleert het werkelijke aantal regelingen bij het laden."
+    "Gebruikt één centrale versie voor alle vaste pagina's en controleert het werkelijke aantal regelingen bij het laden.",
+    "Herstelt de testbuildcontrole en laat de hoofdindeling op tablet en telefoon leesbaar onder elkaar doorlopen."
   ],
   "resolved_comment_ids": []
 }

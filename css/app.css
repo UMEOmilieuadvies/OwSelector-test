@@ -224,3 +224,32 @@ body:has(.environmentBanner){grid-template-rows:auto auto auto 1fr auto}
 .commentStatus.testing{background:#e8eefb;color:#244a88}
 
 .favoriteSyncStatus{padding:7px 8px;margin:0 0 5px;color:#17673a;font-size:12px;font-weight:700}.favoriteSyncAction{margin:4px 0 8px;font-size:12px}.dialogHint{color:#607284;font-size:13px}.recoveryCode{display:block;margin:12px 0;padding:10px;border:1px solid #aebdca;border-radius:5px;background:#f4f8fb;font-family:monospace;font-size:16px;letter-spacing:.06em;word-break:break-all}
+
+/* Smalle vensters: geen drie samengeperste kolommen naast elkaar.
+   De volgorde blijft die van de toepassing: navigatie, resultaat, overig. */
+@media(max-width:980px){
+  html,body{height:auto;min-height:100%;overflow:auto}
+  body:not(.helpPage){display:block}
+  body:not(.helpPage) .topbar{align-items:flex-start;flex-wrap:wrap;gap:10px;padding:10px 12px}
+  body:not(.helpPage) .topbar nav{width:100%;flex-wrap:wrap}
+  body:not(.helpPage) .searchbar{padding:8px 12px 6px}
+  body:not(.helpPage) .searchrow{grid-template-columns:minmax(0,1fr) auto}
+  body:not(.helpPage) .regulationPicker{grid-column:1/-1;min-width:0;width:100%}
+  body:not(.helpPage) .workspace{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-height:0;padding:8px}
+  body:not(.helpPage) .panel{width:auto!important;min-height:0}
+  body:not(.helpPage) .navPanel{max-height:34vh}
+  body:not(.helpPage) .viewerPanel{min-height:52vh}
+  body:not(.helpPage) .sidePanel{min-height:18vh}
+  body:not(.helpPage) .resizer{display:none}
+  body:not(.helpPage) .scroll{min-height:0}
+}
+@media(max-width:560px){
+  body:not(.helpPage) .topbar nav{gap:4px}
+  body:not(.helpPage) .topbar nav button,body:not(.helpPage) .topbar nav .navHelpLink{padding:6px 8px;font-size:14px}
+  body:not(.helpPage) .searchrow{grid-template-columns:minmax(0,1fr)}
+  body:not(.helpPage) #searchButton{width:100%}
+  body:not(.helpPage) .regulationPicker{grid-column:auto}
+  body:not(.helpPage) .workspace{padding:5px}
+  body:not(.helpPage) .panel>header{height:auto;min-height:39px}
+  body:not(.helpPage) .viewerHistoryControls span{display:none}
+}
