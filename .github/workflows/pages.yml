@@ -57,7 +57,9 @@ jobs:
       - name: Build official article history
         run: python tools/build_article_history.py
       - name: Verify graphs
-        run: python tools/verify_runtime.py
+        run: |
+          python tests/verify_iwo_identity.py
+          python tools/verify_runtime.py
       - name: Download official explanatory notes
         env:
           NVT_FALLBACK_BASE: https://umeomilieuadvies.github.io/OwSelector-test/data/nvt

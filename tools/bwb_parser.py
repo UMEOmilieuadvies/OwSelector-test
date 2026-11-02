@@ -1082,15 +1082,32 @@ def parse(input_path,output_path):
             source["article_attachments"].append(table["id"])
         source["attachment_route"]=relation
 
-    # Mark source BWB from XML metadata when available.
-    bwb=None
-    for e in root.iter():
-        for k,v in e.attrib.items():
-            if "bwb" in k.lower() and str(v).upper().startswith("BWBR"):
-                bwb=str(v).upper()
-        if not bwb and e.text and "BWBR" in e.text:
-            m=re.search(r"BWBR\d{7,}",e.text)
-            if m:bwb=m.group(0)
+    # Het BWB-nummer van de regeling staat op de XML-wortel. Dat nummer is
+    # leidend: verderop in de tekst kunnen verwijzingen naar andere regelingen
+    # staan, die nooit de identiteit van deze bron mogen overschrijven.
+    bwb=str(root.get("bwb-id") or "").upper()
+    if not re.fullmatch(r"BWBR\d{7,}", bwb):
+        bwb=None
+
+    # Alleen oudere XML-vormen zonder een bwb-id op de wortel krijgen een
+    # voorzichtige terugval. Stop bij de eerste metadatawaarde; overschrijven
+    # met een latere verwijzing in de regeling is nadrukkelijk niet toegestaan.
+    if not bwb:
+        for e in root.iter():
+            for k,v in e.attrib.items():
+                value=str(v).upper()
+                if "bwb" in k.lower() and re.fullmatch(r"BWBR\d{7,}", value):
+                    bwb=value
+                    break
+            if bwb:
+                break
+    if not bwb:
+        for e in root.iter():
+            if e.text and "BWBR" in e.text:
+                m=re.search(r"BWBR\d{7,}",e.text)
+                if m:
+                    bwb=m.group(0)
+                    break
     for r in refs:r["source_bwb"]=bwb
 
     glossary,glossary_index,glossary_stats=extract_glossary(root,nodes,bwb)

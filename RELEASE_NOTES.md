@@ -1,3 +1,9 @@
+## 1.4b-test — herstel Invoeringswet en bouwblokkade
+
+- Herstelt de bronidentiteit van de Invoeringswet Omgevingswet: `BWBR0043660` uit de officiële XML-kop is altijd leidend.
+- Blokkeert een onvolledige bouw voordat een publicatie kan worden voorbereid.
+- Voegt een afzonderlijke controle toe voor de bronidentiteit van de Invoeringswet.
+
 ## 1.4a-test — responsieve indeling en herstel testbuild
 
 - Zet de navigatie, het resultaat en het aanvullende materiaal op kleinere schermen onder elkaar.

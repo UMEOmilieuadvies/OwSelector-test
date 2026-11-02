@@ -112,10 +112,10 @@ def main():
         log(f"ALLE {len(REGS)} REGELINGEN ZIJN GEBOUWD.")
         return 0
     if built > 0:
-        log(f"GEDEELDE BUILD GEREED: {built}/{len(REGS)} regelingen beschikbaar.")
+        log(f"ONVOLLEDIGE BUILD: {built}/{len(REGS)} regelingen beschikbaar; publicatie wordt geblokkeerd.")
         if missing:
             log("Tijdelijk niet beschikbaar:", ", ".join(missing))
-        return 0
+        return 1
     log("GEEN REGELINGEN BESCHIKBAAR; build kan niet worden voortgezet.")
     return 1
 
