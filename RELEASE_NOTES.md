@@ -1,3 +1,8 @@
+## 1.4g-test — bezoekcijfers onder Over
+
+- Toont onder Over de bezoeken en unieke bezoekers van de laatst volledig afgesloten maand.
+- Gebruikt een tijdzone-onafhankelijke maandberekening, ook in Beheer.
+
 ## 1.4f-test — vaste omgevingsscheiding
 
 - Bundelt alle Supabase-koppelingen in `app-config.js`.

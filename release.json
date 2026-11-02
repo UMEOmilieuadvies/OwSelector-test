@@ -1,5 +1,5 @@
 {
-  "version": "1.4f-test",
+  "version": "1.4g-test",
   "kind": "groot",
   "released_at": "2026-11-02",
   "notes": [
@@ -11,7 +11,8 @@
     "Voltooit de actuele Help-pagina, inclusief uitleg over online favorieten, herstelcodes, privacy en alle zeven regelingen.",
     "Toont bij externe verwijzingen leesbare regelingsnamen in plaats van technische BWB-codes.",
     "Toont in Beheer alleen bezoeken en unieke bezoekers van de laatst volledig afgesloten maand.",
-    "Bundelt alle Supabase-koppelingen in de centrale omgevingsconfiguratie en blokkeert verspreide databasegegevens in de testbouw."
+    "Bundelt alle Supabase-koppelingen in de centrale omgevingsconfiguratie en blokkeert verspreide databasegegevens in de testbouw.",
+    "Toont onder Over de bezoeken en unieke bezoekers van de laatst volledig afgesloten maand."
   ],
   "resolved_comment_ids": []
 }

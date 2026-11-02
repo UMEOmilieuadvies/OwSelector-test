@@ -53,6 +53,9 @@ assert.ok(fs.existsSync('article-notes.html'),'De pagina met de artikelsgewijze 
 assert.ok(fs.existsSync('js/article-notes.js'),'De bediening van de artikelsgewijze toelichting ontbreekt.');
 assert.ok(fs.existsSync('data/article_notes_bal_chapter4.json'),'De gecontroleerde BAL-toelichtingsgegevens ontbreken.');
 console.log('De testfunctie voor artikelsgewijze toelichting is aanwezig.');
+assert.match(source,/function loadAboutVisits\(\)/,'De Over-sectie moet bezoekcijfers kunnen laden.');
+assert.match(source,/site_visit_monthly/,'De Over-sectie moet de maandelijkse bezoekcijfers gebruiken.');
+assert.match(fs.readFileSync('index.html','utf8'),/id="aboutVisits"/,'De Over-sectie mist de plaats voor bezoekcijfers.');
 assert.ok(!source.includes('/^1\\.1g-test$/'),'De startcontrole mag niet op één vaste testversie zijn vastgezet.');
 const staticPages=['index.html','help.html','qna.html','nvt.html','beheer.html','historie.html','article-notes.html'];
 for(const page of staticPages){
