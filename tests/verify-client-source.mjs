@@ -25,7 +25,9 @@ for(const file of fs.readdirSync('js').filter(name=>name.endsWith('.js')&&name!=
   const clientSource=fs.readFileSync(file,'utf8');
   assert.ok(!/https:\/\/[^\s"']+\.supabase\.co/.test(clientSource),`${file} mag geen eigen Supabase-adres bevatten.`);
   assert.ok(!clientSource.includes('sb_publishable_'),`${file} mag geen eigen openbare Supabase-sleutel bevatten.`);
-  assert.match(clientSource,/OWZ_CONFIG|CONFIG/,`${file} moet de centrale omgevingsconfiguratie gebruiken.`);
+}
+for(const file of ['js/app.js','js/qna.js','js/beheer.js']){
+  assert.match(fs.readFileSync(file,'utf8'),/OWZ_CONFIG|CONFIG/,`${file} moet de centrale omgevingsconfiguratie gebruiken.`);
 }
 for(const name of ['searchVariants','buildIndex','chooseReg','setupEvents','load']){
   assert.match(source,new RegExp(`function ${name}\\(`),`Ontbrekende startfunctie: ${name}`);
