@@ -1,3 +1,9 @@
+## 1.4c-test — volledige Help-pagina
+
+- Neemt de actuele Help-pagina mee in de testrelease.
+- Legt online favorieten, herstelcodes, bewaartermijn en privacy uit.
+- Herstelt de centrale versieplaatsaanduiding op de Help-pagina.
+
 ## 1.4b-test — herstel Invoeringswet en bouwblokkade
 
 - Herstelt de bronidentiteit van de Invoeringswet Omgevingswet: `BWBR0043660` uit de officiële XML-kop is altijd leidend.

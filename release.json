@@ -1,5 +1,5 @@
 {
-  "version": "1.4b-test",
+  "version": "1.4c-test",
   "kind": "groot",
   "released_at": "2026-11-02",
   "notes": [
@@ -7,7 +7,8 @@
     "Maakt de artikelsgewijze toelichting overzichtelijker met gescheiden wettekst, logische alinea's en juridische inspringingen.",
     "Gebruikt één centrale versie voor alle vaste pagina's en controleert het werkelijke aantal regelingen bij het laden.",
     "Herstelt de testbuildcontrole en laat de hoofdindeling op tablet en telefoon leesbaar onder elkaar doorlopen.",
-    "Herstelt de verwerking van de Invoeringswet: het officiële BWB-nummer uit de bron blijft leidend en een onvolledige gegevensbouw blokkeert publicatie."
+    "Herstelt de verwerking van de Invoeringswet: het officiële BWB-nummer uit de bron blijft leidend en een onvolledige gegevensbouw blokkeert publicatie.",
+    "Voltooit de actuele Help-pagina, inclusief uitleg over online favorieten, herstelcodes, privacy en alle zeven regelingen."
   ],
   "resolved_comment_ids": []
 }
