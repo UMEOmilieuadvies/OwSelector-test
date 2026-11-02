@@ -1,7 +1,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-const SUPABASE_URL='https://lemcbncvqcsffatsxpdq.supabase.co';
-const SUPABASE_KEY='sb_publishable_Lo6PkEOT4z5GgLRgkDrx4Q_5O0Y0PsB';
+const CONFIG=globalThis.OWZ_CONFIG||{};
+const SUPABASE_URL=String(CONFIG.supabase?.url||'').replace(/\/+$/,'');
+const SUPABASE_KEY=String(CONFIG.supabase?.adminAnonKey||CONFIG.supabase?.anonKey||'');
 const supabase=createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let factorId='',activeTab='comments';

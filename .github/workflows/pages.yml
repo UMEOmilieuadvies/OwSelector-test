@@ -36,11 +36,12 @@ jobs:
           node --check js/app.js
           node --check js/article-notes.js
           node --check js/qna.js
+          node --check js/beheer.js
           node tests/verify-client-source.mjs
           node tests/verify-article-notes-layout.mjs
           node tests/verify-responsive-layout.mjs
-          if grep -q 'pqpsajcjydvagrfxfeye' js/app.js js/qna.js; then
-            echo 'Productie-Supabase gevonden in testcode.'
+          if find js -name '*.js' ! -name 'app-config.js' -print0 | xargs -0 grep -qE 'https://[^[:space:]"'"']*\.supabase\.co|sb_publishable_'; then
+            echo 'Databasegegevens horen uitsluitend in js/app-config.js.'
             exit 1
           fi
       - name: Download official regulations

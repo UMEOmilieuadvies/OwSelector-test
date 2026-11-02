@@ -1,12 +1,9 @@
 'use strict';
 (() => {
-const SUPABASE_URL='https://lemcbncvqcsffatsxpdq.supabase.co';
-const SUPABASE_KEY='sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O';
-const REGS=[
- {id:'OW',name:'Omgevingswet'}, {id:'BAL',name:'Besluit activiteiten leefomgeving (BAL)'},
- {id:'BBL',name:'Besluit bouwwerken leefomgeving (BBL)'}, {id:'BKL',name:'Besluit kwaliteit leefomgeving (BKL)'},
- {id:'OB',name:'Omgevingsbesluit (OB)'}, {id:'OR',name:'Omgevingsregeling (OR)'}
-];
+const CONFIG=globalThis.OWZ_CONFIG||{};
+const SUPABASE_URL=String(CONFIG.supabase?.url||'').replace(/\/+$/,'');
+const SUPABASE_KEY=String(CONFIG.supabase?.anonKey||'');
+const REGS=Array.isArray(CONFIG.regulations)?CONFIG.regulations:[];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
 function nlDate(value){const m=String(value||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?`${m[3]}-${m[2]}-${m[1]}`:'onbekend'}

@@ -2,10 +2,11 @@
 /* Testomgeving: alle omgevingsafhankelijke waarden staan uitsluitend hier. */
 window.OWZ_CONFIG=Object.freeze({
   environment:'test',
-  version:'1.4e-test',
+  version:'1.4f-test',
   supabase:Object.freeze({
     url:'https://lemcbncvqcsffatsxpdq.supabase.co',
-    anonKey:'sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O'
+    anonKey:'sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O',
+    adminAnonKey:'sb_publishable_Lo6PkEOT4z5GgLRgkDrx4Q_5O0Y0PsB'
   }),
   storage:Object.freeze({favoritesKey:'owz_test_favorites'}),
   regulations:Object.freeze([

@@ -21,11 +21,21 @@ assert.ok(notesCatalog.regulations.some(regulation=>regulation.id==='IWO'&&regul
 const source=fs.readFileSync('js/app.js','utf8');
 assert.ok(!source.includes('pqpsajcjydvagrfxfeye'),'Productie-Supabase mag niet in de testcode voorkomen.');
 assert.ok(!source.includes("const VERSION='"),'Versie hoort alleen in app-config.js te staan.');
+for(const file of fs.readdirSync('js').filter(name=>name.endsWith('.js')&&name!=='app-config.js').map(name=>`js/${name}`)){
+  const clientSource=fs.readFileSync(file,'utf8');
+  assert.ok(!/https:\/\/[^\s"']+\.supabase\.co/.test(clientSource),`${file} mag geen eigen Supabase-adres bevatten.`);
+  assert.ok(!clientSource.includes('sb_publishable_'),`${file} mag geen eigen openbare Supabase-sleutel bevatten.`);
+  assert.match(clientSource,/OWZ_CONFIG|CONFIG/,`${file} moet de centrale omgevingsconfiguratie gebruiken.`);
+}
 for(const name of ['searchVariants','buildIndex','chooseReg','setupEvents','load']){
   assert.match(source,new RegExp(`function ${name}\\(`),`Ontbrekende startfunctie: ${name}`);
 }
 console.log('Clientconfiguratie en kritieke startfuncties zijn gecontroleerd.');
 assert.match(fs.readFileSync('index.html','utf8'),/js\/app-config\.js[\s\S]*js\/app\.js/,'Configuratie moet vóór de applicatie laden.');
+for(const page of ['qna.html','beheer.html']){
+  const pageSource=fs.readFileSync(page,'utf8');
+  assert.match(pageSource,/js\/app-config\.js[\s\S]*js\/(qna|beheer)\.js/,`${page} moet de configuratie vóór de eigen code laden.`);
+}
 
 assert.ok(source.includes('FAVORITES_KEY'),'Favorieten moeten de omgevingsspecifieke opslag gebruiken.');
 assert.ok(!source.includes("localStorage.getItem('owz_favorites')"),'De gedeelde favorietensleutel mag niet meer worden gelezen.');

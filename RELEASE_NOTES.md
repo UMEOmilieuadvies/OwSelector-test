@@ -1,3 +1,8 @@
+## 1.4f-test — vaste omgevingsscheiding
+
+- Bundelt alle Supabase-koppelingen in `app-config.js`.
+- Blokkeert testpublicaties zodra een databaseadres of openbare sleutel buiten die configuratie staat.
+
 ## 1.4e-test — bezoekoverzicht afgelopen maand
 
 - Toont in Beheer één compact overzicht voor de laatste volledige kalendermaand.
