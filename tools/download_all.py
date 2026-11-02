@@ -20,6 +20,7 @@ REGULATIONS = [
     ("BKL", "BWBR0041313", "bkl.xml"),
     ("OB",  "BWBR0041278", "ob.xml"),
     ("OR",  "BWBR0045528", "or.xml"),
+    ("IWO", "BWBR0043660", "invoeringswet_omgevingswet.xml"),
 ]
 
 # Iedere build gebruikt de dag van uitvoeren als peildatum. Daardoor haalt de

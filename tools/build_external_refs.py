@@ -12,7 +12,7 @@ from eu_references import EU_INSTRUMENTS, eu_url
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data" / "source"
 OUTPUT = ROOT / "data" / "external_refs.json"
-FILES = ("omgevingswet.xml", "bal.xml", "bbl.xml", "bkl.xml", "ob.xml", "or.xml")
+FILES = ("omgevingswet.xml", "bal.xml", "bbl.xml", "bkl.xml", "ob.xml", "or.xml", "invoeringswet_omgevingswet.xml")
 KNOWN_TITLES = {
     "BWBR0037885": "Omgevingswet",
     "BWBR0041330": "Besluit activiteiten leefomgeving",
@@ -20,6 +20,7 @@ KNOWN_TITLES = {
     "BWBR0041313": "Besluit kwaliteit leefomgeving",
     "BWBR0041278": "Omgevingsbesluit",
     "BWBR0045528": "Omgevingsregeling",
+    "BWBR0043660": "Invoeringswet Omgevingswet",
 }
 
 

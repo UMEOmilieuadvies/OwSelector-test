@@ -1,7 +1,7 @@
 from pathlib import Path
 import json
 ROOT=Path(__file__).resolve().parent; APPROOT=ROOT.parent; GRAPH=APPROOT/'data'/'graph'
-expected=['ow','bal','bbl','bkl','ob','or']; missing=[]
+expected=['ow','bal','bbl','bkl','ob','or','iwo']; missing=[]
 registry_path=APPROOT/'data'/'external_refs.json'
 if not registry_path.exists():raise SystemExit('ONTBREKEND EXTERN-VERWIJZINGENREGISTER')
 backref_path=APPROOT/'data'/'back_references.json'
@@ -22,7 +22,7 @@ for stem in expected:
    if not ref.get('anchor') or not key or key not in keys:
     raise SystemExit(f'ONGELDIGE EXTERNE VERWIJZING: {p} {ref!r}')
    checked+=1
-print(f'Runtimecontrole: {len(expected)-len(missing)}/6 grafen aanwezig.')
+print(f'Runtimecontrole: {len(expected)-len(missing)}/{len(expected)} grafen aanwezig.')
 print(f'Externe verwijzingen gecontroleerd: {checked}; registerdoelen: {len(keys)}.')
 print(f'Terugverwijzingen gecontroleerd: {backrefs.get("count",0)}.')
 if missing:print('Ontbrekend:',', '.join(missing))

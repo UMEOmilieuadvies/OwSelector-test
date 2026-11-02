@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bouw artikelgewijze toelichtingen uit de zes oorspronkelijke officiële NvT's."""
+"""Bouw artikelgewijze toelichtingen uit de oorspronkelijke officiële NvT's."""
 from __future__ import annotations
 from collections import defaultdict
 from html.parser import HTMLParser
@@ -7,7 +7,7 @@ from pathlib import Path
 import json,re,xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]; SOURCE=ROOT/'data'/'source'; OUT=ROOT/'data'/'article_notes.json'
-REGS={'OW':('omgevingswet.xml','ow-original.html'),'BAL':('bal.xml','bal-original.html'),'BBL':('bbl.xml','bbl-original.html'),'BKL':('bkl.xml','bkl-original.html'),'OB':('ob.xml','ob-original.html'),'OR':('or.xml','or-original.html')}
+REGS={'OW':('omgevingswet.xml','ow-original.html'),'BAL':('bal.xml','bal-original.html'),'BBL':('bbl.xml','bbl-original.html'),'BKL':('bkl.xml','bkl-original.html'),'OB':('ob.xml','ob-original.html'),'OR':('or.xml','or-original.html'),'IWO':('invoeringswet_omgevingswet.xml','iwo-original.html')}
 ARTICLE=re.compile(r'^Artikel\s+([0-9]+(?:\.[0-9]+)*[a-z]?)\b',re.I)
 def local(e):return e.tag.rsplit('}',1)[-1]
 def text(e):return ' '.join(''.join(e.itertext()).split())

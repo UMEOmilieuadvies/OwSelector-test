@@ -36,6 +36,7 @@ jobs:
           node --check js/article-notes.js
           node --check js/qna.js
           node tests/verify-client-source.mjs
+          node tests/verify-article-notes-layout.mjs
           if grep -q 'pqpsajcjydvagrfxfeye' js/app.js js/qna.js; then
             echo 'Productie-Supabase gevonden in testcode.'
             exit 1
@@ -59,6 +60,8 @@ jobs:
         env:
           NVT_FALLBACK_BASE: https://umeomilieuadvies.github.io/OwSelector-test/data/nvt
         run: python tools/build_nvt_documents.py
+      - name: Build article-specific explanatory notes
+        run: python tools/build_article_notes_all.py
       - name: Assemble static site
         run: |
           mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations _site/data/nvt

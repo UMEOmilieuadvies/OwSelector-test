@@ -95,6 +95,22 @@
         }
       ],
       "bwb": "BWBR0045528"
+    },
+    {
+      "id": "IWO",
+      "short": "Invoeringswet Omgevingswet",
+      "name": "Invoeringswet Omgevingswet (IWO)",
+      "documents": [
+        {
+          "title": "Memorie van toelichting bij de Invoeringswet Omgevingswet",
+          "publication": "Kamerstukken II 2017/18, 34 986, nr. 3",
+          "date": "2018",
+          "description": "Toelichting bij het wetsvoorstel voor de Invoeringswet Omgevingswet.",
+          "url": "https://zoek.officielebekendmakingen.nl/kst-34986-3.html",
+          "file": "iwo-original.html"
+        }
+      ],
+      "bwb": "BWBR0043660"
     }
   ]
 }

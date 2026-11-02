@@ -15,6 +15,7 @@ REGS = [
     ("BKL", "BWBR0041313", "bkl", "bkl"),
     ("OB",  "BWBR0041278", "ob", "ob"),
     ("OR",  "BWBR0045528", "or", "or"),
+    ("IWO", "BWBR0043660", "invoeringswet_omgevingswet", "iwo"),
 ]
 
 PARSER = BASE / "bwb_parser.py"
@@ -108,7 +109,7 @@ def main():
         if result.returncode != 0:
             log("FOUT tabelstructuur kon niet volledig worden gecontroleerd.")
             return 1
-        log("ALLE ZES REGELINGEN ZIJN GEBOUWD.")
+        log(f"ALLE {len(REGS)} REGELINGEN ZIJN GEBOUWD.")
         return 0
     if built > 0:
         log(f"GEDEELDE BUILD GEREED: {built}/{len(REGS)} regelingen beschikbaar.")

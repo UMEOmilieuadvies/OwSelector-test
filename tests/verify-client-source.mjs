@@ -13,8 +13,11 @@ assert.equal(JSON.parse(fs.readFileSync('release.json','utf8')).version,declared
 assert.match(config.version,/^\d+\.\d+(?:[a-z])?-test$/,'Het testversienummer moet geldig zijn.');
 assert.equal(config.supabase.url,'https://lemcbncvqcsffatsxpdq.supabase.co','Alleen de test-Supabase is toegestaan.');
 assert.equal(config.storage.favoritesKey,'owz_test_favorites','Testfavorieten moeten een eigen opslag gebruiken.');
-assert.equal(config.regulations.length,6,'Exact zes regelingen moeten beschikbaar zijn.');
-assert.equal(new Set(config.regulations.map(regulation=>regulation.id)).size,6,'Regelingcodes moeten uniek zijn.');
+assert.equal(config.regulations.length,7,'Exact zeven regelingen moeten beschikbaar zijn.');
+assert.equal(new Set(config.regulations.map(regulation=>regulation.id)).size,7,'Regelingcodes moeten uniek zijn.');
+assert.ok(config.regulations.some(regulation=>regulation.id==='IWO'&&regulation.bwb==='BWBR0043660'),'De Invoeringswet Omgevingswet ontbreekt.');
+const notesCatalog=JSON.parse(fs.readFileSync('nvt_catalog.json','utf8'));
+assert.ok(notesCatalog.regulations.some(regulation=>regulation.id==='IWO'&&regulation.bwb==='BWBR0043660'),'De toelichtingscatalogus mist de Invoeringswet Omgevingswet.');
 const source=fs.readFileSync('js/app.js','utf8');
 assert.ok(!source.includes('pqpsajcjydvagrfxfeye'),'Productie-Supabase mag niet in de testcode voorkomen.');
 assert.ok(!source.includes("const VERSION='"),'Versie hoort alleen in app-config.js te staan.');

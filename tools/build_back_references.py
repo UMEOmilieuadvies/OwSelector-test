@@ -12,8 +12,9 @@ OUTPUT = ROOT / "data" / "back_references.json"
 REGULATIONS = {
     "BWBR0037885": "OW", "BWBR0041330": "BAL", "BWBR0041297": "BBL",
     "BWBR0041313": "BKL", "BWBR0041278": "OB", "BWBR0045528": "OR",
+    "BWBR0043660": "IWO",
 }
-FILES = {"OW": "ow", "BAL": "bal", "BBL": "bbl", "BKL": "bkl", "OB": "ob", "OR": "or"}
+FILES = {"OW": "ow", "BAL": "bal", "BBL": "bbl", "BKL": "bkl", "OB": "ob", "OR": "or", "IWO": "iwo"}
 TARGET_TYPES = {"article", "paragraph", "subparagraph", "chapter", "section", "appendix"}
 INTERNAL_REFERENCE_RE = re.compile(r"\b(artikel|art\.?|paragraaf|afdeling|hoofdstuk|bijlage)\s+([0-9]+(?:\.[0-9]+)*[a-z]?|[A-Z]\.[0-9]+[a-z]?|[IVXLCDM]+(?:[a-z]+)?)", re.IGNORECASE)
 REFERENCE_TYPES = {"artikel": "article", "art": "article", "paragraaf": "paragraph", "afdeling": "section", "hoofdstuk": "chapter", "bijlage": "appendix"}

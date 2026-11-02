@@ -1,9 +1,10 @@
 {
-  "version": "1.3h-test",
+  "version": "1.3i-test",
   "kind": "klein",
   "released_at": "2026-11-02",
   "notes": [
-    "Verwijdert de algemene knop voor de memorie van toelichting uit de bovenbalk."
+    "Voegt de Invoeringswet Omgevingswet (IWO) als zevende regeling toe, inclusief officiële bron, historie en verwijzingen.",
+    "Maakt de artikelsgewijze toelichting overzichtelijker met gescheiden wettekst, logische alinea's en juridische inspringingen."
   ],
   "resolved_comment_ids": []
 }

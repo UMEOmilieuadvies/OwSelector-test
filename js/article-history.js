@@ -3,7 +3,8 @@
 const REGS={
   OW:{name:'Omgevingswet',bwb:'BWBR0037885'}, BAL:{name:'Besluit activiteiten leefomgeving (BAL)',bwb:'BWBR0041330'},
   BBL:{name:'Besluit bouwwerken leefomgeving (BBL)',bwb:'BWBR0041297'}, BKL:{name:'Besluit kwaliteit leefomgeving (BKL)',bwb:'BWBR0041313'},
-  OB:{name:'Omgevingsbesluit (OB)',bwb:'BWBR0041278'}, OR:{name:'Omgevingsregeling (OR)',bwb:'BWBR0045528'}
+  OB:{name:'Omgevingsbesluit (OB)',bwb:'BWBR0041278'}, OR:{name:'Omgevingsregeling (OR)',bwb:'BWBR0045528'},
+  IWO:{name:'Invoeringswet Omgevingswet (IWO)',bwb:'BWBR0043660'}
 };
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const date=value=>/^\d{4}-\d{2}-\d{2}$/.test(String(value||''))?String(value).split('-').reverse().join('-'):String(value||'onbekend');

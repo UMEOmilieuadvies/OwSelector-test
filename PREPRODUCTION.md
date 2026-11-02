@@ -8,8 +8,8 @@ Elke publicatie naar de pre-productiesite moet slagen voor:
 
 1. syntaxiscontrole van de clientcode;
 2. controle dat productie-Supabase niet in testcode voorkomt;
-3. opbouw en controle van de zes officiële regelinggrafen;
-4. een browser-starttest op de gepubliceerde testsite: geen browserfout, zes regelingen geladen en een actief zoekveld.
+3. opbouw en controle van de zeven officiële regelinggrafen;
+4. een browser-starttest op de gepubliceerde testsite: geen browserfout, zeven regelingen geladen en een actief zoekveld.
 
 Een mislukte pre-productietest blokkeert overdracht naar productie.
 

@@ -32,6 +32,7 @@ REGS = {
     "BKL": ("BWBR0041313", "bkl_legal_graph.json"),
     "OB": ("BWBR0041278", "ob_legal_graph.json"),
     "OR": ("BWBR0045528", "or_legal_graph.json"),
+    "IWO": ("BWBR0043660", "iwo_legal_graph.json"),
 }
 USER_AGENT = "Omgevingswet-Zoeker-history/1.0 (public statutory metadata index)"
 _request_lock = threading.Lock()
