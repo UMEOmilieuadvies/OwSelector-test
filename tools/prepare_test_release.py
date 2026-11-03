@@ -9,7 +9,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 VERSION_PATTERN = re.compile(r"1\.\d+[a-z]*-test\Z")
 CONFIG_PATTERN = re.compile(r"version\s*:\s*'([^']+)'")
-PLACEHOLDER = "__OWZ_VERSION__"
+PLACEHOLDERS = {
+    "__OWZ_VERSION__": None,
+    "__OWZ_ENVIRONMENT_LABEL__": "testomgeving",
+    "__OWZ_FAVORITES_STORAGE__": "in de testdatabase",
+}
 STATIC_PAGES = (
     "index.html",
     "help.html",
@@ -42,10 +46,13 @@ def main() -> int:
         rendered_pages = {}
         for page_name in STATIC_PAGES:
             source = (ROOT / page_name).read_text(encoding="utf-8")
-            if PLACEHOLDER not in source:
+            if "__OWZ_VERSION__" not in source:
                 raise ValueError(f"{page_name} bevat geen versieplaatsaanduiding.")
-            rendered = source.replace(PLACEHOLDER, version)
-            if PLACEHOLDER in rendered or version not in rendered:
+            rendered = source.replace("__OWZ_VERSION__", version)
+            for placeholder, value in PLACEHOLDERS.items():
+                if value is not None:
+                    rendered = rendered.replace(placeholder, value)
+            if any(placeholder in rendered for placeholder in PLACEHOLDERS) or version not in rendered:
                 raise ValueError(f"{page_name} bevat geen volledig ingevuld versienummer.")
             rendered_pages[page_name] = rendered
         if not args.check:

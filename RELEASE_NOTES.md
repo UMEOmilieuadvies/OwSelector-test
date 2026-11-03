@@ -1,3 +1,8 @@
+## 1.4h-test — omgevingsgebonden vaste teksten
+
+- Gebruikt vaste plaatsaanduidingen voor de zichtbare omgeving en favorietenopslag.
+- Controleert dat een gebouwde site geen onvervangen omgevingsplaatsaanduidingen bevat.
+
 ## 1.4g-test — bezoekcijfers onder Over
 
 - Toont onder Over de bezoeken en unieke bezoekers van de laatst volledig afgesloten maand.

@@ -35,12 +35,14 @@ const files=[];
 function collect(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())collect(file);else files.push(file)}}
 collect(siteDir);
 const content=files.filter(file=>/\.(?:html|js|json|css)$/i.test(file)).map(file=>fs.readFileSync(file,'utf8')).join('\n');
-assert.ok(!content.includes('__OWZ_VERSION__'),'De publicatiemap bevat nog een onvervangen versieplaatsaanduiding.');
+assert.ok(!content.includes('__OWZ_'),'De publicatiemap bevat nog een onvervangen omgevingsplaatsaanduiding.');
 
 if(environment==='test'){
   assert.equal(config.supabase.url,'https://lemcbncvqcsffatsxpdq.supabase.co','De testsite gebruikt niet de testdatabase.');
   assert.equal(config.storage.favoritesKey,'owz_test_favorites','De testsite gebruikt niet de aparte testfavorietenopslag.');
   assert.ok(index.includes('Testomgeving — wijzigingen zijn nog niet definitief.'),'De testsite mist de verplichte testaanduiding.');
+  assert.ok(content.includes('testomgeving'),'De testsite mist de omgevingsaanduiding in vaste pagina’s.');
+  assert.ok(content.includes('in de testdatabase'),'De testsite mist de testopslagtekst voor favorieten.');
   assert.ok(!content.includes('pqpsajcjydvagrfxfeye'),'De productiedatabase is aangetroffen in de testpublicatie.');
 }else{
   assert.equal(config.supabase.url,'https://pqpsajcjydvagrfxfeye.supabase.co','De productiesite gebruikt niet de productiedatabase.');
