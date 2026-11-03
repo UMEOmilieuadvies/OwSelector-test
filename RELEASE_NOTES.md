@@ -1,3 +1,7 @@
+## 1.4i-test — neutrale gedeelde stijlopmerking
+
+- Vervangt de laatste testmarkering in gedeelde CSS door een neutrale opmerking.
+
 ## 1.4h-test — omgevingsgebonden vaste teksten
 
 - Gebruikt vaste plaatsaanduidingen voor de zichtbare omgeving en favorietenopslag.
