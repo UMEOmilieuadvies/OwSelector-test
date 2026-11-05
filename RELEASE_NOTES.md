@@ -651,3 +651,9 @@
 **Kleine wijziging.**
 
 - Herstelt de favorietenlijst bij grote browserzoom met begrensde breedte, afbreekbare namen en losse herstelcodeknoppen.
+
+## 1.4k-test — 2026-11-05
+
+**Kleine wijziging.**
+
+- Voorkomt dat tijdelijk niet bereikbare online favorieten als een lege lijst worden getoond; probeert automatisch opnieuw en biedt een zichtbare herstelactie.

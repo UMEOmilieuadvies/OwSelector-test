@@ -1,9 +1,9 @@
 {
-  "version": "1.4j-test",
+  "version": "1.4k-test",
   "kind": "klein",
   "released_at": "2026-11-05",
   "notes": [
-    "Herstelt de favorietenlijst bij grote browserzoom met begrensde breedte, afbreekbare namen en losse herstelcodeknoppen."
+    "Voorkomt dat tijdelijk niet bereikbare online favorieten als een lege lijst worden getoond; probeert automatisch opnieuw en biedt een zichtbare herstelactie."
   ],
   "resolved_comment_ids": []
 }

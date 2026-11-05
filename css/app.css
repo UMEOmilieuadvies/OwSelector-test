@@ -230,6 +230,7 @@ body:has(.environmentBanner){grid-template-rows:auto auto auto 1fr auto}
 .historyPanel{width:min(560px,calc(100vw - 32px));max-height:min(420px,calc(100vh - 150px));overflow-x:hidden;overflow-y:auto;padding:6px}
 .favoriteSyncStatus{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:7px 8px;margin:0 0 5px;line-height:1.35}
 .favoriteSyncMessage{min-width:0;overflow-wrap:anywhere}
+.favoriteSyncError{color:#8a3b00;background:#fff5eb;border-left:3px solid #c06b20}
 .favoriteSyncActions{display:flex;gap:6px;flex-wrap:wrap}
 .favoriteSyncAction{margin:0;font-size:12px;white-space:normal}
 .favoriteHistoryItem{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35}
