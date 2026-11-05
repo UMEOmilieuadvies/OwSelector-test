@@ -645,3 +645,9 @@
 
 - Voegt de Invoeringswet Omgevingswet (IWO) als zevende regeling toe, inclusief officiële bron, historie en verwijzingen.
 - Maakt de artikelsgewijze toelichting overzichtelijker met gescheiden wettekst, logische alinea's en juridische inspringingen.
+
+## 1.4j-test — 2026-11-05
+
+**Kleine wijziging.**
+
+- Herstelt de favorietenlijst bij grote browserzoom met begrensde breedte, afbreekbare namen en losse herstelcodeknoppen.

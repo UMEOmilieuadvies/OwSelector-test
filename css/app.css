@@ -226,6 +226,16 @@ body:has(.environmentBanner){grid-template-rows:auto auto auto 1fr auto}
 
 .favoriteSyncStatus{padding:7px 8px;margin:0 0 5px;color:#17673a;font-size:12px;font-weight:700}.favoriteSyncAction{margin:4px 0 8px;font-size:12px}.dialogHint{color:#607284;font-size:13px}.recoveryCode{display:block;margin:12px 0;padding:10px;border:1px solid #aebdca;border-radius:5px;background:#f4f8fb;font-family:monospace;font-size:16px;letter-spacing:.06em;word-break:break-all}
 
+/* Favorietenpaneel: status en acties blijven leesbaar, ook bij grote zoom. */
+.historyPanel{width:min(560px,calc(100vw - 32px));max-height:min(420px,calc(100vh - 150px));overflow-x:hidden;overflow-y:auto;padding:6px}
+.favoriteSyncStatus{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:7px 8px;margin:0 0 5px;line-height:1.35}
+.favoriteSyncMessage{min-width:0;overflow-wrap:anywhere}
+.favoriteSyncActions{display:flex;gap:6px;flex-wrap:wrap}
+.favoriteSyncAction{margin:0;font-size:12px;white-space:normal}
+.favoriteHistoryItem{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35}
+.favoriteHistoryItem span{overflow:visible;text-overflow:clip;overflow-wrap:anywhere;word-break:normal}
+@media(max-width:980px){html,body{overflow-x:hidden}.historyPanel{left:12px;width:calc(100vw - 24px);max-height:min(52vh,420px)}}
+
 /* Smalle vensters: geen drie samengeperste kolommen naast elkaar.
    De volgorde blijft die van de toepassing: navigatie, resultaat, overig. */
 @media(max-width:980px){
