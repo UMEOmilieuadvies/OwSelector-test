@@ -57,7 +57,7 @@ assert.match(source,/function loadAboutVisits\(\)/,'De Over-sectie moet bezoekci
 assert.match(source,/site_visit_monthly/,'De Over-sectie moet de maandelijkse bezoekcijfers gebruiken.');
 assert.match(fs.readFileSync('index.html','utf8'),/id="aboutVisits"/,'De Over-sectie mist de plaats voor bezoekcijfers.');
 assert.ok(!source.includes('/^1\\.1g-test$/'),'De startcontrole mag niet op één vaste testversie zijn vastgezet.');
-const staticPages=['index.html','help.html','qna.html','nvt.html','beheer.html','historie.html','article-notes.html'];
+const staticPages=['index.html','help.html','qna.html','nvt.html','beheer.html','historie.html','article-notes.html','jurisprudentie.html'];
 for(const page of staticPages){
   const pageSource=fs.readFileSync(page,'utf8');
   assert.ok(pageSource.includes('__OWZ_VERSION__'),`${page} moet de centrale versieplaatsaanduiding gebruiken.`);
@@ -65,5 +65,10 @@ for(const page of staticPages){
 const indexSource=fs.readFileSync('index.html','utf8');
 assert.ok(indexSource.includes('Testomgeving — wijzigingen zijn nog niet definitief.'),'De testpagina moet een zichtbare testaanduiding hebben.');
 console.log('Teststart en releasepagina gebruiken geen vast testversienummer.');
+assert.match(source,/function renderArticleJurisprudenceAction\(ar\)/,'Artikelen met proefresultaten moeten een jurisprudentieactie tonen.');
+assert.ok(fs.existsSync('jurisprudentie.html'),'De afzonderlijke pagina voor jurisprudentie ontbreekt.');
+assert.ok(fs.existsSync('js/jurisprudence.js'),'De bediening van de jurisprudentiepagina ontbreekt.');
+assert.ok(fs.existsSync('data/jurisprudence.json'),'De gecontroleerde proefgegevens voor jurisprudentie ontbreken.');
+console.log('Jurisprudentie opent uitsluitend in een afzonderlijk tabblad.');
 assert.match(source,/'Testfase':'testing'/,'De status Testfase moet ongewijzigd uit Supabase worden weergegeven.');
 console.log('De opmerkingenstatus Testfase wordt rechtstreeks weergegeven.');

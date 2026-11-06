@@ -1,0 +1,64 @@
+{
+  "status": "proef",
+  "scope": "Alleen gepubliceerde Rechtspraak-uitspraken met een expliciete, handmatig gecontroleerde verwijzing naar een BAL-artikel.",
+  "updated_at": "2026-11-06",
+  "cases": [
+    {
+      "ecli": "ECLI:NL:RBNNE:2025:3352",
+      "court": "Rechtbank Noord-Nederland",
+      "year": 2025,
+      "articles": ["2.1"],
+      "summary": "De uitspraak noemt artikel 2.1 van het Besluit activiteiten leefomgeving expliciet.",
+      "official_url": "https://uitspraken.rechtspraak.nl/details?id=ECLI%3ANL%3ARBNNE%3A2025%3A3352"
+    },
+    {
+      "ecli": "ECLI:NL:RBGEL:2025:1311",
+      "court": "Rechtbank Gelderland",
+      "year": 2025,
+      "articles": ["11.27"],
+      "summary": "De uitspraak behandelt de specifieke zorgplicht van artikel 11.27 BAL.",
+      "official_url": "https://uitspraken.rechtspraak.nl/details?id=ECLI%3ANL%3ARBGEL%3A2025%3A1311"
+    },
+    {
+      "ecli": "ECLI:NL:RBNNE:2025:2278",
+      "court": "Rechtbank Noord-Nederland",
+      "year": 2025,
+      "articles": ["11.27"],
+      "summary": "De specifieke zorgplicht van artikel 11.27 BAL wordt rechtstreeks beoordeeld.",
+      "official_url": "https://uitspraken.rechtspraak.nl/details?id=ECLI%3ANL%3ARBNNE%3A2025%3A2278"
+    },
+    {
+      "ecli": "ECLI:NL:RBOBR:2026:2056",
+      "court": "Rechtbank Oost-Brabant",
+      "year": 2026,
+      "articles": ["11.27", "11.37", "11.46", "11.54"],
+      "summary": "De uitspraak noemt deze BAL-artikelen expliciet in een handhavingsverzoek.",
+      "official_url": "https://uitspraken.rechtspraak.nl/details?id=ECLI%3ANL%3ARBOBR%3A2026%3A2056"
+    },
+    {
+      "ecli": "ECLI:NL:RBNNE:2025:3769",
+      "court": "Rechtbank Noord-Nederland",
+      "year": 2025,
+      "articles": ["11.130"],
+      "summary": "De uitspraak verwijst rechtstreeks naar artikel 11.130 BAL over herbeplanting op andere grond.",
+      "official_url": "https://uitspraken.rechtspraak.nl/details?id=ECLI%3ANL%3ARBNNE%3A2025%3A3769"
+    },
+    {
+      "ecli": "ECLI:NL:RBZWB:2026:2129",
+      "court": "Rechtbank Zeeland-West-Brabant",
+      "year": 2026,
+      "articles": ["4.1116"],
+      "summary": "De uitspraak noemt artikel 4.1116 van het Besluit activiteiten leefomgeving expliciet.",
+      "official_url": "https://uitspraken.rechtspraak.nl/details?id=ECLI%3ANL%3ARBZWB%3A2026%3A2129"
+    }
+  ],
+  "by_article": {
+    "BAL:2.1": ["ECLI:NL:RBNNE:2025:3352"],
+    "BAL:4.1116": ["ECLI:NL:RBZWB:2026:2129"],
+    "BAL:11.27": ["ECLI:NL:RBGEL:2025:1311", "ECLI:NL:RBNNE:2025:2278", "ECLI:NL:RBOBR:2026:2056"],
+    "BAL:11.37": ["ECLI:NL:RBOBR:2026:2056"],
+    "BAL:11.46": ["ECLI:NL:RBOBR:2026:2056"],
+    "BAL:11.54": ["ECLI:NL:RBOBR:2026:2056"],
+    "BAL:11.130": ["ECLI:NL:RBNNE:2025:3769"]
+  }
+}

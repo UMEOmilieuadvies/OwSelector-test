@@ -657,3 +657,8 @@
 **Kleine wijziging.**
 
 - Voorkomt dat tijdelijk niet bereikbare online favorieten als een lege lijst worden getoond; probeert automatisch opnieuw en biedt een zichtbare herstelactie.
+## 1.4l-test — afzonderlijke jurisprudentieproef
+
+- Toont bij gecontroleerde BAL-artikelen een knop met het aantal beschikbare uitspraken.
+- Opent de resultaten uitsluitend in een apart tabblad; de hoofdweergave van de Zoeker blijft ongewijzigd.
+- Bevat alleen gecontroleerde ECLI-koppelingen met een link naar de officiële uitspraak op Rechtspraak.nl.

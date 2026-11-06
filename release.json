@@ -1,9 +1,9 @@
 {
-  "version": "1.4k-test",
-  "kind": "klein",
-  "released_at": "2026-11-05",
+  "version": "1.4l-test",
+  "kind": "nieuw",
+  "released_at": "2026-11-06",
   "notes": [
-    "Voorkomt dat tijdelijk niet bereikbare online favorieten als een lege lijst worden getoond; probeert automatisch opnieuw en biedt een zichtbare herstelactie."
+    "Voegt een afzonderlijke jurisprudentieproef toe: alleen bij gecontroleerde BAL-artikelen opent een knop met het aantal uitspraken een nieuw tabblad met ECLI’s en officiële bronlinks."
   ],
   "resolved_comment_ids": []
 }

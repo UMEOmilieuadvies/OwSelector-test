@@ -22,6 +22,7 @@ STATIC_PAGES = (
     "beheer.html",
     "historie.html",
     "article-notes.html",
+    "jurisprudentie.html",
 )
 
 
