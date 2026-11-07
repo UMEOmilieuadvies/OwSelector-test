@@ -1,9 +1,9 @@
 {
-  "version": "1.4m-test",
+  "version": "1.4n-test",
   "kind": "klein",
   "released_at": "2026-11-07",
   "notes": [
-    "Voegt per uitspraak in de afzonderlijke jurisprudentieproef een korte, terughoudende samenvatting toe met kern, oordeel en betekenis voor de regeling."
+    "Toont bij ieder artikelzoekresultaat een jurisprudentieknop met het aantal opgenomen uitspraken en een toelichting op de beperkingen van de proefset."
   ],
   "resolved_comment_ids": []
 }

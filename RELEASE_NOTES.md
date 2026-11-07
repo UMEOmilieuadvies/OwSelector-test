@@ -667,3 +667,8 @@
 - Toont per uitspraak een korte samenvatting met kern, oordeel en betekenis voor de regeling.
 - Markeert een louter letterlijke wetsverwijzing expliciet, zonder daar een inhoudelijk oordeel aan te verbinden.
 - Breidt de proefkoppeling voor rietopslag uit met de artikelen 3.184 en 3.185 BAL.
+
+## 1.4n-test — jurisprudentieknop bij zoekresultaten
+
+- Toont bij ieder artikelzoekresultaat een knop `Jurisprudentie (n)`, ook wanneer er nog geen uitspraak is opgenomen.
+- Voegt een bedienbaar i-icoon toe met de beperkingen van de handmatig gecontroleerde proefset.
