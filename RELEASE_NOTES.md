@@ -700,3 +700,9 @@
 
 - Maakt de jurisprudentieproef regeling-onafhankelijk voor alle zeven opgenomen regelingen.
 - Gebruikt één gecontroleerde referentiestructuur zonder dubbele artikelindex en voegt een begrensde lokale kandidaatophaling toe.
+
+## 1.4t-test — 2026-11-07
+
+**Kleine wijziging.**
+
+- Voegt op de jurisprudentiepagina een compacte testlijst toe met maximaal drie artikelen per regeling, zonder de volledige uitsprakenlijst te beperken.

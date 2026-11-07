@@ -1,11 +1,9 @@
 {
-  "version": "1.4s-test",
+  "version": "1.4t-test",
   "kind": "klein",
   "released_at": "2026-11-07",
-  "show_on_startup": false,
   "notes": [
-    "Maakt de jurisprudentieproef regeling-onafhankelijk voor alle zeven opgenomen regelingen.",
-    "Gebruikt één gecontroleerde referentiestructuur zonder dubbele artikelindex en voegt een begrensde lokale kandidaatophaling toe."
+    "Voegt op de jurisprudentiepagina een compacte testlijst toe met maximaal drie artikelen per regeling, zonder de volledige uitsprakenlijst te beperken."
   ],
   "resolved_comment_ids": []
 }
