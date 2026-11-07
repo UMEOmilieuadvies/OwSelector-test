@@ -662,3 +662,8 @@
 - Toont bij gecontroleerde BAL-artikelen een knop met het aantal beschikbare uitspraken.
 - Opent de resultaten uitsluitend in een apart tabblad; de hoofdweergave van de Zoeker blijft ongewijzigd.
 - Bevat alleen gecontroleerde ECLI-koppelingen met een link naar de officiële uitspraak op Rechtspraak.nl.
+## 1.4m-test — samenvattingen bij jurisprudentie
+
+- Toont per uitspraak een korte samenvatting met kern, oordeel en betekenis voor de regeling.
+- Markeert een louter letterlijke wetsverwijzing expliciet, zonder daar een inhoudelijk oordeel aan te verbinden.
+- Breidt de proefkoppeling voor rietopslag uit met de artikelen 3.184 en 3.185 BAL.

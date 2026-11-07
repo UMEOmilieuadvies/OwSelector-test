@@ -1,9 +1,9 @@
 {
-  "version": "1.4l-test",
-  "kind": "nieuw",
-  "released_at": "2026-11-06",
+  "version": "1.4m-test",
+  "kind": "klein",
+  "released_at": "2026-11-07",
   "notes": [
-    "Voegt een afzonderlijke jurisprudentieproef toe: alleen bij gecontroleerde BAL-artikelen opent een knop met het aantal uitspraken een nieuw tabblad met ECLI’s en officiële bronlinks."
+    "Voegt per uitspraak in de afzonderlijke jurisprudentieproef een korte, terughoudende samenvatting toe met kern, oordeel en betekenis voor de regeling."
   ],
   "resolved_comment_ids": []
 }
