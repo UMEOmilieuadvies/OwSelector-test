@@ -1,10 +1,11 @@
 {
-  "version": "1.4r-test",
+  "version": "1.4s-test",
   "kind": "klein",
   "released_at": "2026-11-07",
   "show_on_startup": false,
   "notes": [
-    "Herstelt de gelijktijdige weergave van online favorieten en scheidt de lokale zoekgeschiedenis aantoonbaar per omgeving."
+    "Maakt de jurisprudentieproef regeling-onafhankelijk voor alle zeven opgenomen regelingen.",
+    "Gebruikt één gecontroleerde referentiestructuur zonder dubbele artikelindex en voegt een begrensde lokale kandidaatophaling toe."
   ],
   "resolved_comment_ids": []
 }

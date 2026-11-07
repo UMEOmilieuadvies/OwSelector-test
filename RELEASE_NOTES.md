@@ -693,3 +693,10 @@
 
 - Toont bij ieder artikelzoekresultaat een knop `Jurisprudentie (n)`, ook wanneer er nog geen uitspraak is opgenomen.
 - Voegt een bedienbaar i-icoon toe met de beperkingen van de handmatig gecontroleerde proefset.
+
+## 1.4s-test — 2026-11-07
+
+**Kleine wijziging.**
+
+- Maakt de jurisprudentieproef regeling-onafhankelijk voor alle zeven opgenomen regelingen.
+- Gebruikt één gecontroleerde referentiestructuur zonder dubbele artikelindex en voegt een begrensde lokale kandidaatophaling toe.

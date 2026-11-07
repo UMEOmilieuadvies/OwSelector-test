@@ -35,9 +35,11 @@ jobs:
           node --check js/app-config.js
           node --check js/app.js
           node --check js/article-notes.js
+          node --check js/jurisprudence.js
           node --check js/qna.js
           node --check js/beheer.js
           node tests/verify-client-source.mjs
+          node tests/verify-jurisprudence-data.mjs
           node tests/verify-article-notes-layout.mjs
           node tests/verify-responsive-layout.mjs
           if find js -name '*.js' ! -name 'app-config.js' -print0 | xargs -0 grep -qE 'supabase\.co|sb_publishable_'; then
