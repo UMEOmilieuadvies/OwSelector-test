@@ -1,10 +1,10 @@
 {
-  "version": "1.4q-test",
+  "version": "1.4r-test",
   "kind": "klein",
   "released_at": "2026-11-07",
   "show_on_startup": false,
   "notes": [
-    "Toont het opstartvenster alleen voor releasenotities die uitdrukkelijk als gebruikerswijziging zijn gemarkeerd; technische verbeteringen blijven in de historie zonder een misleidende melding."
+    "Herstelt de gelijktijdige weergave van online favorieten en scheidt de lokale zoekgeschiedenis aantoonbaar per omgeving."
   ],
   "resolved_comment_ids": []
 }

@@ -1,3 +1,8 @@
+## 1.4r-test — betrouwbare favorieten en zoekgeschiedenis
+
+- Vernieuwt na een online favorietenwijziging ster, favorietenlijst en artikelweergave samen.
+- Slaat zoekgeschiedenis en de bijbehorende instelling per omgeving op, met eenmalig behoud van bestaande testgeschiedenis.
+
 ## 1.4q-test — gerichte wijzigingsmeldingen
 
 - Toont het opstartvenster alleen bij een expliciet gemarkeerde gebruikerswijziging.
