@@ -1,9 +1,9 @@
 {
-  "version": "1.4n-test",
+  "version": "1.4o-test",
   "kind": "klein",
   "released_at": "2026-11-07",
   "notes": [
-    "Toont bij ieder artikelzoekresultaat een jurisprudentieknop met het aantal opgenomen uitspraken en een toelichting op de beperkingen van de proefset."
+    "Vraagt bij een nieuwe versie of de gebruiker de korte wijzigingssamenvatting wil zien en biedt de keuze om dit voortaan niet meer te tonen."
   ],
   "resolved_comment_ids": []
 }

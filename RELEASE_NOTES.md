@@ -1,3 +1,9 @@
+## 1.4o-test — wijzigingen bij nieuwe versie
+
+- Vraagt bij een nieuw versienummer of de korte wijzigingssamenvatting mag worden getoond.
+- Toont de bijbehorende releasenotities op verzoek en onthoudt de keuze per browser.
+- Biedt de mogelijkheid om wijzigingsmeldingen bij toekomstige versies niet meer te tonen.
+
 ## 1.4i-test — neutrale gedeelde stijlopmerking
 
 - Vervangt de laatste testmarkering in gedeelde CSS door een neutrale opmerking.
