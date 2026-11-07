@@ -1,9 +1,9 @@
 {
-  "version": "1.4o-test",
+  "version": "1.4p-test",
   "kind": "klein",
   "released_at": "2026-11-07",
   "notes": [
-    "Vraagt bij een nieuwe versie of de gebruiker de korte wijzigingssamenvatting wil zien en biedt de keuze om dit voortaan niet meer te tonen."
+    "Slaat de keuze voor wijzigingsmeldingen aantoonbaar per omgeving op, zodat test en productie ook in de browseropslag strikt gescheiden blijven."
   ],
   "resolved_comment_ids": []
 }

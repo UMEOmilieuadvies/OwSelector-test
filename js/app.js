@@ -2,6 +2,7 @@
 (() => {
 const CONFIG=globalThis.OWZ_CONFIG||{};
 const VERSION=String(CONFIG.version||'');
+const ENVIRONMENT=String(CONFIG.environment||'').trim().toLowerCase();
 const SUPABASE_URL=String(CONFIG.supabase?.url||'').replace(/\/+$/,'');
 const SUPABASE_KEY=String(CONFIG.supabase?.anonKey||'');
 const FAVORITES_KEY=String(CONFIG.storage?.favoritesKey||'');
@@ -320,8 +321,8 @@ function setRegulationInfoVisible(visible){const tooltip=$('regulationInfoToolti
 async function loadRegulationVersions(){try{const res=await fetch('data/regulation_versions.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();state.versions=data.regulations||{};log('REGULATION_VERSIONS_LOADED')}catch(e){state.versions={};log('REGULATION_VERSIONS_FAILED',{error:e.message})}}
 async function loadArticleHistory(){try{const res=await fetch('data/article_history.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();state.articleHistory=data.articles||{};log('ARTICLE_HISTORY_LOADED',{count:Object.keys(state.articleHistory).length})}catch(e){state.articleHistory={};log('ARTICLE_HISTORY_FAILED',{error:e.message})}}
 async function loadJurisprudence(){try{const res=await fetch('data/jurisprudence.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();state.jurisprudence=data.by_article||{};log('JURISPRUDENCE_LOADED',{count:Array.isArray(data.cases)?data.cases.length:0})}catch(e){state.jurisprudence={};log('JURISPRUDENCE_FAILED',{error:e.message})}}
-const RELEASE_WELCOME_SEEN_KEY='owz_test_release_welcome_seen';
-const RELEASE_WELCOME_NEVER_KEY='owz_test_release_welcome_never';
+const RELEASE_WELCOME_SEEN_KEY=`owz_${ENVIRONMENT}_release_welcome_seen`;
+const RELEASE_WELCOME_NEVER_KEY=`owz_${ENVIRONMENT}_release_welcome_never`;
 function releaseWelcomeNotes(data){const notes=Array.isArray(data?.notes)?data.notes.filter(note=>typeof note==='string'&&note.trim()):[];return notes.length?`<h3>Versie ${esc(data.version||VERSION)}</h3><ul>${notes.map(note=>`<li>${esc(note)}</li>`).join('')}</ul>`:'<p>Voor deze versie is geen korte wijzigingssamenvatting beschikbaar.</p>'}
 async function showReleaseWelcomeIfNeeded(){if(localStorage.getItem(RELEASE_WELCOME_NEVER_KEY)==='1'||localStorage.getItem(RELEASE_WELCOME_SEEN_KEY)===VERSION)return;const dialog=$('releaseWelcomeModal');if(!dialog)return;let release={version:VERSION,notes:[]};try{const response=await fetch('release.json',{cache:'no-store'});if(response.ok)release=await response.json()}catch(_){}$('releaseWelcomeQuestion').textContent=`Versie ${release.version||VERSION} is nieuw. Wilt u zien wat er is veranderd?`;$('releaseWelcomeChanges').innerHTML=releaseWelcomeNotes(release);dialog.showModal()}
 function setupReleaseWelcome(){const dialog=$('releaseWelcomeModal');if(!dialog)return;$('showReleaseWelcomeChanges').addEventListener('click',()=>{$('releaseWelcomeChanges').hidden=false;$('showReleaseWelcomeChanges').hidden=true;$('continueReleaseWelcome').focus()});dialog.addEventListener('close',()=>{if(dialog.returnValue!=='continue')return;try{localStorage.setItem(RELEASE_WELCOME_SEEN_KEY,VERSION);if($('releaseWelcomeNever').checked)localStorage.setItem(RELEASE_WELCOME_NEVER_KEY,'1')}catch(_){}})}

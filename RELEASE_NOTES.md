@@ -1,3 +1,8 @@
+## 1.4p-test — omgevingsgebonden wijzigingsmeldingen
+
+- Slaat de keuze voor wijzigingsmeldingen op met de naam van de actieve omgeving.
+- Houdt test- en productievoorkeuren ook in de browseropslag strikt gescheiden.
+
 ## 1.4o-test — wijzigingen bij nieuwe versie
 
 - Vraagt bij een nieuw versienummer of de korte wijzigingssamenvatting mag worden getoond.
