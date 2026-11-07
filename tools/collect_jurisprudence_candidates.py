@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Haal begrensd kandidaten voor jurisprudentiekoppelingen op.
+"""Verzamel hervatbaar jurisprudentiekandidaten voor de Omgevingswet Zoeker.
 
-Dit hulpmiddel publiceert niets. Het schrijft uitsluitend een lokaal
-beoordelingsbestand naar data/jurisprudence_candidates.json. Een kandidaat
-wordt pas zichtbaar in de zoeker nadat die handmatig in
-data/jurisprudence.json is gecontroleerd en opgenomen.
+De Rechtspraak Open Data-service levert eerst ECLI's en daarna één uitspraak
+per ECLI. Dit programma werkt daarom in begrensde batches. Het publiceert
+niets: alleen kandidaten met een bronverwijzing en tekstcontext komen lokaal
+in data/jurisprudence_candidates.json terecht. Zichtbare koppelingen blijven
+handmatig gecontroleerd in data/jurisprudence.json.
 """
 from __future__ import annotations
 
@@ -20,82 +21,165 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "jurisprudence_candidates.json"
+STATE = ROOT / "data" / "jurisprudence_collection_state.json"
 INDEX_URL = "https://data.rechtspraak.nl/uitspraken/zoeken"
 CONTENT_URL = "https://data.rechtspraak.nl/uitspraken/content"
-REGULATIONS = {
-    "OW": ("Omgevingswet", ("omgevingswet",)),
-    "BAL": ("Besluit activiteiten leefomgeving (BAL)", ("besluit activiteiten leefomgeving", "bal")),
-    "BBL": ("Besluit bouwwerken leefomgeving (BBL)", ("besluit bouwwerken leefomgeving", "bbl")),
-    "BKL": ("Besluit kwaliteit leefomgeving (BKL)", ("besluit kwaliteit leefomgeving", "bkl")),
-    "OB": ("Omgevingsbesluit (OB)", ("omgevingsbesluit", "ob")),
-    "OR": ("Omgevingsregeling (OR)", ("omgevingsregeling", "or")),
-    "IWO": ("Invoeringswet Omgevingswet (IWO)", ("invoeringswet omgevingswet", "iwo")),
-}
-ARTICLE = re.compile(r"\bartikel(?:en)?\s+([0-9]+(?:\.[0-9]+)+[a-z]?)\b", re.I)
 NS = {"atom": "http://www.w3.org/2005/Atom"}
+ARTICLE = re.compile(r"\bartikel(?:en)?\s+([0-9]+(?:\.[0-9]+)+[a-z]?)\b", re.I)
+
+# Alleen duidelijke, regelinggebonden benamingen. 'de wet' of een los
+# artikelnummer is te onbepaald en wordt nooit automatisch gekoppeld.
+REGULATIONS = {
+    "OW": ("Omgevingswet", (r"\bOmgevingswet\b",)),
+    "BAL": ("Besluit activiteiten leefomgeving (BAL)", (r"\bBesluit activiteiten leefomgeving\b", r"\bBAL\b")),
+    "BBL": ("Besluit bouwwerken leefomgeving (BBL)", (r"\bBesluit bouwwerken leefomgeving\b", r"\bBBL\b")),
+    "BKL": ("Besluit kwaliteit leefomgeving (BKL)", (r"\bBesluit kwaliteit leefomgeving\b", r"\bBKL\b")),
+    "OB": ("Omgevingsbesluit (OB)", (r"\bOmgevingsbesluit\b", r"\bOB\b")),
+    "OR": ("Omgevingsregeling (OR)", (r"\bOmgevingsregeling\b", r"\bOR\b")),
+    "IWO": ("Invoeringswet Omgevingswet", (r"\bInvoeringswet Omgevingswet\b", r"\bIWO\b")),
+}
 
 
 def fetch(url: str) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": "OwSelector-test/1.0"})
-    with urllib.request.urlopen(request, timeout=30) as response:
+    request = urllib.request.Request(url, headers={"User-Agent": "OwSelector-test/1.0 (jurisprudence candidate collection)"})
+    with urllib.request.urlopen(request, timeout=45) as response:
         return response.read()
 
 
-def eclis(since: str, maximum: int) -> list[str]:
-    query = urllib.parse.urlencode({"modified": since, "return": "DOC", "max": maximum, "sort": "DESC"})
+def load_json(path: Path, fallback: dict) -> dict:
+    if not path.exists():
+        return fallback
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def save_json(path: Path, value: dict) -> None:
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def index_page(start_date: str, end_date: str, offset: int, page_size: int) -> list[str]:
+    query = urllib.parse.urlencode([
+        ("date", start_date), ("date", end_date), ("return", "DOC"),
+        ("max", str(page_size)), ("from", str(offset)), ("sort", "ASC"),
+    ])
     root = ET.fromstring(fetch(f"{INDEX_URL}?{query}"))
-    return [entry.findtext("atom:id", default="").strip() for entry in root.findall("atom:entry", NS) if entry.findtext("atom:id", default="").startswith("ECLI:")]
+    return [
+        entry.findtext("atom:id", default="", namespaces=NS).strip()
+        for entry in root.findall("atom:entry", NS)
+        if entry.findtext("atom:id", default="", namespaces=NS).startswith("ECLI:")
+    ]
 
 
 def text_for(ecli: str) -> str:
-    query = urllib.parse.urlencode({"id": ecli})
-    root = ET.fromstring(fetch(f"{CONTENT_URL}?{query}"))
+    root = ET.fromstring(fetch(f"{CONTENT_URL}?{urllib.parse.urlencode({'id': ecli})}"))
     return " ".join(" ".join(root.itertext()).split())
 
 
-def candidates(ecli: str, text: str) -> list[dict]:
-    lowered = text.lower()
-    rows = []
+def excerpt(text: str, centre: int, length: int = 360) -> str:
+    start = max(0, centre - length // 2)
+    end = min(len(text), centre + length // 2)
+    return ("…" if start else "") + text[start:end].strip() + ("…" if end < len(text) else "")
+
+
+def matches_for(text: str) -> list[dict]:
+    found: list[dict] = []
     for regulation, (name, aliases) in REGULATIONS.items():
-        if not any(re.search(rf"\b{re.escape(alias)}\b", lowered) for alias in aliases):
-            continue
-        articles = sorted(set(match.group(1) for match in ARTICLE.finditer(text)))
+        articles: dict[str, str] = {}
+        for alias in aliases:
+            for mention in re.finditer(alias, text, re.I):
+                # Een koppeling is alleen kandidaat als artikel en regeling in
+                # dezelfde passage voorkomen. Dat voorkomt brede schijnhits.
+                window_start = max(0, mention.start() - 900)
+                window_end = min(len(text), mention.end() + 900)
+                window = text[window_start:window_end]
+                for article in ARTICLE.finditer(window):
+                    articles.setdefault(article.group(1), excerpt(text, window_start + article.start()))
         if articles:
-            rows.append({"regulation": regulation, "name": name, "articles": articles})
-    return rows
+            found.append({
+                "regulation": regulation,
+                "name": name,
+                "articles": [
+                    {"article": article, "context": context}
+                    for article, context in sorted(articles.items())
+                ],
+                "match_rule": "regeling en artikel in dezelfde tekstpassage",
+            })
+    return found
+
+
+def candidate(ecli: str, text: str) -> dict | None:
+    matches = matches_for(text)
+    if not matches:
+        return None
+    return {
+        "ecli": ecli,
+        "official_url": "https://uitspraken.rechtspraak.nl/details?id=" + urllib.parse.quote(ecli, safe=""),
+        "matches": matches,
+        "review_status": "te_beoordelen",
+    }
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Maak lokale kandidaten voor handmatige jurisprudentiebeoordeling.")
-    parser.add_argument("--since", required=True, help="Wijzigingen vanaf datum/tijd, bijvoorbeeld 2026-01-01T00:00:00")
-    parser.add_argument("--max-eclis", type=int, default=100, choices=range(1, 501), metavar="1..500")
-    parser.add_argument("--requests-per-second", type=float, default=5.0)
+    parser = argparse.ArgumentParser(description="Verzamel hervatbare kandidaten voor handmatige jurisprudentiebeoordeling.")
+    parser.add_argument("--from-date", required=True, help="Begindatum uitspraak, bijvoorbeeld 2024-01-01")
+    parser.add_argument("--to-date", required=True, help="Einddatum uitspraak, bijvoorbeeld 2024-12-31")
+    parser.add_argument("--max-eclis", type=int, default=200, choices=range(1, 501), metavar="1..500")
+    parser.add_argument("--page-size", type=int, default=100, choices=range(1, 1001), metavar="1..1000")
+    parser.add_argument("--requests-per-second", type=float, default=4.0, help="Maximaal 8; standaard bewust 4")
     args = parser.parse_args()
     pause = 1 / max(1.0, min(args.requests_per_second, 8.0))
-    rows = []
-    for number, ecli in enumerate(eclis(args.since, args.max_eclis), start=1):
-        if number > 1:
+    state = load_json(STATE, {"runs": {}})
+    run_key = f"{args.from_date}..{args.to_date}"
+    run = state.setdefault("runs", {}).setdefault(run_key, {"processed_eclis": [], "next_offset": 0})
+    run["completed"] = False
+    processed = set(run.get("processed_eclis", []))
+    existing = load_json(OUT, {"candidates": []})
+    known = {row.get("ecli") for row in existing.get("candidates", [])}
+    offset = int(run.get("next_offset", 0))
+    handled = 0
+
+    while handled < args.max_eclis:
+        ids = index_page(args.from_date, args.to_date, offset, min(args.page_size, args.max_eclis - handled))
+        if not ids:
+            run["completed"] = True
+            break
+        offset += len(ids)
+        for ecli in ids:
+            if ecli in processed:
+                continue
             time.sleep(pause)
-        try:
-            found = candidates(ecli, text_for(ecli))
-        except Exception as error:  # Een individuele publicatie mag de beoordeling niet stoppen.
-            print(f"Overgeslagen {ecli}: {error}")
-            continue
-        if found:
-            rows.append({
-                "ecli": ecli,
-                "official_url": "https://uitspraken.rechtspraak.nl/details?id=" + urllib.parse.quote(ecli, safe=""),
-                "matches": found,
-                "review_status": "te_beoordelen",
-            })
-    document = {
+            try:
+                row = candidate(ecli, text_for(ecli))
+            except Exception as error:
+                print(f"Overgeslagen {ecli}: {error}")
+                continue
+            processed.add(ecli)
+            handled += 1
+            if row and row["ecli"] not in known:
+                existing.setdefault("candidates", []).append(row)
+                known.add(row["ecli"])
+            if handled >= args.max_eclis:
+                break
+        if len(ids) < args.page_size:
+            run["completed"] = True
+            break
+
+    run.update({
+        "from_date": args.from_date,
+        "to_date": args.to_date,
+        "next_offset": offset,
+        "processed_eclis": sorted(processed),
+        "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    })
+    state["source"] = "Rechtspraak Open Data"
+    existing.update({
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "Rechtspraak Open Data",
-        "notice": "Dit zijn kandidaten. Zij worden niet in de zoeker getoond voordat een inhoudelijke controle is vastgelegd.",
-        "candidates": rows,
-    }
-    OUT.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"{len(rows)} kandidaten geschreven naar {OUT}")
+        "notice": "Kandidaten zijn niet zichtbaar in de zoeker. Alleen handmatig gecontroleerde koppelingen worden gepubliceerd.",
+        "selection_rule": "Alleen regeling en artikel in dezelfde tekstpassage.",
+    })
+    save_json(STATE, state)
+    save_json(OUT, existing)
+    print(f"{handled} ECLI's verwerkt; {len(existing.get('candidates', []))} kandidaten lokaal beschikbaar; volgende indexpositie: {offset}.")
 
 
 if __name__ == "__main__":

@@ -1,9 +1,10 @@
 {
-  "version": "1.4t-test",
+  "version": "1.4u-test",
   "kind": "klein",
-  "released_at": "2026-11-07",
+  "released_at": "2026-11-08",
   "notes": [
-    "Voegt op de jurisprudentiepagina een compacte testlijst toe met maximaal drie artikelen per regeling, zonder de volledige uitsprakenlijst te beperken."
+    "Herstelt de start van de applicatie: regelingen laden weer nadat het wijzigingsvenster is geïnitialiseerd.",
+    "Voegt een hervatbare, lokale kandidaatverwerking voor historische jurisprudentie toe; alleen gecontroleerde koppelingen worden zichtbaar."
   ],
   "resolved_comment_ids": []
 }

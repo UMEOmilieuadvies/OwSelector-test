@@ -29,7 +29,7 @@ for(const file of fs.readdirSync('js').filter(name=>name.endsWith('.js')&&name!=
 for(const file of ['js/app.js','js/qna.js','js/beheer.js']){
   assert.match(fs.readFileSync(file,'utf8'),/OWZ_CONFIG|CONFIG/,`${file} moet de centrale omgevingsconfiguratie gebruiken.`);
 }
-for(const name of ['searchVariants','buildIndex','chooseReg','setupEvents','load']){
+for(const name of ['searchVariants','buildIndex','chooseReg','setupEvents','setupReleaseWelcome','showReleaseWelcomeIfNeeded','load']){
   assert.match(source,new RegExp(`function ${name}\\(`),`Ontbrekende startfunctie: ${name}`);
 }
 console.log('Clientconfiguratie en kritieke startfuncties zijn gecontroleerd.');

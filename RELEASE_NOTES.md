@@ -706,3 +706,10 @@
 **Kleine wijziging.**
 
 - Voegt op de jurisprudentiepagina een compacte testlijst toe met maximaal drie artikelen per regeling, zonder de volledige uitsprakenlijst te beperken.
+
+## 1.4u-test — 2026-11-08
+
+**Kleine wijziging.**
+
+- Herstelt de start van de applicatie: regelingen laden weer nadat het wijzigingsvenster is geïnitialiseerd.
+- Voegt een hervatbare, lokale kandidaatverwerking voor historische jurisprudentie toe; alleen gecontroleerde koppelingen worden zichtbaar.
