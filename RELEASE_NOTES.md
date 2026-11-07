@@ -1,3 +1,8 @@
+## 1.4q-test — gerichte wijzigingsmeldingen
+
+- Toont het opstartvenster alleen bij een expliciet gemarkeerde gebruikerswijziging.
+- Houdt technische en beheerwijzigingen wel in de historie, zonder een onnodige opstartmelding.
+
 ## 1.4p-test — omgevingsgebonden wijzigingsmeldingen
 
 - Slaat de keuze voor wijzigingsmeldingen op met de naam van de actieve omgeving.

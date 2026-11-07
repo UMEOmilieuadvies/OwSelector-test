@@ -1,9 +1,10 @@
 {
-  "version": "1.4p-test",
+  "version": "1.4q-test",
   "kind": "klein",
   "released_at": "2026-11-07",
+  "show_on_startup": false,
   "notes": [
-    "Slaat de keuze voor wijzigingsmeldingen aantoonbaar per omgeving op, zodat test en productie ook in de browseropslag strikt gescheiden blijven."
+    "Toont het opstartvenster alleen voor releasenotities die uitdrukkelijk als gebruikerswijziging zijn gemarkeerd; technische verbeteringen blijven in de historie zonder een misleidende melding."
   ],
   "resolved_comment_ids": []
 }
