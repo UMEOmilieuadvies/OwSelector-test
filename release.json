@@ -1,10 +1,10 @@
 {
-  "version": "1.4u-test",
+  "version": "1.4v-test",
   "kind": "klein",
   "released_at": "2026-11-08",
   "notes": [
-    "Herstelt de start van de applicatie: regelingen laden weer nadat het wijzigingsvenster is geïnitialiseerd.",
-    "Voegt een hervatbare, lokale kandidaatverwerking voor historische jurisprudentie toe; alleen gecontroleerde koppelingen worden zichtbaar."
+    "Voegt een online GitHub-beoordelingsdossier voor jurisprudentiekandidaten toe, met afzonderlijke beoordelingstak en zonder automatische publicatie.",
+    "Verfijnt de kandidaatverzameling: eerst omgevingsrecht, afzonderlijke voortgang en een optionele aanvullende zoekroute."
   ],
   "resolved_comment_ids": []
 }

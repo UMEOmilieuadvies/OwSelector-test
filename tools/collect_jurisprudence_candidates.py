@@ -16,7 +16,7 @@ import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +26,7 @@ INDEX_URL = "https://data.rechtspraak.nl/uitspraken/zoeken"
 CONTENT_URL = "https://data.rechtspraak.nl/uitspraken/content"
 NS = {"atom": "http://www.w3.org/2005/Atom"}
 ARTICLE = re.compile(r"\bartikel(?:en)?\s+([0-9]+(?:\.[0-9]+)+[a-z]?)\b", re.I)
+ENVIRONMENT_SUBJECT = "http://psi.rechtspraak.nl/rechtsgebied#bestuursrecht_omgevingsrecht"
 
 # Alleen duidelijke, regelinggebonden benamingen. 'de wet' of een los
 # artikelnummer is te onbepaald en wordt nooit automatisch gekoppeld.
@@ -53,14 +54,15 @@ def load_json(path: Path, fallback: dict) -> dict:
 
 
 def save_json(path: Path, value: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def index_page(start_date: str, end_date: str, offset: int, page_size: int) -> list[str]:
+def index_page(start_date: str, end_date: str, offset: int, page_size: int, subject: str | None) -> list[str]:
     query = urllib.parse.urlencode([
         ("date", start_date), ("date", end_date), ("return", "DOC"),
         ("max", str(page_size)), ("from", str(offset)), ("sort", "ASC"),
-    ])
+    ] + ([("subject", subject)] if subject else []))
     root = ET.fromstring(fetch(f"{INDEX_URL}?{query}"))
     return [
         entry.findtext("atom:id", default="", namespaces=NS).strip()
@@ -121,24 +123,28 @@ def candidate(ecli: str, text: str) -> dict | None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Verzamel hervatbare kandidaten voor handmatige jurisprudentiebeoordeling.")
     parser.add_argument("--from-date", required=True, help="Begindatum uitspraak, bijvoorbeeld 2024-01-01")
-    parser.add_argument("--to-date", required=True, help="Einddatum uitspraak, bijvoorbeeld 2024-12-31")
+    parser.add_argument("--to-date", default=date.today().isoformat(), help="Einddatum uitspraak, bijvoorbeeld 2024-12-31; standaard vandaag")
     parser.add_argument("--max-eclis", type=int, default=200, choices=range(1, 501), metavar="1..500")
     parser.add_argument("--page-size", type=int, default=100, choices=range(1, 1001), metavar="1..1000")
     parser.add_argument("--requests-per-second", type=float, default=4.0, help="Maximaal 8; standaard bewust 4")
+    parser.add_argument("--all-rechtsgebieden", action="store_true", help="Verwerk ook uitspraken buiten het rechtsgebied omgevingsrecht.")
+    parser.add_argument("--output", type=Path, default=OUT, help="Bestand voor kandidaten; standaard de lokale, genegeerde werkuitvoer.")
+    parser.add_argument("--state", type=Path, default=STATE, help="Bestand voor hervatbare voortgang; standaard de lokale, genegeerde werkuitvoer.")
     args = parser.parse_args()
+    subject = None if args.all_rechtsgebieden else ENVIRONMENT_SUBJECT
     pause = 1 / max(1.0, min(args.requests_per_second, 8.0))
-    state = load_json(STATE, {"runs": {}})
-    run_key = f"{args.from_date}..{args.to_date}"
+    state = load_json(args.state, {"runs": {}})
+    run_key = f"{args.from_date}..{args.to_date}::{subject or 'alle-rechtsgebieden'}"
     run = state.setdefault("runs", {}).setdefault(run_key, {"processed_eclis": [], "next_offset": 0})
     run["completed"] = False
     processed = set(run.get("processed_eclis", []))
-    existing = load_json(OUT, {"candidates": []})
+    existing = load_json(args.output, {"candidates": []})
     known = {row.get("ecli") for row in existing.get("candidates", [])}
     offset = int(run.get("next_offset", 0))
     handled = 0
 
     while handled < args.max_eclis:
-        ids = index_page(args.from_date, args.to_date, offset, min(args.page_size, args.max_eclis - handled))
+        ids = index_page(args.from_date, args.to_date, offset, min(args.page_size, args.max_eclis - handled), subject)
         if not ids:
             run["completed"] = True
             break
@@ -166,6 +172,7 @@ def main() -> None:
     run.update({
         "from_date": args.from_date,
         "to_date": args.to_date,
+        "subject": subject or "alle-rechtsgebieden",
         "next_offset": offset,
         "processed_eclis": sorted(processed),
         "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -177,8 +184,8 @@ def main() -> None:
         "notice": "Kandidaten zijn niet zichtbaar in de zoeker. Alleen handmatig gecontroleerde koppelingen worden gepubliceerd.",
         "selection_rule": "Alleen regeling en artikel in dezelfde tekstpassage.",
     })
-    save_json(STATE, state)
-    save_json(OUT, existing)
+    save_json(args.state, state)
+    save_json(args.output, existing)
     print(f"{handled} ECLI's verwerkt; {len(existing.get('candidates', []))} kandidaten lokaal beschikbaar; volgende indexpositie: {offset}.")
 
 

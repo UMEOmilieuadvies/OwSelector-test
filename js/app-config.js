@@ -2,7 +2,7 @@
 /* Testomgeving: alle omgevingsafhankelijke waarden staan uitsluitend hier. */
 window.OWZ_CONFIG=Object.freeze({
   environment:'test',
-  version:'1.4u-test',
+  version:'1.4v-test',
   supabase:Object.freeze({
     url:'https://lemcbncvqcsffatsxpdq.supabase.co',
     anonKey:'sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O',

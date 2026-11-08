@@ -6,6 +6,7 @@
   "automatic_match_rule": "Een regelingnaam of gangbare afkorting en een artikelnummer moeten binnen dezelfde tekstpassage voorkomen.",
   "historical_start": "2024-01-01",
   "source": "Rechtspraak Open Data",
+  "first_pass": "Rechtsgebied omgevingsrecht; daarna een aanvullende passage over overige rechtsgebieden voor uitzonderlijke zaken.",
   "request_rate_per_second": 4,
   "maximum_request_rate_per_second": 8,
   "batch_size": 200,

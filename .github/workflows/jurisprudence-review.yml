@@ -1,0 +1,105 @@
+name: Verzamel jurisprudentiekandidaten voor beoordeling
+
+on:
+  workflow_dispatch:
+    inputs:
+      from_date:
+        description: 'Begindatum uitspraken (JJJJ-MM-DD)'
+        required: true
+        default: '2024-01-01'
+      to_date:
+        description: 'Einddatum uitspraken (leeg = vandaag)'
+        required: false
+        default: ''
+      max_eclis:
+        description: 'Maximaal aantal ECLI''s in deze batch (1-500)'
+        required: true
+        default: '100'
+      all_rechtsgebieden:
+        description: 'Ook buiten omgevingsrecht zoeken (alleen voor aanvullende passage)'
+        type: boolean
+        required: true
+        default: false
+
+# Deze workflow is bewust alleen handmatig te starten. Kandidaten worden nooit
+# automatisch gepubliceerd naar de zoeker of naar de hoofdbranch geschreven.
+permissions:
+  contents: write
+
+concurrency:
+  group: jurisprudence-review-test
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    name: Verzamel en actualiseer beoordelingsdossier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Haal de testcode op
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Stel Python in
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Maak of herstel de aparte beoordelingstak
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone --depth 1 --branch main \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" review-work
+          cd review-work
+          if git ls-remote --exit-code --heads origin jurisprudence-review; then
+            git fetch origin jurisprudence-review --depth 1
+            git switch --track -c jurisprudence-review origin/jurisprudence-review
+          else
+            git switch -c jurisprudence-review
+          fi
+          mkdir -p review-data
+
+      - name: Verzamel kandidaten bij Rechtspraak Open Data
+        env:
+          INPUT_TO_DATE: ${{ inputs.to_date }}
+          INPUT_ALL_RECHTSGEBIEDEN: ${{ inputs.all_rechtsgebieden }}
+        run: |
+          TO_DATE="${INPUT_TO_DATE:-$(date -u +%F)}"
+          EXTRA=""
+          if [ "$INPUT_ALL_RECHTSGEBIEDEN" = "true" ]; then EXTRA="--all-rechtsgebieden"; fi
+          python tools/collect_jurisprudence_candidates.py \
+            --from-date "${{ inputs.from_date }}" \
+            --to-date "$TO_DATE" \
+            --max-eclis "${{ inputs.max_eclis }}" \
+            --requests-per-second 4 \
+            --output review-work/review-data/jurisprudence_candidates.json \
+            --state review-work/review-data/jurisprudence_collection_state.json \
+            $EXTRA
+          python tools/build_jurisprudence_review_dossier.py \
+            --candidates review-work/review-data/jurisprudence_candidates.json \
+            --output review-work/review-data/JURISPRUDENTIE_BEOORDELING.md
+
+      - name: Sla het dossier online op
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd review-work
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add review-data
+          if git diff --cached --quiet; then
+            echo 'Geen nieuwe kandidaten of voortgang om op te slaan.'
+          else
+            git commit -m 'Actualiseer jurisprudentiekandidaten voor beoordeling'
+            git push origin HEAD:jurisprudence-review
+          fi
+
+      - name: Toon de beoordelingslocatie
+        run: |
+          echo '## Jurisprudentiebeoordeling' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo 'De kandidaten en hun voortgang staan uitsluitend op de aparte beoordelingstak.' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo "[Open het beoordelingsdossier](https://github.com/${GITHUB_REPOSITORY}/blob/jurisprudence-review/review-data/JURISPRUDENTIE_BEOORDELING.md)" >> "$GITHUB_STEP_SUMMARY"

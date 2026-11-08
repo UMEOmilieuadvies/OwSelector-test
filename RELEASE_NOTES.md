@@ -713,3 +713,10 @@
 
 - Herstelt de start van de applicatie: regelingen laden weer nadat het wijzigingsvenster is geïnitialiseerd.
 - Voegt een hervatbare, lokale kandidaatverwerking voor historische jurisprudentie toe; alleen gecontroleerde koppelingen worden zichtbaar.
+
+## 1.4v-test — 2026-11-08
+
+**Kleine wijziging.**
+
+- Voegt een online GitHub-beoordelingsdossier voor jurisprudentiekandidaten toe, met afzonderlijke beoordelingstak en zonder automatische publicatie.
+- Verfijnt de kandidaatverzameling: eerst omgevingsrecht, afzonderlijke voortgang en een optionele aanvullende zoekroute.
