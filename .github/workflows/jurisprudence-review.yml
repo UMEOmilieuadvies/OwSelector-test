@@ -80,6 +80,9 @@ jobs:
           python tools/build_jurisprudence_review_dossier.py \
             --candidates review-work/review-data/jurisprudence_candidates.json \
             --output review-work/review-data/JURISPRUDENTIE_BEOORDELING.md
+          python tools/build_jurisprudence_review_insights.py \
+            --candidates review-work/review-data/jurisprudence_candidates.json \
+            --output review-work/review-data/JURISPRUDENTIE_INZICHTEN.md
 
       - name: Sla het dossier online op
         env:
@@ -103,3 +106,4 @@ jobs:
           echo 'De kandidaten en hun voortgang staan uitsluitend op de aparte beoordelingstak.' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo "[Open het beoordelingsdossier](https://github.com/${GITHUB_REPOSITORY}/blob/jurisprudence-review/review-data/JURISPRUDENTIE_BEOORDELING.md)" >> "$GITHUB_STEP_SUMMARY"
+          echo "[Open het inzichtsrapport](https://github.com/${GITHUB_REPOSITORY}/blob/jurisprudence-review/review-data/JURISPRUDENTIE_INZICHTEN.md)" >> "$GITHUB_STEP_SUMMARY"

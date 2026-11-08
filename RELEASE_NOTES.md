@@ -720,3 +720,10 @@
 
 - Voegt een online GitHub-beoordelingsdossier voor jurisprudentiekandidaten toe, met afzonderlijke beoordelingstak en zonder automatische publicatie.
 - Verfijnt de kandidaatverzameling: eerst omgevingsrecht, afzonderlijke voortgang en een optionele aanvullende zoekroute.
+
+## 1.4w-test — 2026-11-08
+
+**Kleine wijziging.**
+
+- Beoordelt jurisprudentie voortaan per afzonderlijke uitspraak-artikelkoppeling, ook wanneer één uitspraak meerdere regelingen raakt.
+- Voegt beoordelingsredenen en een transparant inzichtsrapport toe; zoekregels en zichtbare jurisprudentie veranderen nooit automatisch.

@@ -5,6 +5,7 @@
 /previous-graph/
 /review/
 /tools/__pycache__/
+/tests/__pycache__/
 
 # Opnieuw op te bouwen, lokale gegevensproducten.
 /data/source/

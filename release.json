@@ -1,10 +1,10 @@
 {
-  "version": "1.4v-test",
+  "version": "1.4w-test",
   "kind": "klein",
   "released_at": "2026-11-08",
   "notes": [
-    "Voegt een online GitHub-beoordelingsdossier voor jurisprudentiekandidaten toe, met afzonderlijke beoordelingstak en zonder automatische publicatie.",
-    "Verfijnt de kandidaatverzameling: eerst omgevingsrecht, afzonderlijke voortgang en een optionele aanvullende zoekroute."
+    "Beoordelt jurisprudentie voortaan per afzonderlijke uitspraak-artikelkoppeling, ook wanneer één uitspraak meerdere regelingen raakt.",
+    "Voegt beoordelingsredenen en een transparant inzichtsrapport toe; zoekregels en zichtbare jurisprudentie veranderen nooit automatisch."
   ],
   "resolved_comment_ids": []
 }

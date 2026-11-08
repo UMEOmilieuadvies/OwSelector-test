@@ -100,7 +100,16 @@ def matches_for(text: str) -> list[dict]:
                 "regulation": regulation,
                 "name": name,
                 "articles": [
-                    {"article": article, "context": context}
+                    {
+                        "article": article,
+                        "context": context,
+                        # Een uitspraak kan meerdere artikelen en regelingen
+                        # raken. Elke koppeling wordt dus afzonderlijk
+                        # beoordeeld en gemeld.
+                        "review_status": "te_beoordelen",
+                        "review_reason": "",
+                        "review_note": "",
+                    }
                     for article, context in sorted(articles.items())
                 ],
                 "match_rule": "regeling en artikel in dezelfde tekstpassage",
@@ -116,7 +125,6 @@ def candidate(ecli: str, text: str) -> dict | None:
         "ecli": ecli,
         "official_url": "https://uitspraken.rechtspraak.nl/details?id=" + urllib.parse.quote(ecli, safe=""),
         "matches": matches,
-        "review_status": "te_beoordelen",
     }
 
 

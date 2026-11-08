@@ -14,6 +14,8 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jurisprudence_review import REVIEW_REASONS, references
+
 
 def load(path: Path) -> dict:
     if not path.exists():
@@ -24,7 +26,11 @@ def load(path: Path) -> dict:
 def bullet_matches(candidate: dict) -> list[str]:
     rows: list[str] = []
     for match in candidate.get("matches", []):
-        articles = ", ".join(f"artikel {item['article']}" for item in match.get("articles", []))
+        articles = ", ".join(
+            f"artikel {item['article']} (**{item.get('review_status', 'te_beoordelen')}"
+            f"{': ' + item['review_reason'] if item.get('review_reason') else ''}**)"
+            for item in match.get("articles", [])
+        )
         rows.append(f"- **{match['name']}** — {articles}")
         for item in match.get("articles", []):
             rows.append(f"  - Context: {item['context']}")
@@ -39,7 +45,8 @@ def main() -> None:
 
     data = load(args.candidates)
     candidates = sorted(data.get("candidates", []), key=lambda item: item.get("ecli", ""))
-    status_counts = Counter(item.get("review_status", "te_beoordelen") for item in candidates)
+    links = [item for candidate in candidates for item in references(candidate)]
+    status_counts = Counter(article.get("review_status", "te_beoordelen") for _, article in links)
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     lines = [
@@ -54,16 +61,20 @@ def main() -> None:
         "",
         "1. Open de officiële uitspraak via de ECLI-link.",
         "2. Controleer of de uitspraak inhoudelijk werkelijk over het genoemde artikel gaat.",
-        "3. Wijzig in `jurisprudence_candidates.json` alleen `review_status` naar `goedgekeurd`, `afgewezen` of `later_bekijken`.",
-        "4. Een afzonderlijke, gecontroleerde publicatiestap zet uitsluitend goedgekeurde koppelingen in de zoeker.",
+        "3. Wijzig bij het afzonderlijke artikel in `jurisprudence_candidates.json` alleen `review_status` naar `goedgekeurd`, `afgewezen` of `later_bekijken`.",
+        "4. Voeg bij een beslissing ook `review_reason` toe; `review_note` is optioneel voor een korte toelichting.",
+        "5. Een afzonderlijke, gecontroleerde publicatiestap zet uitsluitend goedgekeurde koppelingen in de zoeker.",
+        "",
+        "Beschikbare redenen: " + ", ".join(f"`{key}`" for key in REVIEW_REASONS) + ".",
         "",
         "## Overzicht",
         "",
-        f"- Totaal kandidaten: **{len(candidates)}**",
-        f"- Te beoordelen: **{status_counts['te_beoordelen']}**",
-        f"- Goedgekeurd: **{status_counts['goedgekeurd']}**",
-        f"- Afgewezen: **{status_counts['afgewezen']}**",
-        f"- Later bekijken: **{status_counts['later_bekijken']}**",
+        f"- Uitspraken: **{len(candidates)}**",
+        f"- Afzonderlijke artikelkoppelingen: **{len(links)}**",
+        f"- Te beoordelen koppelingen: **{status_counts['te_beoordelen']}**",
+        f"- Goedgekeurde koppelingen: **{status_counts['goedgekeurd']}**",
+        f"- Afgewezen koppelingen: **{status_counts['afgewezen']}**",
+        f"- Later te bekijken koppelingen: **{status_counts['later_bekijken']}**",
         "",
     ]
     if not candidates:
@@ -72,7 +83,6 @@ def main() -> None:
         lines.extend([
             f"## {position}. {item.get('ecli', 'Onbekende ECLI')}",
             "",
-            f"Status: **{item.get('review_status', 'te_beoordelen')}**  ",
             f"[Open de officiële uitspraak]({item.get('official_url', '')})",
             "",
             "Mogelijke koppelingen:",
