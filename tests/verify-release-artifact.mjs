@@ -11,6 +11,12 @@ assert.ok(['test','production'].includes(environment),'Gebruik --environment tes
 const version=fs.readFileSync('VERSION','utf8').trim();
 const release=JSON.parse(fs.readFileSync('release.json','utf8'));
 assert.equal(release.version,version,'VERSION en release.json moeten hetzelfde versienummer bevatten.');
+const publishedReleasePath=path.join(siteDir,'release.json');
+assert.ok(fs.existsSync(publishedReleasePath),'release.json ontbreekt in de publicatiebundel; het wijzigingsvenster kan daardoor geen releasenotities tonen.');
+const publishedRelease=JSON.parse(fs.readFileSync(publishedReleasePath,'utf8'));
+assert.equal(publishedRelease.version,version,'De gepubliceerde releasemetadata heeft niet het centrale versienummer.');
+assert.deepEqual(publishedRelease.notes,release.notes,'De gepubliceerde releasenotities wijken af van release.json.');
+assert.ok(Array.isArray(publishedRelease.notes)&&publishedRelease.notes.length,'De gepubliceerde releasenotities ontbreken.');
 
 const configSource=fs.readFileSync(path.join(siteDir,'js','app-config.js'),'utf8');
 const context={window:{},Object};

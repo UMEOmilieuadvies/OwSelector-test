@@ -32,6 +32,8 @@ for(const file of ['js/app.js','js/qna.js','js/beheer.js']){
 for(const name of ['searchVariants','buildIndex','chooseReg','setupEvents','setupReleaseWelcome','showReleaseWelcomeIfNeeded','load']){
   assert.match(source,new RegExp(`function ${name}\\(`),`Ontbrekende startfunctie: ${name}`);
 }
+assert.match(source,/if\(!notes\.length\)return;/,'Zonder releasenotities mag het wijzigingsvenster niet verschijnen.');
+assert.ok(!source.includes('Voor deze versie is geen korte wijzigingssamenvatting beschikbaar.'),'Een lege wijzigingssamenvatting mag geen venster meer opleveren.');
 console.log('Clientconfiguratie en kritieke startfuncties zijn gecontroleerd.');
 assert.match(fs.readFileSync('index.html','utf8'),/js\/app-config\.js[\s\S]*js\/app\.js/,'Configuratie moet vóór de applicatie laden.');
 for(const page of ['qna.html','beheer.html']){

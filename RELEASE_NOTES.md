@@ -727,3 +727,10 @@
 
 - Beoordelt jurisprudentie voortaan per afzonderlijke uitspraak-artikelkoppeling, ook wanneer één uitspraak meerdere regelingen raakt.
 - Voegt beoordelingsredenen en een transparant inzichtsrapport toe; zoekregels en zichtbare jurisprudentie veranderen nooit automatisch.
+
+## 1.4x-test — 2026-11-09
+
+**Kleine wijziging.**
+
+- Toont het venster 'Wat is er veranderd?' alleen wanneer voor de nieuwe versie daadwerkelijk releasenotities beschikbaar zijn.
+- Neemt release.json verplicht op in de publicatiebundel en controleert versie en releasenotities vóór publicatie.
