@@ -13,6 +13,9 @@ assert.equal(JSON.parse(fs.readFileSync('release.json','utf8')).version,declared
 assert.match(config.version,/^\d+\.\d+(?:[a-z])?-test$/,'Het testversienummer moet geldig zijn.');
 assert.equal(config.supabase.url,'https://lemcbncvqcsffatsxpdq.supabase.co','Alleen de test-Supabase is toegestaan.');
 assert.equal(config.storage.favoritesKey,'owz_test_favorites','Testfavorieten moeten een eigen opslag gebruiken.');
+assert.match(fs.readFileSync('js/app.js','utf8'),/function favoriteCodeIsStored\(\)/,'De toepassing moet aantoonbaar maken of de herstelcode in deze browser is bewaard.');
+assert.match(fs.readFileSync('js/app.js','utf8'),/herstelcode is niet in deze browser bewaard/i,'Een niet-bewaarde herstelcode moet duidelijk worden gemeld.');
+assert.match(fs.readFileSync('js/app.js','utf8'),/Na herladen moet u hem opnieuw invoeren/,'Een tijdelijk gebruikte herstelcode moet duidelijk worden gemeld.');
 assert.equal(config.regulations.length,7,'Exact zeven regelingen moeten beschikbaar zijn.');
 assert.equal(new Set(config.regulations.map(regulation=>regulation.id)).size,7,'Regelingcodes moeten uniek zijn.');
 assert.ok(config.regulations.some(regulation=>regulation.id==='IWO'&&regulation.bwb==='BWBR0043660'),'De Invoeringswet Omgevingswet ontbreekt.');

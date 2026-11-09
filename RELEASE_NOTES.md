@@ -751,3 +751,15 @@
 **Technisch beheer**
 
 - Scheidt gebruikerswijzigingen van technische beheernotities en controleert dit automatisch tijdens de publicatie.
+
+## 1.4z-test — 2026-11-09
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Favorieten maken nu duidelijk of de herstelcode in deze browser wordt bewaard. Bij alleen tonen wordt uitgelegd dat de code na herladen opnieuw nodig is.
+
+**Technisch beheer**
+
+- Gerichte broncontrole toegevoegd voor bewaartoestand van de herstelcode.

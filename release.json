@@ -1,12 +1,12 @@
 {
-  "version": "1.4y-test",
+  "version": "1.4z-test",
   "kind": "klein",
   "released_at": "2026-11-09",
   "user_notes": [
-    "Het venster 'Wat is er veranderd?' toont voortaan alleen wijzigingen die voor gebruikers relevant zijn."
+    "Favorieten maken nu duidelijk of de herstelcode in deze browser wordt bewaard. Bij alleen tonen wordt uitgelegd dat de code na herladen opnieuw nodig is."
   ],
   "technical_notes": [
-    "Scheidt gebruikerswijzigingen van technische beheernotities en controleert dit automatisch tijdens de publicatie."
+    "Gerichte broncontrole toegevoegd voor bewaartoestand van de herstelcode."
   ],
   "resolved_comment_ids": []
 }
