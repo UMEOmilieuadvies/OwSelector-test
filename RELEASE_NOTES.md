@@ -763,3 +763,15 @@
 **Technisch beheer**
 
 - Gerichte broncontrole toegevoegd voor bewaartoestand van de herstelcode.
+
+## 1.4t-test — 2026-11-09
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Jurisprudentie is in test uitgebreid naar alle opgenomen regelingen. Het wijzigingsvenster toont uitsluitend wijzigingen die voor gebruikers relevant zijn.
+
+**Technisch beheer**
+
+- Testlijn opnieuw genummerd vanaf productieversie 1.4s; 1.4t-test is de volgende kandidaat.

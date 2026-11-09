@@ -1,12 +1,12 @@
 {
-  "version": "1.4z-test",
+  "version": "1.4t-test",
   "kind": "klein",
   "released_at": "2026-11-09",
   "user_notes": [
-    "Favorieten maken nu duidelijk of de herstelcode in deze browser wordt bewaard. Bij alleen tonen wordt uitgelegd dat de code na herladen opnieuw nodig is."
+    "Jurisprudentie is in test uitgebreid naar alle opgenomen regelingen. Het wijzigingsvenster toont uitsluitend wijzigingen die voor gebruikers relevant zijn."
   ],
   "technical_notes": [
-    "Gerichte broncontrole toegevoegd voor bewaartoestand van de herstelcode."
+    "Testlijn opnieuw genummerd vanaf productieversie 1.4s; 1.4t-test is de volgende kandidaat."
   ],
   "resolved_comment_ids": []
 }
