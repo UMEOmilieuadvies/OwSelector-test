@@ -59,6 +59,11 @@ assert.ok(fs.existsSync('article-notes.html'),'De pagina met de artikelsgewijze 
 assert.ok(fs.existsSync('js/article-notes.js'),'De bediening van de artikelsgewijze toelichting ontbreekt.');
 assert.ok(fs.existsSync('data/article_notes_bal_chapter4.json'),'De gecontroleerde BAL-toelichtingsgegevens ontbreken.');
 console.log('De testfunctie voor artikelsgewijze toelichting is aanwezig.');
+assert.ok(fs.existsSync('tools/build_integrated_nvt.py'),'De bouwer voor de geïntegreerde NVT ontbreekt.');
+assert.ok(fs.existsSync('tests/verify_integrated_nvt.py'),'De structuurcontrole voor de geïntegreerde NVT ontbreekt.');
+assert.match(fs.readFileSync('nvt.html','utf8'),/id="nvtSearch"/,'De geïntegreerde NVT moet een eigen zoekveld hebben.');
+assert.match(fs.readFileSync('js/nvt.js','utf8'),/integrated_index\.json/,'De geïntegreerde NVT moet haar eigen index laden.');
+console.log('De geïntegreerde, doorzoekbare NVT is aanwezig.');
 assert.match(source,/function loadAboutVisits\(\)/,'De Over-sectie moet bezoekcijfers kunnen laden.');
 assert.match(source,/site_visit_monthly/,'De Over-sectie moet de maandelijkse bezoekcijfers gebruiken.');
 assert.match(fs.readFileSync('index.html','utf8'),/id="aboutVisits"/,'De Over-sectie mist de plaats voor bezoekcijfers.');

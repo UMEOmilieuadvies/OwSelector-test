@@ -2,38 +2,57 @@
 
 (()=>{
   const $=id=>document.getElementById(id);
-  const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const normalise=s=>String(s??'').replace(/\s+/g,' ').trim();
-  let regulations=[];
-  const requestedId=new URLSearchParams(location.search).get('regeling')||'BAL';
+  const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const clean=value=>String(value??'').replace(/\s+/g,' ').trim();
+  let index={regulations:[]};
+  let current=null;
+  const requested=new URLSearchParams(location.search).get('regeling')||'BAL';
 
-  function showContents(slot, documentFile, contents){
-    const links=contents?.items||[];
-    if(!links.length){slot.innerHTML='<p class="nvtTocNotice">De officiële inhoudsopgave is niet als koppelingen beschikbaar in dit document.</p>';return;}
-    slot.innerHTML=`<nav class="nvtToc" aria-label="Inhoudsopgave"><strong>Inhoudsopgave</strong><p>Ga direct naar een onderdeel van deze toelichting.</p><div class="nvtTocList">${links.map(item=>`<button type="button" data-nvt-target="${escapeHtml(item.target)}">${escapeHtml(item.label)}</button>`).join('')}</div></nav>`;
-    slot.querySelectorAll('[data-nvt-target]').forEach(button=>button.addEventListener('click',()=>{
-      const frame=slot.closest('.nvtDocument').querySelector('.nvtFrame');
-      frame.src=`data/nvt/${encodeURIComponent(documentFile)}#${encodeURIComponent(button.dataset.nvtTarget)}`;
-    }));
+  function words(){return clean($('nvtSearch').value).toLocaleLowerCase('nl-NL').split(' ').filter(Boolean);}
+  function officialUrl(section){return `${section.official_url}${section.anchor?`#${encodeURIComponent(section.anchor)}`:''}`;}
+  function matches(section){
+    const kind=$('nvtKind').value;
+    const article=clean($('nvtArticle').value).toLocaleLowerCase('nl-NL');
+    const haystack=`${section.title} ${section.text}`.toLocaleLowerCase('nl-NL');
+    return (!kind||section.kind===kind)&&(!article||section.article.toLocaleLowerCase('nl-NL')===article)&&words().every(word=>haystack.includes(word));
   }
-
-  function documentUrl(document, contents){
-    const anchor=contents?.note_anchor;
-    return `data/nvt/${encodeURIComponent(document.file)}${anchor?`#${encodeURIComponent(anchor)}`:''}`;
+  function card(section){
+    const paragraphs=(section.paragraphs||[section.text]).map(paragraph=>`<p>${escapeHtml(paragraph)}</p>`).join('');
+    const label=section.kind==='article'?'Artikelsgewijze toelichting':'Algemene toelichting';
+    const open=words().length||$('nvtArticle').value?' open':'';
+    return `<details class="integratedNvtSection"${open}><summary><span class="integratedNvtKind">${label}</span><strong>${escapeHtml(section.title)}</strong></summary><div class="integratedNvtSectionBody"><div class="integratedNvtText">${paragraphs||'<p>Geen tekst beschikbaar.</p>'}</div><aside class="integratedNvtSource"><strong>Officiële bron</strong><span>${escapeHtml(section.source)} · ${escapeHtml(section.publication)} (${escapeHtml(section.date)})</span><a href="${escapeHtml(officialUrl(section))}" target="_blank" rel="noopener">Open de officiële vindplaats</a></aside></div></details>`;
   }
-
-  function show(key){
-    const regulation=regulations.find(item=>item.id===key)||regulations[0];
+  function render(){
+    if(!current)return;
+    const sections=current.documents.flatMap(document=>document.sections||[]).filter(matches);
+    $('nvtStats').textContent=`${sections.length} ${sections.length===1?'onderdeel':'onderdelen'} gevonden in ${current.regulation.name}.`;
+    $('nvtContent').innerHTML=sections.length?sections.map(card).join(''):'<p class="nvtLoading">Geen toelichtingsonderdelen voldoen aan deze selectie.</p>';
+  }
+  async function loadRegulation(id){
+    const regulation=index.regulations.find(item=>item.id===id)||index.regulations[0];
     if(!regulation)return;
-    $('nvtTitle').textContent=`Memorie van toelichting — ${regulation.name}`;
-    $('nvtIntro').textContent=`Volledige officiële toelichtingen bij ${regulation.name}, lokaal opgenomen en buiten de gewone zoekindex.`;
-    $('originalDocument').href=`https://wetten.overheid.nl/${regulation.bwb}`;
-    $('originalPdf').href=(regulation.documents[0]?.url||'').replace(/\.html(?:\?.*)?$/i,'.pdf');
-    $('nvtRegulations').innerHTML=regulations.map(item=>`<a class="${item.id===regulation.id?'active':''}" href="nvt.html?regeling=${item.id}">${escapeHtml(item.short)}</a>`).join('');
-    $('nvtDocuments').innerHTML=regulation.documents.map((document,index)=>`<article class="nvtDocument"><p class="helpPanelLabel">${index?'Wijziging':'Oorspronkelijke regeling'}</p><h2>${escapeHtml(document.title)}</h2><dl><div><dt>Publicatie</dt><dd>${escapeHtml(document.publication)}</dd></div><div><dt>Datum</dt><dd>${escapeHtml(document.date)}</dd></div></dl><div class="nvtTocSlot" aria-live="polite"></div><iframe class="nvtFrame" src="${documentUrl(document, nvtContents[document.file])}" title="${escapeHtml(document.title)}"></iframe></article>`).join('');
-    regulation.documents.forEach((document,index)=>showContents($('nvtDocuments').children[index].querySelector('.nvtTocSlot'),document.file,nvtContents[document.file]));
+    $('nvtRegulation').value=regulation.id;
+    $('nvtContent').innerHTML='<p class="nvtLoading">De geïntegreerde toelichting wordt geladen…</p>';
+    $('nvtStats').textContent='';
+    const response=await fetch(`data/nvt/integrated/${encodeURIComponent(regulation.file)}`,{cache:'no-store'});
+    if(!response.ok)throw new Error('NVT-bestand niet beschikbaar');
+    current=await response.json();
+    history.replaceState(null,'',`nvt.html?regeling=${encodeURIComponent(regulation.id)}`);
+    render();
   }
-
-  let nvtContents={};
-  Promise.all([fetch('nvt_catalog.json',{cache:'no-store'}).then(response=>response.json()),fetch('data/nvt/toc.json',{cache:'no-store'}).then(response=>response.ok?response.json():{})]).then(([data,contents])=>{regulations=data.regulations||[];nvtContents=contents||{};show(requestedId)}).catch(()=>{$('nvtIntro').textContent='Het overzicht kan nu niet worden geladen.'});
+  async function init(){
+    const response=await fetch('data/nvt/integrated_index.json',{cache:'no-store'});
+    if(!response.ok)throw new Error('NVT-index niet beschikbaar');
+    index=await response.json();
+    $('nvtRegulation').innerHTML=index.regulations.map(regulation=>`<option value="${escapeHtml(regulation.id)}">${escapeHtml(regulation.name)}</option>`).join('');
+    $('nvtRegulation').addEventListener('change',()=>loadRegulation($('nvtRegulation').value).catch(failed));
+    for(const id of ['nvtSearch','nvtArticle','nvtKind'])$(id).addEventListener('input',render);
+    $('nvtReset').addEventListener('click',()=>{$('nvtSearch').value='';$('nvtArticle').value='';$('nvtKind').value='';render();});
+    await loadRegulation(index.regulations.some(item=>item.id===requested)?requested:index.regulations[0]?.id);
+  }
+  function failed(){
+    $('nvtStats').textContent='';
+    $('nvtContent').innerHTML='<p class="nvtLoading">De geïntegreerde toelichting kan nu niet worden geladen. Open eventueel de officiële bron via wetten.nl.</p>';
+  }
+  init().catch(failed);
 })();

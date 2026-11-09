@@ -1,12 +1,12 @@
 {
-  "version": "1.4t-test",
-  "kind": "klein",
+  "version": "1.5-test",
+  "kind": "groot",
   "released_at": "2026-11-09",
   "user_notes": [
-    "Jurisprudentie is in test uitgebreid naar alle opgenomen regelingen. Het wijzigingsvenster toont uitsluitend wijzigingen die voor gebruikers relevant zijn."
+    "De nota van toelichting is per regeling doorzoekbaar gemaakt, met een aparte weergave voor algemene en artikelsgewijze toelichting. Iedere passage verwijst naar de officiële bron."
   ],
   "technical_notes": [
-    "Testlijn opnieuw genummerd vanaf productieversie 1.4s; 1.4t-test is de volgende kandidaat."
+    "Officiële NVT-bronnen worden bij de testpublicatie gestructureerd, gevalideerd en als afzonderlijke statische gegevens gepubliceerd."
   ],
   "resolved_comment_ids": []
 }

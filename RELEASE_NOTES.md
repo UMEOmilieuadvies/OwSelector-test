@@ -775,3 +775,9 @@
 **Technisch beheer**
 
 - Testlijn opnieuw genummerd vanaf productieversie 1.4s; 1.4t-test is de volgende kandidaat.
+
+## 1.5-test — doorzoekbare nota van toelichting
+
+- Toont de officiële nota van toelichting per regeling in een aparte, doorzoekbare pagina.
+- Onderscheidt algemene en artikelsgewijze toelichting en maakt zoeken op artikelnummer mogelijk.
+- Elke getoonde passage houdt een directe verwijzing naar de officiële vindplaats.

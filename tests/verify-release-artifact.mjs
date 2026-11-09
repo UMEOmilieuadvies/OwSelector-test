@@ -39,6 +39,8 @@ assert.ok(fs.existsSync(path.join(siteDir,'jurisprudentie.html')),'De afzonderli
 assert.ok(fs.existsSync(path.join(siteDir,'js','jurisprudence.js')),'De bediening van de jurisprudentiepagina ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','jurisprudence.json')),'De jurisprudentieproefgegevens ontbreken in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','article_notes_bal_chapter4.json')),'De toelichtingsgegevens ontbreken in de publicatiebundel.');
+assert.ok(fs.existsSync(path.join(siteDir,'data','nvt','integrated_index.json')),'De index van de geïntegreerde NVT ontbreekt in de publicatiebundel.');
+assert.ok(fs.existsSync(path.join(siteDir,'data','nvt','integrated')),'De geïntegreerde NVT-bestanden ontbreken in de publicatiebundel.');
 
 const files=[];
 function collect(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())collect(file);else files.push(file)}}
