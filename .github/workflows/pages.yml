@@ -67,8 +67,6 @@ jobs:
           python tests/verify_iwo_identity.py
           python tools/verify_runtime.py
       - name: Download official explanatory notes
-        env:
-          NVT_FALLBACK_BASE: https://umeomilieuadvies.github.io/OwSelector-test/data/nvt
         run: python tools/build_nvt_documents.py
       - name: Build integrated explanatory notes
         run: |
@@ -97,7 +95,11 @@ jobs:
           cp data/jurisprudence.json _site/data/jurisprudence.json
           cp data/graph/*_legal_graph.json _site/data/graph/
           cp -R data/illustrations/. _site/data/illustrations/
-          cp -R data/nvt/. _site/data/nvt/
+          # De NVT-pagina leest uitsluitend de samengestelde, doorzoekbare gegevens.
+          # Publiceer de grote ruwe brondocumenten niet ook nog eens: dat verdubbelt
+          # de inhoud van de Pages-bundel en kan de synchronisatie laten vastlopen.
+          cp data/nvt/integrated_index.json _site/data/nvt/integrated_index.json
+          cp -R data/nvt/integrated/. _site/data/nvt/integrated/
           touch _site/.nojekyll
           node tests/create-promotion-candidate.mjs --output _site/promotion-candidate.json --commit "$GITHUB_SHA"
       - name: Verify assembled test site

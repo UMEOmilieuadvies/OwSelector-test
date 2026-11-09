@@ -41,6 +41,8 @@ assert.ok(fs.existsSync(path.join(siteDir,'data','jurisprudence.json')),'De juri
 assert.ok(fs.existsSync(path.join(siteDir,'data','article_notes_bal_chapter4.json')),'De toelichtingsgegevens ontbreken in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','nvt','integrated_index.json')),'De index van de geïntegreerde NVT ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','nvt','integrated')),'De geïntegreerde NVT-bestanden ontbreken in de publicatiebundel.');
+const publishedNvtEntries=fs.readdirSync(path.join(siteDir,'data','nvt')).sort();
+assert.deepEqual(publishedNvtEntries,['integrated','integrated_index.json'],'De publicatiebundel bevat ruwe of dubbele NVT-bronbestanden.');
 
 const files=[];
 function collect(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())collect(file);else files.push(file)}}

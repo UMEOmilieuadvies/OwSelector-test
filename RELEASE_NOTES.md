@@ -781,3 +781,16 @@
 - Toont de officiële nota van toelichting per regeling in een aparte, doorzoekbare pagina.
 - Onderscheidt algemene en artikelsgewijze toelichting en maakt zoeken op artikelnummer mogelijk.
 - Elke getoonde passage houdt een directe verwijzing naar de officiële vindplaats.
+
+## 1.5a-test — 2026-11-09
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- De doorzoekbare nota van toelichting is beschikbaar per regeling, met algemene en artikelsgewijze toelichting.
+- De Help legt uit hoe u de nota van toelichting gebruikt.
+
+**Technisch beheer**
+
+- De Pages-bundel bevat geen dubbele ruwe NVT-bronbestanden meer en controleert dit automatisch.
