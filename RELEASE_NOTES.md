@@ -732,5 +732,22 @@
 
 **Kleine wijziging.**
 
-- Toont het venster 'Wat is er veranderd?' alleen wanneer voor de nieuwe versie daadwerkelijk releasenotities beschikbaar zijn.
+**Voor gebruikers**
+
+- Het venster 'Wat is er veranderd?' verschijnt alleen wanneer er voor u relevante wijzigingen zijn.
+
+**Technisch beheer**
+
 - Neemt release.json verplicht op in de publicatiebundel en controleert versie en releasenotities vóór publicatie.
+
+## 1.4y-test — 2026-11-09
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Het venster 'Wat is er veranderd?' toont voortaan alleen wijzigingen die voor gebruikers relevant zijn.
+
+**Technisch beheer**
+
+- Scheidt gebruikerswijzigingen van technische beheernotities en controleert dit automatisch tijdens de publicatie.

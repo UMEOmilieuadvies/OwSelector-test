@@ -1,10 +1,12 @@
 {
-  "version": "1.4x-test",
+  "version": "1.4y-test",
   "kind": "klein",
   "released_at": "2026-11-09",
-  "notes": [
-    "Toont het venster 'Wat is er veranderd?' alleen wanneer voor de nieuwe versie daadwerkelijk releasenotities beschikbaar zijn.",
-    "Neemt release.json verplicht op in de publicatiebundel en controleert versie en releasenotities vóór publicatie."
+  "user_notes": [
+    "Het venster 'Wat is er veranderd?' toont voortaan alleen wijzigingen die voor gebruikers relevant zijn."
+  ],
+  "technical_notes": [
+    "Scheidt gebruikerswijzigingen van technische beheernotities en controleert dit automatisch tijdens de publicatie."
   ],
   "resolved_comment_ids": []
 }
