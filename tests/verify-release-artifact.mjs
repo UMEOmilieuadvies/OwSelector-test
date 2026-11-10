@@ -39,6 +39,7 @@ assert.ok(fs.existsSync(path.join(siteDir,'jurisprudentie.html')),'De afzonderli
 assert.ok(fs.existsSync(path.join(siteDir,'js','jurisprudence.js')),'De bediening van de jurisprudentiepagina ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','jurisprudence.json')),'De jurisprudentieproefgegevens ontbreken in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','article_notes_bal_chapter4.json')),'De toelichtingsgegevens ontbreken in de publicatiebundel.');
+assert.ok(fs.existsSync(path.join(siteDir,'data','appendix_notes_index.json')),'De index voor bijlagetoelichtingen ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','nvt','integrated_index.json')),'De index van de geïntegreerde NVT ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','nvt','integrated')),'De geïntegreerde NVT-bestanden ontbreken in de publicatiebundel.');
 const publishedNvtEntries=fs.readdirSync(path.join(siteDir,'data','nvt')).sort();

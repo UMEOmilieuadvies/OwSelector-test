@@ -3,6 +3,7 @@
 (()=>{
   const params=new URLSearchParams(location.search);
   const article=String(params.get('artikel')||'').trim();
+  const appendix=String(params.get('bijlage')||'').trim().toLowerCase();
   const regulation=String(params.get('regeling')||'').toUpperCase();
   const $=id=>document.getElementById(id);
   const esc=value=>String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
@@ -12,6 +13,8 @@
   };
   const memberHeading=/^(?:eerste|tweede|derde|vierde|vijfde|zesde|zevende|achtste|negende|tiende) lid$/i;
   const articleHeading=/^Artikel\s+[0-9]+(?:\.[0-9]+)*[a-z]?\b/i;
+  const appendixHeading=/^Bijlage(?:\s+[IVXLCDM]+[a-z]*)?\b/i;
+  const legalHeading=line=>articleHeading.test(line)||appendixHeading.test(line);
   function cleanLines(value){return String(value||'').split(/\n+/).map(line=>line.replace(/\s+/g,' ').trim()).filter(Boolean)}
   function marker(line){
     let match=line.match(/^(\d+°\.)\s+(.+)$/);
@@ -28,7 +31,7 @@
     const flush=()=>{if(current?.text)blocks.push(current);current=null};
     for(const line of lines){
       const item=marker(line);
-      if(articleHeading.test(line)||memberHeading.test(line)){
+      if(legalHeading(line)||memberHeading.test(line)){
         flush();blocks.push({kind:'heading',text:line});continue;
       }
       if(item){flush();current={kind:'item',...item};continue}
@@ -44,37 +47,40 @@
     }).join('');
   }
   function splitText(value){
-    const lines=cleanLines(value), first=lines.findIndex(line=>articleHeading.test(line));
-    const second=first<0?-1:lines.findIndex((line,index)=>index>first&&articleHeading.test(line));
+    const lines=cleanLines(value), first=lines.findIndex(line=>legalHeading(line));
+    const second=first<0?-1:lines.findIndex((line,index)=>index>first&&legalHeading(line));
     if(second<0)return {excerpt:[],explanation:lines};
     return {excerpt:lines.slice(first,second),explanation:lines.slice(second+1)};
   }
   function sourceCard(note){
     const shared=Array.isArray(note.shared_for)&&note.shared_for.length>1
       ?`<p class="articleNotesMeta">Gezamenlijke toelichting bij artikelen ${note.shared_for.map(esc).join(', ')}.</p>`:'';
+    const via=note.applies_via_article?`<p class="articleNotesMeta">Toelichting bij het aanwijzende ${esc(note.applies_via_article)}.</p>`:'';
     const parts=splitText(note.text);
     const excerpt=parts.excerpt.length?`<section class="articleNotesExcerpt"><h3>Wettekst waarop de toelichting ziet</h3>${structuredText(parts.excerpt)}</section>`:'';
     const explanation=structuredText(parts.explanation);
-    return `<section class="articleNotesSource"><div class="articleNotesSourceHead"><h2>${esc(note.source)}</h2><a href="${esc(note.url||officialUrl(note.source))}" target="_blank" rel="noopener">Open de officiële bron</a></div>${shared}${excerpt}<section class="articleNotesText"><h3>${excerpt?'Artikelsgewijze toelichting':'Officiële artikelsgewijze toelichting'}</h3>${explanation}</section></section>`;
+    return `<section class="articleNotesSource"><div class="articleNotesSourceHead"><h2>${esc(note.source)}</h2><a href="${esc(note.url||officialUrl(note.source))}" target="_blank" rel="noopener">Open de officiële bron</a></div>${shared}${via}${excerpt}<section class="articleNotesText"><h3>${excerpt?'Artikelsgewijze toelichting':'Officiële artikelsgewijze toelichting'}</h3>${explanation}</section></section>`;
   }
   function render(record){
+    const isAppendix=record.kind==='appendix';
     $('articleNotesTitle').textContent=`Nota van toelichting bij ${record.label}`;
-    $('articleNotesIntro').textContent=`${record.paragraph||'BAL'} · actuele ontstaansbron: ${record.source||'onbekend'}`;
+    $('articleNotesIntro').textContent=`${record.paragraph||regulation} · actuele ontstaansbron: ${record.source||'onbekend'}`;
     if(!record.notes.length){
-      $('articleNotesContent').innerHTML=`<section class="articleNotesEmpty"><h2>Geen afzonderlijke artikelsgewijze toelichting opgenomen</h2><p>In de geraadpleegde officiële nota’s is geen afzonderlijke of gezamenlijke artikelsgewijze kop gevonden waarin ${esc(record.label)} voorkomt. Daarom is geen aanvullende tekst aan dit artikel gekoppeld.</p><p>Algemene of paragraafgewijze toelichting wordt niet als toelichting bij dit afzonderlijke artikel gepresenteerd.</p></section>`;
+      $('articleNotesContent').innerHTML=`<section class="articleNotesEmpty"><h2>Geen afzonderlijke toelichting opgenomen</h2><p>In de geraadpleegde officiële nota’s is geen afzonderlijke ${isAppendix?'bijlage':'artikelsgewijze'} toelichting gevonden voor ${esc(record.label)}.</p><p>Algemene of paragraafgewijze toelichting wordt niet als toelichting bij dit afzonderlijke onderdeel gepresenteerd.</p></section>`;
       return;
     }
-    $('articleNotesContent').innerHTML=`<section class="articleNotesSummary"><h2>Artikelsgewijze toelichting</h2><p>Hieronder staat uitsluitend officiële toelichting die rechtstreeks aan dit artikel, of aan een gezamenlijke artikelkop waarin dit artikel voorkomt, is gekoppeld.</p></section>${record.notes.map(sourceCard).join('')}`;
+    $('articleNotesContent').innerHTML=`<section class="articleNotesSummary"><h2>${isAppendix?'Toelichting bij de bijlage':'Artikelsgewijze toelichting'}</h2><p>Hieronder staat uitsluitend officiële toelichting die rechtstreeks aan dit onderdeel, of aan het aanwijzende artikel, is gekoppeld.</p></section>${record.notes.map(sourceCard).join('')}`;
   }
   async function load(){
-    if(!regulation||!article){$('articleNotesIntro').textContent='Geen artikel gekozen.';return;}
+    if(!regulation||(!article&&!appendix)){$('articleNotesIntro').textContent='Geen artikel of bijlage gekozen.';return;}
     try{
       const response=await fetch('data/article_notes.json',{cache:'no-store'});
       if(!response.ok)throw new Error('gegevens ontbreken');
       const data=await response.json();
-      const record=data.regulations?.[regulation]?.[article];
-      if(!record)throw new Error('artikel ontbreekt');
-      render(record);
+      const stored=data.regulations?.[regulation];
+      const record=appendix?stored?.appendices?.[appendix]:stored?.[article];
+      if(!record)throw new Error('onderdeel ontbreekt');
+      render({...record,kind:appendix?'appendix':'article'});
     }catch(_){
       $('articleNotesIntro').textContent='De toelichtingsgegevens konden niet worden geladen.';
       $('articleNotesContent').innerHTML='<section class="articleNotesEmpty"><h2>Nu niet beschikbaar</h2><p>Probeer het later opnieuw.</p></section>';

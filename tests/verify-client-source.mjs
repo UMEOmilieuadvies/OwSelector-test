@@ -58,6 +58,10 @@ assert.match(source,/function renderArticleNotesAction\(ar\)/,'BAL-artikelen moe
 assert.ok(fs.existsSync('article-notes.html'),'De pagina met de artikelsgewijze toelichting ontbreekt.');
 assert.ok(fs.existsSync('js/article-notes.js'),'De bediening van de artikelsgewijze toelichting ontbreekt.');
 assert.ok(fs.existsSync('data/article_notes_bal_chapter4.json'),'De gecontroleerde BAL-toelichtingsgegevens ontbreken.');
+assert.ok(fs.existsSync('tools/build_article_notes_all.py'),'De bouwer voor bijlage-toelichtingen ontbreekt.');
+assert.ok(fs.existsSync('tests/verify_appendix_notes.py'),'De broncontrole voor bijlagetoelichtingen ontbreekt.');
+assert.match(source,/function renderAppendixNotesAction\(a\)/,'Bijlagen moeten een toelichtingsactie kunnen tonen.');
+assert.match(source,/appendix_notes_index\.json/,'De bijlageactie moet alleen verschijnen bij beschikbare toelichting.');
 console.log('De testfunctie voor artikelsgewijze toelichting is aanwezig.');
 assert.ok(fs.existsSync('tools/build_integrated_nvt.py'),'De bouwer voor de geïntegreerde NVT ontbreekt.');
 assert.ok(fs.existsSync('tests/verify_integrated_nvt.py'),'De structuurcontrole voor de geïntegreerde NVT ontbreekt.');

@@ -807,3 +807,15 @@
 
 - De handmatige beoordelingsworkflow verwerkt maximaal 500 ECLI's per hervatbare batch.
 - Onbeoordeelde kandidaten blijven buiten de openbare zoeker.
+## 1.5c-test — 2026-11-10
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Bijlagen tonen nu een knop naar de officiële nota van toelichting wanneer daarvoor betrouwbare toelichting beschikbaar is.
+- Toelichting via het artikel dat een bijlage aanwijst wordt duidelijk als zodanig getoond.
+
+**Technisch beheer**
+
+- De bijlagekoppelingen worden voor alle regelingen brongebonden opgebouwd en gecontroleerd.

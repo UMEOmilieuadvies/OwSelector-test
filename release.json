@@ -1,13 +1,13 @@
 {
-  "version": "1.5b-test",
+  "version": "1.5c-test",
   "kind": "klein",
   "released_at": "2026-11-10",
   "user_notes": [
-    "De jurisprudentiebeoordeling verzamelt 2024 voortaan hervatbaar voor alle opgenomen regelingen.",
-    "Een dekkingsrapport laat per regeling zien hoeveel uitspraken en artikelkoppelingen nog beoordeeld moeten worden."
+    "Bijlagen tonen nu een knop naar de officiële nota van toelichting wanneer daar betrouwbare toelichting voor beschikbaar is.",
+    "Ook toelichting via het artikel dat een bijlage aanwijst wordt duidelijk als zodanig getoond."
   ],
   "technical_notes": [
-    "De beoordelingstroom verwerkt maximaal 500 ECLI's per batch en publiceert geen onbeoordeelde kandidaten."
+    "De bijlagekoppelingen worden voor alle regelingen brongebonden opgebouwd en gecontroleerd."
   ],
   "resolved_comment_ids": []
 }

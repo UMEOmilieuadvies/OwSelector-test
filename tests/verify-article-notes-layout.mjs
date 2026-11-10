@@ -31,4 +31,18 @@ assert.match(html,/articleNotesItem level1/,'Letteronderdelen moeten worden inge
 assert.match(html,/articleNotesItem level2/,'Subonderdelen moeten verder worden ingesprongen.');
 assert.match(html,/Een eerste lid loopt door op de volgende bronregel\./,'Afgebroken bronregels moeten logisch doorlopen.');
 assert.doesNotMatch(html,/<br>/,'De toelichting mag niet als platte tekst met regeleinden worden weergegeven.');
+
+const appendixElements=new Map(['articleNotesTitle','articleNotesIntro','articleNotesContent'].map(id=>[id,{textContent:'',innerHTML:''}]));
+const appendixData={regulations:{BAL:{appendices:{i:{label:'Bijlage I',source:'Stb.2018-293',notes:[{source:'Stb.2018-293',url:'',shared_for:[],applies_via_article:'Artikel 1.1',text:'Artikel 1.1\nDeze toelichting hoort bij de aanwijzende bepaling.'}]}}}}};
+const appendixContext={
+  URLSearchParams,
+  location:{search:'?regeling=BAL&bijlage=i'},
+  document:{getElementById:id=>appendixElements.get(id)},
+  fetch:async()=>({ok:true,json:async()=>appendixData}),
+};
+vm.runInNewContext(source,appendixContext,{filename:'js/article-notes.js'});
+await new Promise(resolve=>setImmediate(resolve));
+assert.equal(appendixElements.get('articleNotesTitle').textContent,'Nota van toelichting bij Bijlage I','De bijlage moet een eigen NVT-titel krijgen.');
+assert.match(appendixElements.get('articleNotesContent').innerHTML,/Toelichting bij de bijlage/,'De pagina moet bijlagetoelichting herkennen.');
+assert.match(appendixElements.get('articleNotesContent').innerHTML,/aanwijzende Artikel 1.1/,'Toelichting via een aanwijzend artikel moet herkenbaar blijven.');
 console.log('Artikelsgewijze toelichting wordt logisch gegroepeerd en ingesprongen weergegeven.');
