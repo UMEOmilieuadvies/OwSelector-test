@@ -1,13 +1,10 @@
 {
-  "version": "1.5c-test",
-  "kind": "klein",
+  "version": "1.5d-test",
+  "kind": "technisch",
   "released_at": "2026-11-10",
-  "user_notes": [
-    "Bijlagen tonen nu een knop naar de officiële nota van toelichting wanneer daar betrouwbare toelichting voor beschikbaar is.",
-    "Ook toelichting via het artikel dat een bijlage aanwijst wordt duidelijk als zodanig getoond."
-  ],
+  "user_notes": [],
   "technical_notes": [
-    "De bijlagekoppelingen worden voor alle regelingen brongebonden opgebouwd en gecontroleerd."
+    "De NvT-opbouw hergebruikt bij een tijdelijke bronblokkade veilig een eerder opgehaalde officiële broncache."
   ],
   "resolved_comment_ids": []
 }

@@ -45,6 +45,7 @@ jobs:
           python tests/verify_jurisprudence_review.py
           node tests/verify-article-notes-layout.mjs
           node tests/verify-responsive-layout.mjs
+          python tests/verify_nvt_cache_fallback.py
           if find js -name '*.js' ! -name 'app-config.js' -print0 | xargs -0 grep -qE 'supabase\.co|sb_publishable_'; then
             echo 'Databasegegevens horen uitsluitend in js/app-config.js.'
             exit 1
@@ -66,6 +67,11 @@ jobs:
         run: |
           python tests/verify_iwo_identity.py
           python tools/verify_runtime.py
+      - name: Restore official explanatory-notes cache
+        uses: actions/cache@v4
+        with:
+          path: data/nvt
+          key: nvt-source-v1-${{ hashFiles('nvt_catalog.json') }}
       - name: Download official explanatory notes
         run: python tools/build_nvt_documents.py
       - name: Build integrated explanatory notes

@@ -807,6 +807,15 @@
 
 - De handmatige beoordelingsworkflow verwerkt maximaal 500 ECLI's per hervatbare batch.
 - Onbeoordeelde kandidaten blijven buiten de openbare zoeker.
+## 1.5d-test — 2026-11-10
+
+**Technisch herstel.**
+
+**Technisch beheer**
+
+- Een tijdelijke blokkade bij een officiële NvT-bron stopt de testpublicatie niet meer wanneer een eerder succesvol opgehaalde officiële broncache beschikbaar is.
+- De terugval wordt tijdens de build gecontroleerd en bevat geen productiegegevens.
+
 ## 1.5c-test — 2026-11-10
 
 **Kleine wijziging.**
