@@ -1,13 +1,13 @@
 {
-  "version": "1.5a-test",
+  "version": "1.5b-test",
   "kind": "klein",
-  "released_at": "2026-11-09",
+  "released_at": "2026-11-10",
   "user_notes": [
-    "De doorzoekbare nota van toelichting is beschikbaar per regeling, met algemene en artikelsgewijze toelichting.",
-    "De Help legt uit hoe u de nota van toelichting gebruikt."
+    "De jurisprudentiebeoordeling verzamelt 2024 voortaan hervatbaar voor alle opgenomen regelingen.",
+    "Een dekkingsrapport laat per regeling zien hoeveel uitspraken en artikelkoppelingen nog beoordeeld moeten worden."
   ],
   "technical_notes": [
-    "De Pages-bundel bevat geen dubbele ruwe NVT-bronbestanden meer en controleert dit automatisch."
+    "De beoordelingstroom verwerkt maximaal 500 ECLI's per batch en publiceert geen onbeoordeelde kandidaten."
   ],
   "resolved_comment_ids": []
 }

@@ -12,9 +12,9 @@ on:
         required: false
         default: ''
       max_eclis:
-        description: 'Maximaal aantal ECLI''s in deze batch (1-500)'
+        description: 'Maximaal aantal ECLI''s in deze hervatbare batch (1-500)'
         required: true
-        default: '100'
+        default: '500'
       all_rechtsgebieden:
         description: 'Ook buiten omgevingsrecht zoeken (alleen voor aanvullende passage)'
         type: boolean
@@ -83,6 +83,12 @@ jobs:
           python tools/build_jurisprudence_review_insights.py \
             --candidates review-work/review-data/jurisprudence_candidates.json \
             --output review-work/review-data/JURISPRUDENTIE_INZICHTEN.md
+          python tools/build_jurisprudence_coverage.py \
+            --candidates review-work/review-data/jurisprudence_candidates.json \
+            --state review-work/review-data/jurisprudence_collection_state.json \
+            --from-date "${{ inputs.from_date }}" \
+            --to-date "$TO_DATE" \
+            --output review-work/review-data/JURISPRUDENTIE_DEKKING.md
 
       - name: Sla het dossier online op
         env:
@@ -107,3 +113,4 @@ jobs:
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo "[Open het beoordelingsdossier](https://github.com/${GITHUB_REPOSITORY}/blob/jurisprudence-review/review-data/JURISPRUDENTIE_BEOORDELING.md)" >> "$GITHUB_STEP_SUMMARY"
           echo "[Open het inzichtsrapport](https://github.com/${GITHUB_REPOSITORY}/blob/jurisprudence-review/review-data/JURISPRUDENTIE_INZICHTEN.md)" >> "$GITHUB_STEP_SUMMARY"
+          echo "[Open het dekkingsrapport](https://github.com/${GITHUB_REPOSITORY}/blob/jurisprudence-review/review-data/JURISPRUDENTIE_DEKKING.md)" >> "$GITHUB_STEP_SUMMARY"

@@ -794,3 +794,16 @@
 **Technisch beheer**
 
 - De Pages-bundel bevat geen dubbele ruwe NVT-bronbestanden meer en controleert dit automatisch.
+## 1.5b-test — 2026-11-10
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- De beoordeling van jurisprudentie uit 2024 kan voor alle opgenomen regelingen gecontroleerd worden voortgezet.
+- Een overzicht laat per regeling zien hoeveel uitspraken en artikelkoppelingen nog beoordeling nodig hebben.
+
+**Technisch beheer**
+
+- De handmatige beoordelingsworkflow verwerkt maximaal 500 ECLI's per hervatbare batch.
+- Onbeoordeelde kandidaten blijven buiten de openbare zoeker.
