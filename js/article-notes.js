@@ -53,8 +53,11 @@
     return {excerpt:lines.slice(first,second),explanation:lines.slice(second+1)};
   }
   function sourceCard(note){
-    const shared=Array.isArray(note.shared_for)&&note.shared_for.length>1
-      ?`<p class="articleNotesMeta">Gezamenlijke toelichting bij artikelen ${note.shared_for.map(esc).join(', ')}.</p>`:'';
+    const sharedFor=Array.isArray(note.shared_for)?note.shared_for:[];
+    const coveredArticles=[article,...sharedFor].filter(Boolean);
+    const paragraph=cleanLines(note.text)[0]?.match(/^§\s*([0-9]+(?:\.[0-9]+)+[a-z]?)/i);
+    const shared=sharedFor.length
+      ?`<p class="articleNotesMeta">${paragraph?`Toelichting bij § ${esc(paragraph[1])}`:'Deze toelichting'}; geldt voor de artikelen ${coveredArticles.map(esc).join(', ')}.</p>`:'';
     const via=note.applies_via_article?`<p class="articleNotesMeta">Toelichting bij het aanwijzende ${esc(note.applies_via_article)}.</p>`:'';
     const parts=splitText(note.text);
     const excerpt=parts.excerpt.length?`<section class="articleNotesExcerpt"><h3>Wettekst waarop de toelichting ziet</h3>${structuredText(parts.excerpt)}</section>`:'';

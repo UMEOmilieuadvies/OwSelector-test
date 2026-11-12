@@ -1,9 +1,9 @@
 {
-  "version": "1.5f-test",
+  "version": "1.5g-test",
   "kind": "klein",
   "released_at": "2026-11-12",
   "user_notes": [
-    "De toelichting bij gewijzigde BAL-bodemregels wordt nauwkeuriger aan het juiste artikel gekoppeld."
+    "Gedeelde paragraaftoelichtingen vermelden nu duidelijk voor welke artikelen zij gelden."
   ],
   "technical_notes": [],
   "resolved_comment_ids": []

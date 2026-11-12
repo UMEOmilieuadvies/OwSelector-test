@@ -841,3 +841,7 @@
 - Voegt de officiële wijzigingsnota Staatsblad 2021, 98 toe aan de toelichting bij de actuele BAL-bodemregels.
 - Koppelt toelichting per artikel; tekst van een volgend artikel wordt niet meer bij het vorige artikel getoond.
 
+## 1.5g-test — duidelijke gedeelde NvT-toelichting
+
+- Vervangt wederzijdse lijsten met artikelnummers door één duidelijke aanduiding van het bereik van gedeelde paragraaftoelichting.
+
