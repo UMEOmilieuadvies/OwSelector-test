@@ -1,9 +1,9 @@
 {
-  "version": "1.5e-test",
+  "version": "1.5f-test",
   "kind": "klein",
   "released_at": "2026-11-12",
   "user_notes": [
-    "De proef met jurisprudentie is uit de testomgeving verwijderd."
+    "De toelichting bij gewijzigde BAL-bodemregels wordt nauwkeuriger aan het juiste artikel gekoppeld."
   ],
   "technical_notes": [],
   "resolved_comment_ids": []

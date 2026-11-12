@@ -836,3 +836,8 @@
 
 - De proef met jurisprudentie is uit de testomgeving verwijderd.
 
+## 1.5f-test — nauwkeurigere BAL-bodemtoelichting
+
+- Voegt de officiële wijzigingsnota Staatsblad 2021, 98 toe aan de toelichting bij de actuele BAL-bodemregels.
+- Koppelt toelichting per artikel; tekst van een volgend artikel wordt niet meer bij het vorige artikel getoond.
+

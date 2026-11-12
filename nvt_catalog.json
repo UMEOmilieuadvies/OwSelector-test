@@ -28,6 +28,15 @@
           "description": "Toelichting bij de oorspronkelijke vaststelling.",
           "url": "https://zoek.officielebekendmakingen.nl/stb-2018-293.html",
           "file": "bal-original.html"
+        },
+        {
+          "title": "Nota van toelichting bij het Aanvullingsbesluit bodem Omgevingswet",
+          "publication": "Staatsblad 2021, 98",
+          "date": "2021",
+          "description": "Wijzigingsnota bij onder meer het BAL over bodem en grondwater.",
+          "url": "https://zoek.officielebekendmakingen.nl/stb-2021-98.html",
+          "file": "bal-bodem-2021.html",
+          "kind": "amendment"
         }
       ],
       "bwb": "BWBR0041330"

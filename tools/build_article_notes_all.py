@@ -7,6 +7,7 @@ from pathlib import Path
 import json,re,xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]; SOURCE=ROOT/'data'/'source'; OUT=ROOT/'data'/'article_notes.json'; APPENDIX_INDEX=ROOT/'data'/'appendix_notes_index.json'
+BAL_AMENDMENTS=ROOT/'data'/'article_notes_bal_amendments.json'
 REGS={'OW':('omgevingswet.xml','ow-original.html'),'BAL':('bal.xml','bal-original.html'),'BBL':('bbl.xml','bbl-original.html'),'BKL':('bkl.xml','bkl-original.html'),'OB':('ob.xml','ob-original.html'),'OR':('or.xml','or-original.html'),'IWO':('invoeringswet_omgevingswet.xml','iwo-original.html')}
 ARTICLE=re.compile(r'^Artikel\s+([0-9]+(?:\.[0-9]+)*[a-z]?)\b',re.I)
 APPENDIX=re.compile(r'^Bijlage(?:\s+([IVXLCDM]+[a-z]*))?\b',re.I)
@@ -82,6 +83,15 @@ def main():
  # BAL hoofdstuk 4 is afzonderlijk gecontroleerd en bevat ook relevante wijzigingsbronnen.
  overlay=json.loads((ROOT/'data'/'article_notes_bal_chapter4.json').read_text(encoding='utf8'))['articles']
  all_data['BAL'].update(overlay)
+ # Aanvullende officiële wijzigingsnota's worden brongebonden toegevoegd; een
+ # bestaande oorspronkelijke toelichting blijft zichtbaar naast de wijzigingstekst.
+ if BAL_AMENDMENTS.exists():
+  amendments=json.loads(BAL_AMENDMENTS.read_text(encoding='utf8')).get('articles',{})
+  for number,notes in amendments.items():
+   record=all_data['BAL'].get(number)
+   if record is None: continue
+   present={(note.get('source'),note.get('text')) for note in record.get('notes',[])}
+   record.setdefault('notes',[]).extend(note for note in notes if (note.get('source'),note.get('text')) not in present)
  OUT.write_text(json.dumps({'regulations':all_data},ensure_ascii=False),encoding='utf8')
  APPENDIX_INDEX.write_text(json.dumps(appendix_index,ensure_ascii=False),encoding='utf8')
  print('Geschreven:',OUT);print(', '.join(f'{k}: {len(v)}' for k,v in all_data.items()))
