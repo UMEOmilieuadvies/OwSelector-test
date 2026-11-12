@@ -36,13 +36,10 @@ jobs:
           node --check js/app.js
           node --check js/article-notes.js
           node --check js/nvt.js
-          node --check js/jurisprudence.js
           node --check js/qna.js
           node --check js/beheer.js
           node tests/verify-client-source.mjs
           python tests/verify_release_tool.py
-          node tests/verify-jurisprudence-data.mjs
-          python tests/verify_jurisprudence_review.py
           node tests/verify-article-notes-layout.mjs
           node tests/verify-responsive-layout.mjs
           python tests/verify_nvt_cache_fallback.py
@@ -92,7 +89,7 @@ jobs:
           cp css/app.css _site/css/app.css
           cp js/app-config.js js/app.js js/beheer.js js/article-history.js _site/js/
           cp js/nvt.js _site/js/nvt.js
-          cp js/article-notes.js js/jurisprudence.js _site/js/
+          cp js/article-notes.js _site/js/
           cp js/qna.js _site/js/qna.js
           cp data/external_refs.json _site/data/external_refs.json
           cp data/back_references.json _site/data/back_references.json
