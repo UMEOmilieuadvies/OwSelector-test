@@ -850,3 +850,8 @@
 - Nieuwe officiële wijzigingsnota's worden alleen toegelaten na bron-, regeling-, artikelkoppelings- en regressiecontrole.
 - Inventariseert officiële wijzigingsbronnen voor alle zeven regelingen zonder ongecontroleerde bronnen aan gebruikers te tonen.
 
+## 1.5i-test — opschoning verwijderde jurisprudentieproef
+
+- Verwijdert een resterende, niet-zichtbare klikafhandeling van de beëindigde jurisprudentieproef.
+- De testcontrole blokkeert voortaan terugkeer van de pagina, het script, de gegevens of appcode voor jurisprudentie.
+

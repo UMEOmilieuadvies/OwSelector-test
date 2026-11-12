@@ -22,6 +22,10 @@ assert.ok(config.regulations.some(regulation=>regulation.id==='IWO'&&regulation.
 const notesCatalog=JSON.parse(fs.readFileSync('nvt_catalog.json','utf8'));
 assert.ok(notesCatalog.regulations.some(regulation=>regulation.id==='IWO'&&regulation.bwb==='BWBR0043660'),'De toelichtingscatalogus mist de Invoeringswet Omgevingswet.');
 const source=fs.readFileSync('js/app.js','utf8');
+assert.ok(!/jurisprudentie|jurisprudence/i.test(source),'Testcode mag geen verwijzingen naar de verwijderde jurisprudentieproef bevatten.');
+assert.ok(!fs.existsSync('jurisprudentie.html'),'De verwijderde jurisprudentiepagina mag niet terugkeren.');
+assert.ok(!fs.existsSync('js/jurisprudence.js'),'De verwijderde jurisprudentiecode mag niet terugkeren.');
+assert.ok(!fs.existsSync('data/jurisprudence.json'),'De verwijderde jurisprudentiegegevens mogen niet terugkeren.');
 assert.ok(!source.includes('pqpsajcjydvagrfxfeye'),'Productie-Supabase mag niet in de testcode voorkomen.');
 assert.ok(!source.includes("const VERSION='"),'Versie hoort alleen in app-config.js te staan.');
 for(const file of fs.readdirSync('js').filter(name=>name.endsWith('.js')&&name!=='app-config.js').map(name=>`js/${name}`)){

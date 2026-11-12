@@ -1,10 +1,10 @@
 {
-  "version": "1.5h-test",
+  "version": "1.5i-test",
   "kind": "klein",
   "released_at": "2026-11-12",
-  "user_notes": [
-    "Nieuwe toelichtingsbronnen worden pas toegevoegd na controle van bron, regeling, artikelkoppeling en regressieproef."
+  "user_notes": [],
+  "technical_notes": [
+    "Verwijdert een achtergebleven gebeurtenisafhandeling van de beëindigde jurisprudentieproef en blokkeert herintroductie daarvan met een broncontrole."
   ],
-  "technical_notes": [],
   "resolved_comment_ids": []
 }
