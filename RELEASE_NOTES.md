@@ -845,3 +845,8 @@
 
 - Vervangt wederzijdse lijsten met artikelnummers door één duidelijke aanduiding van het bereik van gedeelde paragraaftoelichting.
 
+## 1.5h-test — gecontroleerde wijzigingsbronnen voor de NvT
+
+- Nieuwe officiële wijzigingsnota's worden alleen toegelaten na bron-, regeling-, artikelkoppelings- en regressiecontrole.
+- Inventariseert officiële wijzigingsbronnen voor alle zeven regelingen zonder ongecontroleerde bronnen aan gebruikers te tonen.
+

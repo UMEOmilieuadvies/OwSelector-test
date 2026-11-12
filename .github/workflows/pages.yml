@@ -80,6 +80,7 @@ jobs:
           python tools/build_bal_amendment_links.py
           python tools/build_article_notes_all.py
           python tests/verify_bal_amendment_links.py
+          python tests/verify_nvt_source_gates.py
           python tests/verify_appendix_notes.py
       - name: Assemble static site
         run: |

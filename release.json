@@ -1,9 +1,9 @@
 {
-  "version": "1.5g-test",
+  "version": "1.5h-test",
   "kind": "klein",
   "released_at": "2026-11-12",
   "user_notes": [
-    "Gedeelde paragraaftoelichtingen vermelden nu duidelijk voor welke artikelen zij gelden."
+    "Nieuwe toelichtingsbronnen worden pas toegevoegd na controle van bron, regeling, artikelkoppeling en regressieproef."
   ],
   "technical_notes": [],
   "resolved_comment_ids": []

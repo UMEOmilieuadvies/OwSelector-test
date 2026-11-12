@@ -36,7 +36,13 @@
           "description": "Wijzigingsnota bij onder meer het BAL over bodem en grondwater.",
           "url": "https://zoek.officielebekendmakingen.nl/stb-2021-98.html",
           "file": "bal-bodem-2021.html",
-          "kind": "amendment"
+          "kind": "amendment",
+          "verification": {
+            "status": "verified",
+            "applies_to": ["BAL"],
+            "article": "4.1235",
+            "contains": "Dit artikel bepaalt de reikwijdte van paragraaf 4.121."
+          }
         }
       ],
       "bwb": "BWBR0041330"
