@@ -828,3 +828,11 @@
 **Technisch beheer**
 
 - De bijlagekoppelingen worden voor alle regelingen brongebonden opgebouwd en gecontroleerd.
+## 1.5e-test — 2026-11-12
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- De proef met jurisprudentie is uit de testomgeving verwijderd.
+

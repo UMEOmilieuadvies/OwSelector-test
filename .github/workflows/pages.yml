@@ -85,7 +85,7 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir -p _site/css _site/js _site/data/graph _site/data/illustrations _site/data/nvt
-          cp help.html qna.html nvt.html nvt_catalog.json beheer.html historie.html article-notes.html jurisprudentie.html favicon.svg _site/
+          cp help.html qna.html nvt.html nvt_catalog.json beheer.html historie.html article-notes.html favicon.svg _site/
           cp release.json _site/release.json
           python tools/prepare_test_release.py
           cp -R images _site/images

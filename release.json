@@ -1,10 +1,10 @@
 {
-  "version": "1.5d-test",
-  "kind": "technisch",
-  "released_at": "2026-11-10",
-  "user_notes": [],
-  "technical_notes": [
-    "De NvT-opbouw hergebruikt bij een tijdelijke bronblokkade veilig een eerder opgehaalde officiële broncache."
+  "version": "1.5e-test",
+  "kind": "klein",
+  "released_at": "2026-11-12",
+  "user_notes": [
+    "De proef met jurisprudentie is uit de testomgeving verwijderd."
   ],
+  "technical_notes": [],
   "resolved_comment_ids": []
 }

@@ -13,7 +13,6 @@
 
 ## Functies die nog alleen in test staan
 
-- Uitgebreidere jurisprudentiekoppeling voor alle opgenomen regelingen.
 - Het wijzigingsvenster toont uitsluitend wijzigingen die voor gebruikers relevant zijn.
 - Doorzoekbare nota van toelichting per regeling, met bronverwijzingen en artikelsgewijze indeling.
 
