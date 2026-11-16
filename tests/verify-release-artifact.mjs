@@ -34,6 +34,9 @@ for(const page of staticPages){
 }
 const index=fs.readFileSync(path.join(siteDir,'index.html'),'utf8');
 assert.ok(fs.existsSync(path.join(siteDir,'js','app-behavior.js')),'De gedeelde gedragslaag ontbreekt in de publicatiebundel.');
+assert.ok(fs.existsSync(path.join(siteDir,'js','app-navigation.js')),'De navigatiemodule ontbreekt in de publicatiebundel.');
+assert.ok(fs.existsSync(path.join(siteDir,'js','app-data-loading.js')),'De laadmodule ontbreekt in de publicatiebundel.');
+assert.ok(fs.existsSync(path.join(siteDir,'js','app-viewer.js')),'De viewermodule ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'article-notes.html')),'De pagina met artikelsgewijze toelichting ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'js','article-notes.js')),'De bediening van artikelsgewijze toelichting ontbreekt in de publicatiebundel.');
 assert.ok(fs.existsSync(path.join(siteDir,'data','article_notes_bal_chapter4.json')),'De toelichtingsgegevens ontbreken in de publicatiebundel.');

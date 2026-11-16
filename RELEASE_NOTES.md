@@ -875,3 +875,9 @@
 - Controleert deze kritieke gebruikersstromen automatisch vóór publicatie.
 - Breidt de promotiecontrole uit met de gedeelde gedragslaag en toont duidelijke bouwfasen in de workflowlog.
 
+## 1.5n-test — browserproeven en lintcontrole
+
+- Verdeelt navigatie-, laad- en viewerweergavelogica verder over afzonderlijke modules.
+- Voegt browserproeven toe voor zoeken, favorieten, terugverwijzingen en de artikelsgewijze toelichting.
+- Voert een lintcontrole uit vóór de juridische build.
+

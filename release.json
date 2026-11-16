@@ -1,13 +1,13 @@
 {
-  "version": "1.5m-test",
+  "version": "1.5n-test",
   "kind": "klein",
   "released_at": "2026-11-16",
   "user_notes": [
   ],
   "technical_notes": [
-    "De regels voor favorieten, zoekgeschiedenis en terugverwijzingen zijn ondergebracht in een gedeelde, afzonderlijk geteste gedragslaag.",
-    "De testbouw toont voortgang per fase en de promotiecontrole vergelijkt ook de gedeelde gedragslaag.",
-    "Kritieke gebruikersstromen worden automatisch gecontroleerd vóór publicatie."
+    "Splitst navigatie-, laad- en viewerweergavelogica verder uit de hoofdapplicatie.",
+    "Voegt echte browserproeven toe voor zoeken, favorieten, terugverwijzingen en de NvT-knop.",
+    "Voegt ESLint toe als verplichte vroege kwaliteitscontrole in de testworkflow."
   ],
   "resolved_comment_ids": []
 }

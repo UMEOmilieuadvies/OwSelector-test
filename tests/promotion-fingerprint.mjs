@@ -24,6 +24,9 @@ export function fingerprints(root){
   return {
     app_js:digest(normalizeApp(read(root,'js/app.js'))),
     app_behavior_js:digest(read(root,'js/app-behavior.js')),
+    app_navigation_js:digest(read(root,'js/app-navigation.js')),
+    app_data_loading_js:digest(read(root,'js/app-data-loading.js')),
+    app_viewer_js:digest(read(root,'js/app-viewer.js')),
     index_html:digest(normalizeIndex(read(root,'index.html'))),
     app_css:digest(read(root,'css/app.css'))
   };

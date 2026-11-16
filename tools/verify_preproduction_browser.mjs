@@ -31,7 +31,49 @@ try {
       const regulations = await page.locator('#regulationSelect option').count();
       const expectedRegulations = await page.evaluate(() => window.OWZ_CONFIG?.regulations?.length || 0);
       if (regulations !== expectedRegulations) throw new Error(`Verwacht ${expectedRegulations} regelingen, vond ${regulations}.`);
-      console.log(`Pre-productiesmoketest geslaagd op poging ${attempt}: ${expectedVersion}, ${expectedRegulations} regelingen geladen en zoeken is actief.`);
+      console.log(`Browsertest 1/4: ${expectedVersion}, ${expectedRegulations} regelingen geladen en zoeken is actief.`);
+
+      const target = await page.evaluate(async () => {
+        const references = await (await fetch('data/back_references.json')).json();
+        for (const regulation of window.OWZ_CONFIG.regulations) {
+          const graph = await (await fetch(`data/graph/${regulation.file}`)).json();
+          for (const node of graph.nodes || []) {
+            const rows = references.references?.[`${regulation.id}:${node.id}`] || [];
+            if (rows.some(row => row.regulation !== regulation.id)) {
+              return {regulation:regulation.id, article:String(node.number_display || node.number || '')};
+            }
+          }
+        }
+        return null;
+      });
+      if (!target?.article) throw new Error('Geen artikel met een terugverwijzing gevonden voor de browsertest.');
+
+      console.log(`Browsertest 2/4: zoek en open ${target.regulation} artikel ${target.article}.`);
+      await page.selectOption('#regulationSelect', target.regulation);
+      await page.locator('#searchInput').fill(target.article);
+      await page.locator('#searchButton').click();
+      await page.locator('.searchResult').first().waitFor({timeout:30000});
+      await page.locator('.searchResult').first().click();
+      await page.locator('.articleFavorite').waitFor({timeout:30000});
+
+      console.log('Browsertest 3/4: controleer favorietenknop en volledige terugverwijzing.');
+      await page.locator('.articleFavorite').click();
+      await page.locator('#favoriteConsentModal[open]').waitFor({timeout:10000});
+      await page.evaluate(() => document.getElementById('favoriteConsentModal')?.close());
+      const backReference = page.locator('#side [data-back-reference]').first();
+      await backReference.waitFor({timeout:30000});
+      await backReference.click();
+      await page.locator('.referenceArticleContext').waitFor({timeout:30000});
+
+      console.log('Browsertest 4/4: open de artikelsgewijze toelichting in een nieuw tabblad.');
+      const [notesPage] = await Promise.all([
+        page.waitForEvent('popup'),
+        page.locator('.articleNotesButton').click()
+      ]);
+      await notesPage.waitForLoadState('domcontentloaded');
+      if (!/article-notes\.html\?/.test(notesPage.url())) throw new Error('De NvT-knop opent niet de artikelsgewijze toelichting.');
+      await notesPage.close();
+      console.log('Pre-productiebrowsertest geslaagd: zoeken, favorietenknop, terugverwijzing en NvT-knop werken.');
       succeeded = true;
       break;
     } catch (error) {

@@ -7,6 +7,17 @@ const context={};
 vm.runInNewContext(fs.readFileSync('js/app-behavior.js','utf8'),context,{filename:'js/app-behavior.js'});
 const behavior=context.OWZ_BEHAVIOR;
 assert.ok(behavior,'De gedeelde gedragslaag ontbreekt.');
+const navigationContext={};
+vm.runInNewContext(fs.readFileSync('js/app-navigation.js','utf8'),navigationContext,{filename:'js/app-navigation.js'});
+const loadingContext={fetch:async path=>({ok:true,status:200,json:async()=>({path})})};
+vm.runInNewContext(fs.readFileSync('js/app-data-loading.js','utf8'),loadingContext,{filename:'js/app-data-loading.js'});
+const viewerContext={};
+vm.runInNewContext(fs.readFileSync('js/app-viewer.js','utf8'),viewerContext,{filename:'js/app-viewer.js'});
+assert.ok(navigationContext.OWZ_NAVIGATION&&loadingContext.OWZ_DATA_LOADING&&viewerContext.OWZ_VIEWER,'Navigatie-, laad- of viewermodule ontbreekt.');
+assert.equal(navigationContext.OWZ_NAVIGATION.roots([{id:'a',type:'chapter'},{id:'b',type:'article',parent:'a'}],node=>node.parent||'',node=>node.type).length,1,'Navigatiemodule vindt hoofdstukwortels niet.');
+assert.equal((await loadingContext.OWZ_DATA_LOADING.json('data/test.json')).path,'data/test.json','Laadmodule haalt JSON niet op.');
+assert.equal((await loadingContext.OWZ_DATA_LOADING.regulations([{id:'BAL'}],async()=>{}))[0].ok,true,'Laadmodule geeft geen geslaagd resultaat terug.');
+assert.match(viewerContext.OWZ_VIEWER.referenceNotice('Test',value=>value),/referenceArticleContext/,'Viewermodule maakt geen verwijzingsmelding.');
 
 console.log('Gebruikersstroom 2/5: favoriet blijft uniek en kan worden verwijderd.');
 const favorite={nodeId:'BAL:4.1',reg:'BAL',label:'BAL › Artikel 4.1'};
