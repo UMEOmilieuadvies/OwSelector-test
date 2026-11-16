@@ -53,6 +53,8 @@ jobs:
         run: python tools/download_illustrations.py
       - name: Build legal graphs
         run: python tools/build_all.py
+      - name: Verify legal text formatting
+        run: node tests/verify-legal-text-formatting.mjs
       - name: Retrieve previous article history cache
         run: |
           curl --fail --silent --show-error \

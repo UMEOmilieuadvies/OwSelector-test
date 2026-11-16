@@ -1,12 +1,12 @@
 {
-  "version": "1.5j-test",
+  "version": "1.5k-test",
   "kind": "klein",
   "released_at": "2026-11-16",
   "user_notes": [
-    "Terugverwijzingen vanuit andere regelingen openen nu het volledige bronartikel, met een duidelijke markering van de verwijzende passage."
+    "Teksten en opsommingen in bijlagen volgen nu beter de juridische inspringing en leesvolgorde."
   ],
   "technical_notes": [
-    "Terugverwijzingen openen het bronartikel in kolom 2; de concrete vindplaats wordt gemarkeerd en de relatie met het oorspronkelijke artikel wordt toegelicht."
+    "De opmaak van brongetrouwe bijlagetekst behoudt de vastgestelde inspringing; de bouw controleert deze juridische tekstformattering automatisch."
   ],
   "resolved_comment_ids": []
 }

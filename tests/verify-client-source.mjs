@@ -81,6 +81,8 @@ assert.match(source,/function loadAboutVisits\(\)/,'De Over-sectie moet bezoekci
 assert.match(source,/site_visit_monthly/,'De Over-sectie moet de maandelijkse bezoekcijfers gebruiken.');
 assert.match(fs.readFileSync('index.html','utf8'),/id="aboutVisits"/,'De Over-sectie mist de plaats voor bezoekcijfers.');
 assert.ok(!source.includes('/^1\\.1g-test$/'),'De startcontrole mag niet op één vaste testversie zijn vastgezet.');
+assert.ok(fs.existsSync('tests/verify-legal-text-formatting.mjs'),'De opmaakcontrole voor gebouwde juridische teksten ontbreekt.');
+assert.match(fs.readFileSync('.github/workflows/pages.yml','utf8'),/node tests\/verify-legal-text-formatting\.mjs/,'De testpublicatie moet de opmaakcontrole voor juridische teksten uitvoeren.');
 const staticPages=['index.html','help.html','qna.html','nvt.html','beheer.html','historie.html','article-notes.html'];
 for(const page of staticPages){
   const pageSource=fs.readFileSync(page,'utf8');

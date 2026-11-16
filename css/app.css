@@ -36,7 +36,6 @@ button[data-inline]:focus-visible{outline:2px solid currentColor!important;outli
 .breadcrumbStep button{display:block;max-width:100%;padding:1px 2px;font-size:11px;line-height:1.25;text-align:left;white-space:normal}
 .breadcrumbStep.current{padding:1px 2px;color:#435667;font-weight:600}
 /* V332: brongetrouwe uitlijning van bijlagetekst en tabellen */
-.appendixSourceParagraph{margin-left:calc(var(--appendix-indent,0) * 1.5em)}
 .appendixAlign-left,.tableAlign-left{text-align:left}.appendixAlign-right,.tableAlign-right{text-align:right}.appendixAlign-center,.tableAlign-center{text-align:center}.appendixAlign-justify,.tableAlign-justify{text-align:justify}
 .tableValign-top{vertical-align:top!important}.tableValign-middle{vertical-align:middle!important}.tableValign-bottom{vertical-align:bottom!important}
 .legalTable th{font-weight:700;background:transparent}
@@ -68,7 +67,7 @@ button[data-inline]:focus-visible{outline:2px solid currentColor!important;outli
 .appendixSourceContainer{margin:.35rem 0 .7rem 0}
 .appendixSourceHeading{font-weight:700;margin:1rem 0 .45rem;line-height:1.35}
 .appendixSourceDepth1{margin-left:.75rem}.appendixSourceDepth2{margin-left:1.5rem}.appendixSourceDepth3{margin-left:2.25rem}.appendixSourceDepth4,.appendixSourceDepth5{margin-left:3rem}
-.appendixSourceParagraph{margin:.35rem 0 .65rem;white-space:normal;overflow-wrap:anywhere;line-height:1.45}
+.appendixSourceParagraph{margin:.35rem 0 .65rem calc(var(--appendix-indent,0) * 1.5em);white-space:normal;overflow-wrap:anywhere;line-height:1.45}
 .appendixSourceListItem{display:grid;grid-template-columns:minmax(2.5rem,auto) 1fr;gap:.6rem;margin:.35rem 0;align-items:start}
 .appendixSourceEnum{font-weight:600;white-space:nowrap}
 .appendixSourceTableWrap{max-width:100%;overflow-x:auto;margin:1rem 0 1.25rem}

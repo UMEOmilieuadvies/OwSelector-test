@@ -860,3 +860,8 @@
 - Een terugverwijzing vanuit een andere regeling opent het volledige bronartikel in kolom 2.
 - De verwijzende passage wordt gemarkeerd en de relatie met het oorspronkelijke artikel is zichtbaar.
 
+## 1.5k-test — leesbare bijlageteksten
+
+- Teksten en opsommingen in bijlagen volgen nu beter de juridische inspringing en leesvolgorde.
+- De testbouw controleert de juridische tekstformattering automatisch na het opbouwen van de officiële gegevens.
+
