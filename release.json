@@ -1,12 +1,13 @@
 {
-  "version": "1.5l-test",
+  "version": "1.5m-test",
   "kind": "klein",
   "released_at": "2026-11-16",
   "user_notes": [
-    "Teksten en opsommingen in bijlagen volgen nu beter de juridische inspringing en leesvolgorde."
   ],
   "technical_notes": [
-    "Herstelt de opmaakcontrole: officiële regeleinden en afbrekingen in bronmateriaal worden niet langer als bouwfout aangemerkt."
+    "De regels voor favorieten, zoekgeschiedenis en terugverwijzingen zijn ondergebracht in een gedeelde, afzonderlijk geteste gedragslaag.",
+    "De testbouw toont voortgang per fase en de promotiecontrole vergelijkt ook de gedeelde gedragslaag.",
+    "Kritieke gebruikersstromen worden automatisch gecontroleerd vóór publicatie."
   ],
   "resolved_comment_ids": []
 }

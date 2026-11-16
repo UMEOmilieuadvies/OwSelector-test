@@ -44,6 +44,8 @@ assert.match(source,/data\?\.user_notes/,'Het wijzigingsvenster mag uitsluitend 
 assert.ok(!source.includes('Voor deze versie is geen korte wijzigingssamenvatting beschikbaar.'),'Een lege wijzigingssamenvatting mag geen venster meer opleveren.');
 console.log('Clientconfiguratie en kritieke startfuncties zijn gecontroleerd.');
 assert.match(fs.readFileSync('index.html','utf8'),/js\/app-config\.js[\s\S]*js\/app\.js/,'Configuratie moet vóór de applicatie laden.');
+assert.match(fs.readFileSync('index.html','utf8'),/js\/app-behavior\.js[\s\S]*js\/app\.js/,'De gedeelde gedragslaag moet vóór de applicatie laden.');
+assert.ok(fs.existsSync('tests/verify-critical-workflows.mjs'),'De gedragstest voor kritieke gebruikersstromen ontbreekt.');
 for(const page of ['qna.html','beheer.html']){
   const pageSource=fs.readFileSync(page,'utf8');
   assert.match(pageSource,/js\/app-config\.js[\s\S]*js\/(qna|beheer)\.js/,`${page} moet de configuratie vóór de eigen code laden.`);
@@ -56,7 +58,8 @@ assert.match(source,/backReferenceFindings/,'Elke afzonderlijke vindplaats moet 
 assert.match(source,/externalReferenceRows\(context\)\.find\(item=>item\.index===Number\(index\)\)/,'De contextverwijzing moet de oorspronkelijke bronindex gebruiken.');
 assert.match(source,/function openBackReferenceArticle\(row,target\)/,'Een terugverwijzing moet het volledige bronartikel kunnen openen.');
 assert.match(source,/referenceHighlight:\{articleId:nid\(article\),sourceId:nid\(source\)/,'De concrete vindplaats in het bronartikel moet worden gemarkeerd.');
-assert.match(source,/Dit volledige artikel verwijst naar/,'Het geopende bronartikel moet de relatie met het oorspronkelijke artikel uitleggen.');
+assert.match(source,/BEHAVIOR\.referenceContext/,'Het geopende bronartikel moet de relatie met het oorspronkelijke artikel uitleggen.');
+assert.match(fs.readFileSync('js/app-behavior.js','utf8'),/Dit volledige artikel/,'De gedeelde terugverwijzingstekst ontbreekt.');
 assert.match(source,/openBackReferenceArticle\(row,context\)/,'Contextuele terugverwijzingen moeten dezelfde volledige-artikelweergave gebruiken.');
 assert.match(source,/openBackReferenceArticle\(row,target\)/,'Terugverwijzingen op paragraafniveau moeten dezelfde volledige-artikelweergave gebruiken.');
 console.log('Terugverwijzingen zijn gegroepeerd en vindplaatsen openen gericht.');

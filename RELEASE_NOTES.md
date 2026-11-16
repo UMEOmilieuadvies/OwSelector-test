@@ -869,3 +869,9 @@
 
 - Herstelt de testpublicatie door officiële regeleinden en afbrekingen in bronmateriaal correct te behandelen.
 
+## 1.5m-test — testbare stabiliteitslaag
+
+- Scheidt de regels voor favorieten, zoekgeschiedenis en terugverwijzingen van de hoofdapplicatie.
+- Controleert deze kritieke gebruikersstromen automatisch vóór publicatie.
+- Breidt de promotiecontrole uit met de gedeelde gedragslaag en toont duidelijke bouwfasen in de workflowlog.
+
