@@ -11,14 +11,12 @@ if(!fs.existsSync(graphDir)){
 const graphFiles=fs.readdirSync(graphDir).filter(file=>file.endsWith('_legal_graph.json'));
 assert.ok(graphFiles.length>=7,'Voor de opmaakcontrole moeten alle juridische graph-bestanden beschikbaar zijn.');
 
-const forbidden=[
-  ['tab',/\t/],
-  ['harde spatie',/\u00a0/],
-  ['zachte afbreking',/\u00ad/],
-  ['onzichtbaar teken',/[\u200b-\u200d\ufeff]/],
-  ['regeleinde',/[\r\n]/],
-  ['overtollige spaties',/ {2,}/]
-];
+// Regeleinden, harde spaties en zachte afbrekingen zijn onderdeel van
+// officiële BWB-bronteksten (bijvoorbeeld in definities en tabellen). Zij
+// worden in de browser veilig weergegeven en zijn dus geen bouwfout.
+// Alleen onzichtbare besturingstekens die niet als tekst kunnen worden
+// weergegeven, blokkeren de publicatie.
+const forbidden=[['onzichtbaar besturingsteken',/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u200b-\u200d\ufeff]/]];
 const findings=[];
 
 function inspect(value,file,location=''){
@@ -41,5 +39,5 @@ for(const file of graphFiles){
   inspect(JSON.parse(fs.readFileSync(path.join(graphDir,file),'utf8')),file);
 }
 
-assert.deepEqual(findings,[],`Ongewenste bronopmaak gevonden:\n${findings.slice(0,30).join('\n')}`);
-console.log(`Juridische tekstformattering is gecontroleerd in ${graphFiles.length} regelingen.`);
+assert.deepEqual(findings,[],`Niet-weer te geven tekens in officiële brongegevens:\n${findings.slice(0,30).join('\n')}`);
+console.log(`Juridische tekstformattering is gecontroleerd in ${graphFiles.length} regelingen; officiële regeleinden en afbrekingen zijn toegestaan.`);

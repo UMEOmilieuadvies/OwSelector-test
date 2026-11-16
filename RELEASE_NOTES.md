@@ -865,3 +865,7 @@
 - Teksten en opsommingen in bijlagen volgen nu beter de juridische inspringing en leesvolgorde.
 - De testbouw controleert de juridische tekstformattering automatisch na het opbouwen van de officiële gegevens.
 
+## 1.5l-test — herstel opmaakcontrole
+
+- Herstelt de testpublicatie door officiële regeleinden en afbrekingen in bronmateriaal correct te behandelen.
+

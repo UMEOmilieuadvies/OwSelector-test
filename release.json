@@ -1,12 +1,12 @@
 {
-  "version": "1.5k-test",
+  "version": "1.5l-test",
   "kind": "klein",
   "released_at": "2026-11-16",
   "user_notes": [
     "Teksten en opsommingen in bijlagen volgen nu beter de juridische inspringing en leesvolgorde."
   ],
   "technical_notes": [
-    "De opmaak van brongetrouwe bijlagetekst behoudt de vastgestelde inspringing; de bouw controleert deze juridische tekstformattering automatisch."
+    "Herstelt de opmaakcontrole: officiële regeleinden en afbrekingen in bronmateriaal worden niet langer als bouwfout aangemerkt."
   ],
   "resolved_comment_ids": []
 }
