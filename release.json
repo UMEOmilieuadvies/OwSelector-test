@@ -1,10 +1,12 @@
 {
-  "version": "1.5i-test",
+  "version": "1.5j-test",
   "kind": "klein",
-  "released_at": "2026-11-12",
-  "user_notes": [],
+  "released_at": "2026-11-16",
+  "user_notes": [
+    "Terugverwijzingen vanuit andere regelingen openen nu het volledige bronartikel, met een duidelijke markering van de verwijzende passage."
+  ],
   "technical_notes": [
-    "Verwijdert een achtergebleven gebeurtenisafhandeling van de beëindigde jurisprudentieproef en blokkeert herintroductie daarvan met een broncontrole."
+    "Terugverwijzingen openen het bronartikel in kolom 2; de concrete vindplaats wordt gemarkeerd en de relatie met het oorspronkelijke artikel wordt toegelicht."
   ],
   "resolved_comment_ids": []
 }

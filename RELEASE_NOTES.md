@@ -855,3 +855,8 @@
 - Verwijdert een resterende, niet-zichtbare klikafhandeling van de beëindigde jurisprudentieproef.
 - De testcontrole blokkeert voortaan terugkeer van de pagina, het script, de gegevens of appcode voor jurisprudentie.
 
+## 1.5j-test — volledige context bij terugverwijzingen
+
+- Een terugverwijzing vanuit een andere regeling opent het volledige bronartikel in kolom 2.
+- De verwijzende passage wordt gemarkeerd en de relatie met het oorspronkelijke artikel is zichtbaar.
+

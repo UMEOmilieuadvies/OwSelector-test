@@ -112,6 +112,8 @@ button[data-regulation-info],
   line-height:inherit!important;
   vertical-align:baseline!important;
 }
+
+.referenceArticleContext{margin:10px 0;padding:10px 12px;border-left:4px solid #1f79bc;background:#eef7fd;color:#244b66;line-height:1.45}.referenceLocation{scroll-margin-top:18px;outline:3px solid #efc45c;outline-offset:5px;background:#fff9df}
 button[data-inline]:hover,
 button[data-cross-reg]:hover,
 button[data-cross-reg-overview]:hover,

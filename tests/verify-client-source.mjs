@@ -54,6 +54,11 @@ assert.ok(!source.includes("localStorage.getItem('owz_favorites')"),'De gedeelde
 assert.match(source,/function groupBackReferenceRows\(rows\)/,'Terugverwijzingen moeten per bronartikel gegroepeerd kunnen worden.');
 assert.match(source,/backReferenceFindings/,'Elke afzonderlijke vindplaats moet als eigen klikbare keuze worden weergegeven.');
 assert.match(source,/externalReferenceRows\(context\)\.find\(item=>item\.index===Number\(index\)\)/,'De contextverwijzing moet de oorspronkelijke bronindex gebruiken.');
+assert.match(source,/function openBackReferenceArticle\(row,target\)/,'Een terugverwijzing moet het volledige bronartikel kunnen openen.');
+assert.match(source,/referenceHighlight:\{articleId:nid\(article\),sourceId:nid\(source\)/,'De concrete vindplaats in het bronartikel moet worden gemarkeerd.');
+assert.match(source,/Dit volledige artikel verwijst naar/,'Het geopende bronartikel moet de relatie met het oorspronkelijke artikel uitleggen.');
+assert.match(source,/openBackReferenceArticle\(row,context\)/,'Contextuele terugverwijzingen moeten dezelfde volledige-artikelweergave gebruiken.');
+assert.match(source,/openBackReferenceArticle\(row,target\)/,'Terugverwijzingen op paragraafniveau moeten dezelfde volledige-artikelweergave gebruiken.');
 console.log('Terugverwijzingen zijn gegroepeerd en vindplaatsen openen gericht.');
 assert.match(source,/function renderArticleFavoriteAction\(ar\)/,'Artikelen in kolom 2 moeten een favorietenactie tonen.');
 assert.match(source,/data-article-favorite/,'De favorietenknop in kolom 2 moet een artikel identificeren.');
