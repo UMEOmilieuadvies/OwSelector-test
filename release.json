@@ -1,12 +1,11 @@
 {
-  "version": "1.5o-test",
+  "version": "1.5p-test",
   "kind": "klein",
   "released_at": "2026-11-16",
   "user_notes": [
   ],
   "technical_notes": [
-    "Herstelt de uitgebreide browserproef voor artikelen met meerdere zichtbare favorietenknoppen.",
-    "Verwijdert resterende actuele jurisprudentieverwijzingen uit controles en lokale uitsluitregels; de historische releasenotities blijven behouden."
+    "Herstelt de browserproef zodat uitsluitend een artikel met een externe terugverwijzing wordt geopend."
   ],
   "resolved_comment_ids": []
 }

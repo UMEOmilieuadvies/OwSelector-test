@@ -38,9 +38,15 @@ try {
         for (const regulation of window.OWZ_CONFIG.regulations) {
           const graph = await (await fetch(`data/graph/${regulation.file}`)).json();
           for (const node of graph.nodes || []) {
+            if (node.type !== 'article') continue;
             const rows = references.references?.[`${regulation.id}:${node.id}`] || [];
             if (rows.some(row => row.regulation !== regulation.id)) {
-              return {regulation:regulation.id, article:String(node.number_display || node.number || '')};
+              const number = String(node.number_display || node.number || '');
+              return {
+                regulation:regulation.id,
+                article:number,
+                title:`Artikel ${number}${node.title ? ` (${node.title})` : ''}`
+              };
             }
           }
         }
@@ -52,8 +58,9 @@ try {
       await page.selectOption('#regulationSelect', target.regulation);
       await page.locator('#searchInput').fill(target.article);
       await page.locator('#searchButton').click();
-      await page.locator('.searchResult').first().waitFor({timeout:30000});
-      await page.locator('.searchResult').first().click();
+      const articleResult = page.locator('.searchResult').filter({hasText:target.title}).first();
+      await articleResult.waitFor({timeout:30000});
+      await articleResult.click();
       const articleFavorite = page.locator('.articleFavorite').first();
       await articleFavorite.waitFor({timeout:30000});
 

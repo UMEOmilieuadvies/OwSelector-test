@@ -886,3 +886,7 @@
 - Herstelt de browserproef voor artikelen met meerdere zichtbare favorietenknoppen.
 - Verwijdert actuele jurisprudentieverwijzingen uit controles en lokale uitsluitregels; historische releasenotities blijven behouden.
 
+## 1.5p-test — gerichte browserproef
+
+- Herstelt de browserproef zodat uitsluitend een artikel met een externe terugverwijzing wordt geopend.
+
