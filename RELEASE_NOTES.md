@@ -881,3 +881,8 @@
 - Voegt browserproeven toe voor zoeken, favorieten, terugverwijzingen en de artikelsgewijze toelichting.
 - Voert een lintcontrole uit vóór de juridische build.
 
+## 1.5o-test — herstel browserproef en administratieve opschoning
+
+- Herstelt de browserproef voor artikelen met meerdere zichtbare favorietenknoppen.
+- Verwijdert actuele jurisprudentieverwijzingen uit controles en lokale uitsluitregels; historische releasenotities blijven behouden.
+

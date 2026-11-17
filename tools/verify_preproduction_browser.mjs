@@ -54,10 +54,11 @@ try {
       await page.locator('#searchButton').click();
       await page.locator('.searchResult').first().waitFor({timeout:30000});
       await page.locator('.searchResult').first().click();
-      await page.locator('.articleFavorite').waitFor({timeout:30000});
+      const articleFavorite = page.locator('.articleFavorite').first();
+      await articleFavorite.waitFor({timeout:30000});
 
       console.log('Browsertest 3/4: controleer favorietenknop en volledige terugverwijzing.');
-      await page.locator('.articleFavorite').click();
+      await articleFavorite.click();
       await page.locator('#favoriteConsentModal[open]').waitFor({timeout:10000});
       await page.evaluate(() => document.getElementById('favoriteConsentModal')?.close());
       const backReference = page.locator('#side [data-back-reference]').first();

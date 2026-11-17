@@ -1,13 +1,12 @@
 {
-  "version": "1.5n-test",
+  "version": "1.5o-test",
   "kind": "klein",
   "released_at": "2026-11-16",
   "user_notes": [
   ],
   "technical_notes": [
-    "Splitst navigatie-, laad- en viewerweergavelogica verder uit de hoofdapplicatie.",
-    "Voegt echte browserproeven toe voor zoeken, favorieten, terugverwijzingen en de NvT-knop.",
-    "Voegt ESLint toe als verplichte vroege kwaliteitscontrole in de testworkflow."
+    "Herstelt de uitgebreide browserproef voor artikelen met meerdere zichtbare favorietenknoppen.",
+    "Verwijdert resterende actuele jurisprudentieverwijzingen uit controles en lokale uitsluitregels; de historische releasenotities blijven behouden."
   ],
   "resolved_comment_ids": []
 }
