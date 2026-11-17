@@ -894,3 +894,8 @@
 
 - Herstelt de browserproef zodat het gekozen artikelnummer robuust wordt gevonden.
 
+## 1.6-test — context en actuele hulp
+
+- Terugverwijzingen openen met het volledige actuele bronartikel, zodat de juridische context zichtbaar blijft.
+- Werkt Help en vragen en antwoorden bij voor terugverwijzingen, online favorieten en de nota van toelichting.
+

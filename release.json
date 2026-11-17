@@ -1,11 +1,13 @@
 {
-  "version": "1.5q-test",
-  "kind": "klein",
-  "released_at": "2026-11-16",
+  "version": "1.6-test",
+  "kind": "groot",
+  "released_at": "2026-11-17",
   "user_notes": [
+    "Terugverwijzingen openen voortaan met het volledige actuele bronartikel, zodat de juridische context zichtbaar blijft.",
+    "De Help en vragen en antwoorden zijn bijgewerkt voor terugverwijzingen, online favorieten en de nota van toelichting."
   ],
   "technical_notes": [
-    "Herstelt de browserproef zodat het gekozen artikelnummer robuust wordt gevonden."
+    "Bundelt de gecontroleerde kwaliteitscontroles uit test in de 1.6-kandidaat."
   ],
   "resolved_comment_ids": []
 }
