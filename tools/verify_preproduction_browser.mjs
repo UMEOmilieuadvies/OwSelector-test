@@ -43,9 +43,8 @@ try {
             if (rows.some(row => row.regulation !== regulation.id)) {
               const number = String(node.number_display || node.number || '');
               return {
-                regulation:regulation.id,
-                article:number,
-                title:`Artikel ${number}${node.title ? ` (${node.title})` : ''}`
+                regulation: regulation.id,
+                article: number
               };
             }
           }
@@ -58,7 +57,9 @@ try {
       await page.selectOption('#regulationSelect', target.regulation);
       await page.locator('#searchInput').fill(target.article);
       await page.locator('#searchButton').click();
-      const articleResult = page.locator('.searchResult').filter({hasText:target.title}).first();
+      const articleResult = page.locator('.searchResult').filter({
+        hasText: new RegExp(`Artikel\\s+${target.article.replace('.', '\\.')}(?:\\s|$)`)
+      }).first();
       await articleResult.waitFor({timeout:30000});
       await articleResult.click();
       const articleFavorite = page.locator('.articleFavorite').first();

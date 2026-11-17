@@ -890,3 +890,7 @@
 
 - Herstelt de browserproef zodat uitsluitend een artikel met een externe terugverwijzing wordt geopend.
 
+## 1.5q-test — robuuste browserproef
+
+- Herstelt de browserproef zodat het gekozen artikelnummer robuust wordt gevonden.
+

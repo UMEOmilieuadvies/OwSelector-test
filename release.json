@@ -1,11 +1,11 @@
 {
-  "version": "1.5p-test",
+  "version": "1.5q-test",
   "kind": "klein",
   "released_at": "2026-11-16",
   "user_notes": [
   ],
   "technical_notes": [
-    "Herstelt de browserproef zodat uitsluitend een artikel met een externe terugverwijzing wordt geopend."
+    "Herstelt de browserproef zodat het gekozen artikelnummer robuust wordt gevonden."
   ],
   "resolved_comment_ids": []
 }
