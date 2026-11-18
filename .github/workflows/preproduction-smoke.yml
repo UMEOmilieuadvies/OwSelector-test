@@ -38,7 +38,7 @@ jobs:
         run: EXPECTED_VERSION="$(tr -d '\r\n' < VERSION)" node tools/verify_preproduction_browser.mjs
       - name: Bewaar browserdiagnose bij fout
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: preproduction-browser-diagnostics-${{ github.run_id }}
           path: test-results
