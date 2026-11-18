@@ -903,3 +903,8 @@
 
 - Werkt de browserproef bij naar Playwright 1.65.1, geschikt voor de huidige GitHub-runner.
 
+## 1.6b-test — betrouwbare browserproef
+
+- Maakt de browserproef reproduceerbaar met vaste afhankelijkheden, schone browsercontexten en opgeslagen foutdiagnose.
+- Voorkomt overlappende browserproeven en werkt de GitHub Actions-runtime bij.
+

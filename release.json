@@ -1,5 +1,5 @@
 {
-  "version": "1.6a-test",
+  "version": "1.6b-test",
   "kind": "groot",
   "released_at": "2026-11-17",
   "user_notes": [
@@ -7,7 +7,7 @@
     "De Help en vragen en antwoorden zijn bijgewerkt voor terugverwijzingen, online favorieten en de nota van toelichting."
   ],
   "technical_notes": [
-    "Herstelt de browser-smoketest voor de huidige GitHub-runner met een ondersteunde Playwright-versie."
+    "Maakt de browser-smoketest reproduceerbaar met vaste afhankelijkheden, schone pogingen en foutdiagnose."
   ],
   "resolved_comment_ids": []
 }
