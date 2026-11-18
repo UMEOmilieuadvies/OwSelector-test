@@ -64,7 +64,7 @@ async function runAttempt(browser, attempt) {
     await page.locator('#searchInput').fill(target.article);
     await page.waitForFunction(() => !document.getElementById('searchButton')?.disabled, null, { timeout: 10000 });
     await page.locator('#searchButton').click();
-    const articleResult = page.locator(`.searchResult[data-article-result="${target.regulation}:${target.article}"]`).first();
+    const articleResult = page.locator(`.searchResult[data-result-type="article"][data-article-result="${target.regulation}:${target.article}"]`).first();
     await articleResult.waitFor({ timeout: 30000 });
     await articleResult.click();
     const articleFavorite = page.locator('.articleFavorite').first();

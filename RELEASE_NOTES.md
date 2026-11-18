@@ -908,3 +908,8 @@
 - Maakt de browserproef reproduceerbaar met vaste afhankelijkheden, schone browsercontexten en opgeslagen foutdiagnose.
 - Voorkomt overlappende browserproeven en werkt de GitHub Actions-runtime bij.
 
+## 1.6c-test — eenduidige artikelproef
+
+- Herstelt de browserproef voor gelijkgenummerde afdelingen en artikelen door het juridische type expliciet mee te testen.
+- Blokkeert de gegevensimport bij dubbele juridische sleutels of dubbelzinnige tabelverwijzingen.
+

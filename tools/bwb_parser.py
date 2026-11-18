@@ -1010,6 +1010,7 @@ def parse(input_path,output_path):
         return re.sub(r"\s+", "", str(v or "").strip().lower()).rstrip(".)")
 
     table_by_number={}
+    validation_issues=[]
     for t in [x for x in nodes if x.get("type")=="table"]:
         candidates=[t.get("number"), t.get("title")]
         tno=None
@@ -1061,6 +1062,12 @@ def parse(input_path,output_path):
                      and source_order < int(x.get("_xml_order",-1)) < next_article_order
                      and (not x.get("article_id") or x.get("article_id")==source.get("id"))]
             if len(unnamed)!=1:
+                validation_issues.append({
+                    "kind":"ambiguous_table_reference",
+                    "source_article":source.get("id"),
+                    "target":target.get("number"),
+                    "reason":f"{len(candidates)} genummerde en {len(unnamed)} bronvolgorde-kandidaten",
+                })
                 continue
             table=unnamed[0]
             relation="direct_article_table_by_source_order"
@@ -1149,6 +1156,7 @@ def parse(input_path,output_path):
       "bwb_id":bwb,
       "source_xml":str(src),
       "nodes":nodes,
+      "validation_issues":validation_issues,
       "references":refs,
       "glossary":glossary,
       "glossary_index":glossary_index,

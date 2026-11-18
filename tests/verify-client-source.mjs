@@ -88,6 +88,8 @@ assert.match(fs.readFileSync('index.html','utf8'),/id="aboutVisits"/,'De Over-se
 assert.ok(!source.includes('/^1\\.1g-test$/'),'De startcontrole mag niet op één vaste testversie zijn vastgezet.');
 assert.ok(fs.existsSync('tests/verify-legal-text-formatting.mjs'),'De opmaakcontrole voor gebouwde juridische teksten ontbreekt.');
 assert.match(fs.readFileSync('.github/workflows/pages.yml','utf8'),/node tests\/verify-legal-text-formatting\.mjs/,'De testpublicatie moet de opmaakcontrole voor juridische teksten uitvoeren.');
+assert.ok(fs.existsSync('tools/verify_legal_identity.py'),'De importcontrole voor juridische identiteiten ontbreekt.');
+assert.match(fs.readFileSync('tools/build_all.py','utf8'),/verify_legal_identity\.py/,'De graphbouw moet dubbele juridische sleutels afkeuren.');
 const staticPages=['index.html','help.html','qna.html','nvt.html','beheer.html','historie.html','article-notes.html'];
 for(const page of staticPages){
   const pageSource=fs.readFileSync(page,'utf8');
