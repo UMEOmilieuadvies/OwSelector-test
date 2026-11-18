@@ -899,3 +899,7 @@
 - Terugverwijzingen openen met het volledige actuele bronartikel, zodat de juridische context zichtbaar blijft.
 - Werkt Help en vragen en antwoorden bij voor terugverwijzingen, online favorieten en de nota van toelichting.
 
+## 1.6a-test — herstel browser-smoketest
+
+- Werkt de browserproef bij naar Playwright 1.65.1, geschikt voor de huidige GitHub-runner.
+
