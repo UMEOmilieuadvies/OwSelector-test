@@ -1,13 +1,13 @@
 {
-  "version": "1.6e-test",
+  "version": "1.6f-test",
   "kind": "klein",
   "released_at": "2026-11-19",
   "user_notes": [
-    "Artikelverwijzingen uit bijlagekoppen worden nu als terugverwijzing getoond.",
-    "Een bijlage uit dezelfde regeling opent vanuit een terugverwijzing volledig in kolom 3."
+    "Volledige bijlagen zijn compacter en rustiger vormgegeven, met duidelijke inspringing van onderdelen.",
+    "De officiële tekst, nummering en verwijzingen in bijlagen zijn ongewijzigd."
   ],
   "technical_notes": [
-    "Voegt een omgevingsmanifest en workflowcontractcontrole toe, zodat ongeldige test- of productieafhankelijkheden de bouw vooraf blokkeren."
+    "Alleen presentatie-aanpassingen in de bijlageweergave."
   ],
   "resolved_comment_ids": []
 }
