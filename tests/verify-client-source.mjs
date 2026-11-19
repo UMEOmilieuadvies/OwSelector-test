@@ -57,6 +57,9 @@ for(const page of ['qna.html','beheer.html']){
 }
 
 assert.ok(source.includes('FAVORITES_KEY'),'Favorieten moeten de omgevingsspecifieke opslag gebruiken.');
+assert.match(source,/function openFavoriteConsent\(node=null\)/,'De eerste favoriet moet een foutafhandelende toestemmingsstroom hebben.');
+assert.match(source,/data-start-online-favorites/,'Favorieten moeten ook zonder ster zichtbaar online kunnen worden gestart.');
+assert.match(source,/FAVORITES_CONSENT_OPEN_FAILED/,'Een geblokkeerd toestemmingsvenster mag niet stilzwijgend mislukken.');
 assert.ok(!source.includes("localStorage.getItem('owz_favorites')"),'De gedeelde favorietensleutel mag niet meer worden gelezen.');
 assert.match(source,/function groupBackReferenceRows\(rows\)/,'Terugverwijzingen moeten per bronartikel gegroepeerd kunnen worden.');
 assert.match(source,/backReferenceFindings/,'Elke afzonderlijke vindplaats moet als eigen klikbare keuze worden weergegeven.');

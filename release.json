@@ -1,13 +1,13 @@
 {
-  "version": "1.6g-test",
+  "version": "1.6h-test",
   "kind": "klein",
   "released_at": "2026-11-19",
   "user_notes": [
-    "Terugverwijzingen uit bijlagen tonen nu het bijlageonderdeel waar de vindplaats juridisch onder valt.",
-    "De volledige bijlage kan vanuit een terugverwijzing direct worden geopend."
+    "Favorieten online opslaan is nu ook rechtstreeks vanuit het tabblad Favorieten te starten.",
+    "De ster geeft bij een eerste favoriet duidelijke uitleg als de herstelcode nog niet is ingesteld."
   ],
   "technical_notes": [
-    "Voegt een regressiecontrole toe voor broncontext bij bijlageterugverwijzingen."
+    "Verbetert de foutafhandeling en regressiecontrole van de eerste-keerstroom voor online favorieten."
   ],
   "resolved_comment_ids": []
 }
