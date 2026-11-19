@@ -1,13 +1,10 @@
 {
-  "version": "1.6h-test",
+  "version": "1.6i-test",
   "kind": "klein",
   "released_at": "2026-11-19",
-  "user_notes": [
-    "Favorieten online opslaan is nu ook rechtstreeks vanuit het tabblad Favorieten te starten.",
-    "De ster geeft bij een eerste favoriet duidelijke uitleg als de herstelcode nog niet is ingesteld."
-  ],
+  "user_notes": [],
   "technical_notes": [
-    "Verbetert de foutafhandeling en regressiecontrole van de eerste-keerstroom voor online favorieten."
+    "Herstelt de registratie van releases met gescheiden gebruikers- en technische notities."
   ],
   "resolved_comment_ids": []
 }

@@ -49,6 +49,7 @@ jobs:
           node tests/verify-critical-workflows.mjs
           node tests/verify-browser-smoke-contract.mjs
           python tests/verify_release_tool.py
+          python tests/verify_record_release.py
           node tests/verify-article-notes-layout.mjs
           node tests/verify-responsive-layout.mjs
           python tests/verify_nvt_cache_fallback.py

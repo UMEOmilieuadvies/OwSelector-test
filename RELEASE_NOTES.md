@@ -933,3 +933,11 @@
 **Technisch beheer**
 
 - Voegt een omgevingsmanifest en workflowcontractcontrole toe, zodat ongeldige test- of productieafhankelijkheden de bouw vooraf blokkeren.
+
+## 1.6i-test — 2026-11-19
+
+**Kleine wijziging.**
+
+**Technisch beheer**
+
+- Herstelt de registratie van releases met gescheiden gebruikers- en technische notities.
