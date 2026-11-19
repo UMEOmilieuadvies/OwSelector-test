@@ -33,6 +33,7 @@ jobs:
         run: |
           echo "[1/6] Controleer grenzen, syntaxis en centrale configuratie"
           python tools/verify_workspace_boundaries.py
+          python tools/verify_workflow_contract.py --environment test
           node --check js/app-config.js
           node --check js/app-behavior.js
           node --check js/app-navigation.js
@@ -82,6 +83,7 @@ jobs:
       - name: Verify graphs
         run: |
           python tests/verify_iwo_identity.py
+          python tests/verify_appendix_back_references.py
           python tools/verify_runtime.py
       - name: Restore official explanatory-notes cache
         uses: actions/cache@v6

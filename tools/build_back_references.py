@@ -6,6 +6,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+from appendix_references import article_numbers_from_appendix_title
+
 ROOT = Path(__file__).resolve().parents[1]
 GRAPH = ROOT / "data" / "graph"
 OUTPUT = ROOT / "data" / "back_references.json"
@@ -62,6 +64,26 @@ def source_label(node: dict, by_id: dict[str, dict]) -> str:
     return title or str(node.get("type") or "Vindplaats").capitalize()
 
 
+def add_reference(found: dict, seen: set, target_reg: str, target_node: dict,
+                  source_reg: str, source: dict, by_id: dict[str, dict], anchor: str) -> None:
+    """Add one deduplicated source-to-target relation to the inverse index."""
+    source_id = str(source.get("id") or "")
+    if not source_id:
+        return
+    key = f"{target_reg}:{target_node['id']}"
+    unique = (key, source_reg, source_id, anchor)
+    if unique in seen:
+        return
+    seen.add(unique)
+    found[key].append({
+        "regulation": source_reg,
+        "source_id": source_id,
+        "source_type": str(source.get("type") or ""),
+        "label": source_label(source, by_id),
+        "anchor": anchor,
+    })
+
+
 def main() -> None:
     graphs: dict[str, list[dict]] = {}
     targets: dict[tuple[str, str], dict] = {}
@@ -96,19 +118,8 @@ def main() -> None:
                     target_node = targets.get((target_reg, "subparagraph", target_number))
                 if not target_node:
                     continue
-                key = f"{target_reg}:{target_node['id']}"
                 anchor = str(ref.get("anchor") or "").strip()
-                unique = (key, source_reg, source_id, anchor)
-                if unique in seen:
-                    continue
-                seen.add(unique)
-                found[key].append({
-                    "regulation": source_reg,
-                    "source_id": source_id,
-                    "source_type": str(source.get("type") or ""),
-                    "label": source_label(source, by_id),
-                    "anchor": anchor,
-                })
+                add_reference(found, seen, target_reg, target_node, source_reg, source, by_id, anchor)
 
             # De officiële XML bevat interne tekstverwijzingen vaak zonder external_ref.
             # Neem die alleen op wanneer het genoemde onderdeel in dezelfde regeling bestaat.
@@ -122,19 +133,17 @@ def main() -> None:
                     target_node = targets.get((source_reg, "subparagraph", target_number))
                 if not target_node:
                     continue
-                key = f"{source_reg}:{target_node['id']}"
                 anchor = match.group(0).strip()
-                unique = (key, source_reg, source_id, anchor)
-                if unique in seen:
-                    continue
-                seen.add(unique)
-                found[key].append({
-                    "regulation": source_reg,
-                    "source_id": source_id,
-                    "source_type": str(source.get("type") or ""),
-                    "label": source_label(source, by_id),
-                    "anchor": anchor,
-                })
+                add_reference(found, seen, source_reg, target_node, source_reg, source, by_id, anchor)
+
+            # De officiële bijlagekop bevat vaak de aansturende artikelen,
+            # terwijl die kop niet altijd als gewone XML-tekst wordt geleverd.
+            # Neem uitsluitend bestaande artikelen uit dezelfde regeling op.
+            if source.get("type") == "appendix":
+                for target_number in article_numbers_from_appendix_title(str(source.get("title") or "")):
+                    target_node = targets.get((source_reg, "article", target_number))
+                    if target_node:
+                        add_reference(found, seen, source_reg, target_node, source_reg, source, by_id, f"artikel {target_number}")
 
     for rows in found.values():
         rows.sort(key=lambda row: (row["regulation"], row["label"].casefold(), row["anchor"].casefold()))

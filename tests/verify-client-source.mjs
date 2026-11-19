@@ -70,6 +70,9 @@ assert.match(source,/VIEWER\.breadcrumbs/,'De hoofdapp moet de viewermodule gebr
 assert.match(fs.readFileSync('js/app-behavior.js','utf8'),/Dit volledige artikel/,'De gedeelde terugverwijzingstekst ontbreekt.');
 assert.match(source,/openBackReferenceArticle\(row,context\)/,'Contextuele terugverwijzingen moeten dezelfde volledige-artikelweergave gebruiken.');
 assert.match(source,/openBackReferenceArticle\(row,target\)/,'Terugverwijzingen op paragraafniveau moeten dezelfde volledige-artikelweergave gebruiken.');
+assert.match(source,/function openInternalBackReference\(index\).*INTERNAL_BACK_REFERENCE_ATTACHMENT_OPEN/s,'Een interne bijlageverwijzing moet als volledige bijlage in kolom 3 kunnen openen.');
+assert.match(fs.readFileSync('tools/build_back_references.py','utf8'),/article_numbers_from_appendix_title/,'Bijlagekoppen moeten als bron voor terugverwijzingen worden verwerkt.');
+assert.ok(fs.existsSync('tests/verify_appendix_back_references.py'),'De controle op bijlagekopverwijzingen ontbreekt.');
 console.log('Terugverwijzingen zijn gegroepeerd en vindplaatsen openen gericht.');
 assert.match(source,/function renderArticleFavoriteAction\(ar\)/,'Artikelen in kolom 2 moeten een favorietenactie tonen.');
 assert.match(source,/data-article-favorite/,'De favorietenknop in kolom 2 moet een artikel identificeren.');

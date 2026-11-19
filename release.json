@@ -1,10 +1,13 @@
 {
-  "version": "1.6d-test",
+  "version": "1.6e-test",
   "kind": "klein",
   "released_at": "2026-11-19",
-  "user_notes": [],
+  "user_notes": [
+    "Artikelverwijzingen uit bijlagekoppen worden nu als terugverwijzing getoond.",
+    "Een bijlage uit dezelfde regeling opent vanuit een terugverwijzing volledig in kolom 3."
+  ],
   "technical_notes": [
-    "Maakt de centrale omgevingsconfiguratie leidend voor browseropslag, wijzigingsmeldingen, startcontrole en beheer-MFA, zodat dezelfde geteste programmatuur veilig naar productie kan worden gepromoveerd."
+    "Voegt een omgevingsmanifest en workflowcontractcontrole toe, zodat ongeldige test- of productieafhankelijkheden de bouw vooraf blokkeren."
   ],
   "resolved_comment_ids": []
 }

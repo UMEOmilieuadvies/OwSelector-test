@@ -1,0 +1,46 @@
+{
+  "test": {
+    "config_values": [
+      "environment:'test'",
+      "https://lemcbncvqcsffatsxpdq.supabase.co",
+      "owz_test_favorites",
+      "owz_test_favorite_recovery_code"
+    ],
+    "workflow_values": [
+      "TEST_SUPABASE_SERVICE_ROLE_KEY",
+      "https://umeomilieuadvies.github.io/OwSelector-test"
+    ],
+    "forbidden_values": [
+      "https://pqpsajcjydvagrfxfeye.supabase.co",
+      "PRODUCTION_SUPABASE_SERVICE_ROLE_KEY"
+    ],
+    "eslint_targets": ["js", "tests", "tools"],
+    "required_files": [
+      ".github/workflows/preproduction-smoke.yml",
+      "tools/verify_preproduction_browser.mjs",
+      "tests/verify-browser-smoke-contract.mjs"
+    ]
+  },
+  "production": {
+    "config_values": [
+      "environment:'production'",
+      "https://pqpsajcjydvagrfxfeye.supabase.co",
+      "owz_favorites",
+      "owz_production_favorite_recovery_code"
+    ],
+    "workflow_values": [
+      "PRODUCTION_SUPABASE_SERVICE_ROLE_KEY",
+      "https://umeomilieuadvies.github.io/OwSelector"
+    ],
+    "forbidden_values": [
+      "https://lemcbncvqcsffatsxpdq.supabase.co",
+      "TEST_SUPABASE_SERVICE_ROLE_KEY",
+      "owz_test_"
+    ],
+    "eslint_targets": ["js", "tests"],
+    "required_files": [
+      "tests/verify-production-client-source.mjs",
+      "tests/verify-release-artifact.mjs"
+    ]
+  }
+}

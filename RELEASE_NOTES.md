@@ -920,3 +920,16 @@
 **Technisch beheer**
 
 - Maakt de centrale omgevingsconfiguratie leidend voor browseropslag, wijzigingsmeldingen, startcontrole en beheer-MFA, zodat dezelfde geteste programmatuur veilig naar productie kan worden gepromoveerd.
+
+## 1.6e-test — 2026-11-19
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Artikelverwijzingen uit bijlagekoppen worden nu als terugverwijzing getoond.
+- Een bijlage uit dezelfde regeling opent vanuit een terugverwijzing volledig in kolom 3.
+
+**Technisch beheer**
+
+- Voegt een omgevingsmanifest en workflowcontractcontrole toe, zodat ongeldige test- of productieafhankelijkheden de bouw vooraf blokkeren.
