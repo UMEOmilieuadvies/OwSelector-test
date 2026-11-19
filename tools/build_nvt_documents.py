@@ -76,7 +76,7 @@ def main():
    for attempt in range(3):
     try:
      req=Request(doc['url'],headers={
-      'User-Agent':'Mozilla/5.0 (compatible; Omgevingswet-Zoeker/1.0; +https://umeomilieuadvies.github.io/OwSelector-test/)',
+      'User-Agent':'Mozilla/5.0 (compatible; Omgevingswet-Zoeker/1.0)',
       'Accept':'text/html,application/xhtml+xml',
       'Accept-Language':'nl-NL,nl;q=0.9',
      })

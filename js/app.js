@@ -9,12 +9,16 @@ const VERSION=String(CONFIG.version||'');
 const ENVIRONMENT=String(CONFIG.environment||'').trim().toLowerCase();
 const SUPABASE_URL=String(CONFIG.supabase?.url||'').replace(/\/+$/,'');
 const SUPABASE_KEY=String(CONFIG.supabase?.anonKey||'');
-const FAVORITES_KEY=String(CONFIG.storage?.favoritesKey||'');
+const STORAGE=CONFIG.storage||{};
+const FAVORITES_KEY=String(STORAGE.favoritesKey||'');
+const FAVORITE_CODE_KEY=String(STORAGE.favoriteRecoveryCodeKey||'');
+const RELEASE_WELCOME_SEEN_KEY=String(STORAGE.releaseWelcomeSeenKey||'');
+const RELEASE_WELCOME_NEVER_KEY=String(STORAGE.releaseWelcomeNeverKey||'');
 const REGS=Array.isArray(CONFIG.regulations)?CONFIG.regulations:[];
 const HISTORY_KEY=`owz_${ENVIRONMENT}_history`;
 const HISTORY_LIMIT_KEY=`owz_${ENVIRONMENT}_history_limit`;
 const REQUIRED_ELEMENT_IDS=['searchInput','searchButton','regulationSelect','navigation','viewer','side','status'];
-function startupProblems(){const problems=[];if(CONFIG.environment!=='test')problems.push('de testconfiguratie ontbreekt of is ongeldig');if(!/^1\.\d+[a-z]*-test$/.test(VERSION))problems.push('het testversienummer ontbreekt');if(!SUPABASE_URL)problems.push('de test-Supabase-koppeling ontbreekt');if(!SUPABASE_KEY)problems.push('de openbare test-Supabase-sleutel ontbreekt');if(FAVORITES_KEY!=='owz_test_favorites')problems.push('de gescheiden testfavorietenopslag ontbreekt');if(REGS.length!==7||new Set(REGS.map(reg=>reg.id)).size!==7)problems.push('de zeven regelingen ontbreken');for(const id of REQUIRED_ELEMENT_IDS)if(!document.getElementById(id))problems.push('schermonderdeel '+id+' ontbreekt');return problems}
+function startupProblems(){const problems=[],isTest=ENVIRONMENT==='test',isProduction=ENVIRONMENT==='production';if(!isTest&&!isProduction)problems.push('de omgevingsconfiguratie is ongeldig');if(!(isTest?/^1\.\d+[a-z]*-test$/:/^1\.\d+[a-z]*$/).test(VERSION))problems.push('het versienummer past niet bij de omgeving');if(!SUPABASE_URL)problems.push('de Supabase-koppeling ontbreekt');if(!SUPABASE_KEY)problems.push('de openbare Supabase-sleutel ontbreekt');const storageKeys=[FAVORITES_KEY,FAVORITE_CODE_KEY,RELEASE_WELCOME_SEEN_KEY,RELEASE_WELCOME_NEVER_KEY];if(storageKeys.some(key=>!key)||new Set(storageKeys).size!==storageKeys.length)problems.push('de gescheiden browseropslag is ongeldig');if(REGS.length!==7||new Set(REGS.map(reg=>reg.id)).size!==7)problems.push('de zeven regelingen ontbreken');for(const id of REQUIRED_ELEMENT_IDS)if(!document.getElementById(id))problems.push('schermonderdeel '+id+' ontbreekt');return problems}
 function showStartupFailure(problems){const status=document.getElementById('status');if(status)status.textContent='De toepassing kan niet starten: '+problems.join('; ')+'.';console.error('OWZ startcontrole mislukt:',problems)}
 const STARTUP_PROBLEMS=startupProblems();
 if(STARTUP_PROBLEMS.length){showStartupFailure(STARTUP_PROBLEMS);return}
@@ -104,7 +108,6 @@ function historyLimit(){return Math.max(1,Number(migrateHistoryValue(HISTORY_LIM
 function saveHistory(q){const entries=BEHAVIOR.historyRecord?BEHAVIOR.historyRecord(history(),{query:q,reg:state.regulation},historyLimit()):history();localStorage.setItem(HISTORY_KEY,JSON.stringify(entries))}
 function history(){try{return JSON.parse(migrateHistoryValue(HISTORY_KEY,'owz_history')||'[]')}catch(_){return[]}}
 let onlineFavorites=[],favoriteRecoveryCode='',pendingFavoriteNode=null,favoriteLoadState='idle',favoriteSaveInProgress=false;
-const FAVORITE_CODE_KEY='owz_test_favorite_recovery_code';
 function favorites(){return onlineFavorites}
 function favoriteCodeIsStored(){return !!favoriteRecoveryCode&&localStorage.getItem(FAVORITE_CODE_KEY)===favoriteRecoveryCode}
 function legacyFavorites(){try{return JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]').filter(x=>x&&x.nodeId&&x.reg)}catch(_){return[]}}
@@ -331,8 +334,6 @@ function setRegulationInfoVisible(visible){const tooltip=$('regulationInfoToolti
 async function loadRegulationVersions(){try{const res=await fetch('data/regulation_versions.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();state.versions=data.regulations||{};log('REGULATION_VERSIONS_LOADED')}catch(e){state.versions={};log('REGULATION_VERSIONS_FAILED',{error:e.message})}}
 async function loadArticleHistory(){try{const res=await fetch('data/article_history.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();state.articleHistory=data.articles||{};log('ARTICLE_HISTORY_LOADED',{count:Object.keys(state.articleHistory).length})}catch(e){state.articleHistory={};log('ARTICLE_HISTORY_FAILED',{error:e.message})}}
 async function loadAppendixNotes(){try{const res=await fetch('data/appendix_notes_index.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();state.appendixNotes=data.regulations||{};log('APPENDIX_NOTES_LOADED')}catch(e){state.appendixNotes={};log('APPENDIX_NOTES_FAILED',{error:e.message})}}
-const RELEASE_WELCOME_SEEN_KEY='owz_test_release_welcome_seen';
-const RELEASE_WELCOME_NEVER_KEY='owz_test_release_welcome_never';
 function releaseWelcomeNotes(data){return Array.isArray(data?.user_notes)?data.user_notes.filter(note=>typeof note==='string'&&note.trim()):[]}
 function renderReleaseWelcomeNotes(data,notes){return `<h3>Versie ${esc(data.version||VERSION)}</h3><ul>${notes.map(note=>`<li>${esc(note)}</li>`).join('')}</ul>`}
 async function showReleaseWelcomeIfNeeded(){if(localStorage.getItem(RELEASE_WELCOME_NEVER_KEY)==='1'||localStorage.getItem(RELEASE_WELCOME_SEEN_KEY)===VERSION)return;const dialog=$('releaseWelcomeModal');if(!dialog)return;let release={version:VERSION,notes:[]};try{const response=await fetch('release.json',{cache:'no-store'});if(response.ok)release=await response.json()}catch(_){}const notes=releaseWelcomeNotes(release);if(!notes.length)return;$('releaseWelcomeQuestion').textContent=`Versie ${release.version||VERSION} is nieuw. Wilt u zien wat er is veranderd?`;$('releaseWelcomeChanges').innerHTML=renderReleaseWelcomeNotes(release,notes);dialog.showModal()}

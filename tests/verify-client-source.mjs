@@ -13,6 +13,9 @@ assert.equal(JSON.parse(fs.readFileSync('release.json','utf8')).version,declared
 assert.match(config.version,/^\d+\.\d+(?:[a-z])?-test$/,'Het testversienummer moet geldig zijn.');
 assert.equal(config.supabase.url,'https://lemcbncvqcsffatsxpdq.supabase.co','Alleen de test-Supabase is toegestaan.');
 assert.equal(config.storage.favoritesKey,'owz_test_favorites','Testfavorieten moeten een eigen opslag gebruiken.');
+assert.equal(config.storage.favoriteRecoveryCodeKey,'owz_test_favorite_recovery_code','De herstelcode moet een eigen testsleutel gebruiken.');
+assert.equal(config.storage.releaseWelcomeSeenKey,'owz_test_release_welcome_seen','De wijzigingsmelding moet een eigen testsleutel gebruiken.');
+assert.equal(config.storage.releaseWelcomeNeverKey,'owz_test_release_welcome_never','De keuze voor wijzigingsmeldingen moet een eigen testsleutel gebruiken.');
 assert.match(fs.readFileSync('js/app.js','utf8'),/function favoriteCodeIsStored\(\)/,'De toepassing moet aantoonbaar maken of de herstelcode in deze browser is bewaard.');
 assert.match(fs.readFileSync('js/app.js','utf8'),/herstelcode is niet in deze browser bewaard/i,'Een niet-bewaarde herstelcode moet duidelijk worden gemeld.');
 assert.match(fs.readFileSync('js/app.js','utf8'),/Na herladen moet u hem opnieuw invoeren/,'Een tijdelijk gebruikte herstelcode moet duidelijk worden gemeld.');
@@ -24,6 +27,9 @@ assert.ok(notesCatalog.regulations.some(regulation=>regulation.id==='IWO'&&regul
 const source=fs.readFileSync('js/app.js','utf8');
 assert.ok(!source.includes('pqpsajcjydvagrfxfeye'),'Productie-Supabase mag niet in de testcode voorkomen.');
 assert.ok(!source.includes("const VERSION='"),'Versie hoort alleen in app-config.js te staan.');
+assert.match(source,/CONFIG\.storage\|\|\{\}/,'Browseropslag moet uit de centrale omgevingsconfiguratie komen.');
+assert.ok(!source.includes("CONFIG.environment!=='test'"),'De hoofdapp mag niet vast op de testomgeving zijn ingesteld.');
+assert.ok(!source.includes("owz_test_favorite_recovery_code"),'De hoofdapp mag geen vaste testsleutel bevatten.');
 for(const file of fs.readdirSync('js').filter(name=>name.endsWith('.js')&&name!=='app-config.js').map(name=>`js/${name}`)){
   const clientSource=fs.readFileSync(file,'utf8');
   assert.ok(!/https:\/\/[^\s"']+\.supabase\.co/.test(clientSource),`${file} mag geen eigen Supabase-adres bevatten.`);

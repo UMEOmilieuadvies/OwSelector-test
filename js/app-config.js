@@ -2,13 +2,18 @@
 /* Testomgeving: alle omgevingsafhankelijke waarden staan uitsluitend hier. */
 window.OWZ_CONFIG=Object.freeze({
   environment:'test',
-  version:'1.6c-test',
+  version:'1.6d-test',
   supabase:Object.freeze({
     url:'https://lemcbncvqcsffatsxpdq.supabase.co',
     anonKey:'sb_publishable_xvnpAGVE1Kf3DhO0PDck7g_ck1nix2O',
     adminAnonKey:'sb_publishable_Lo6PkEOT4z5GgLRgkDrx4Q_5O0Y0PsB'
   }),
-  storage:Object.freeze({favoritesKey:'owz_test_favorites'}),
+  storage:Object.freeze({
+    favoritesKey:'owz_test_favorites',
+    favoriteRecoveryCodeKey:'owz_test_favorite_recovery_code',
+    releaseWelcomeSeenKey:'owz_test_release_welcome_seen',
+    releaseWelcomeNeverKey:'owz_test_release_welcome_never'
+  }),
   regulations:Object.freeze([
     {id:'OW',name:'Omgevingswet',bwb:'BWBR0037885',file:'ow_legal_graph.json'},
     {id:'BAL',name:'Besluit activiteiten leefomgeving (BAL)',bwb:'BWBR0041330',file:'bal_legal_graph.json'},

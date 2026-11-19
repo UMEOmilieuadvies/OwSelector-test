@@ -913,3 +913,10 @@
 - Herstelt de browserproef voor gelijkgenummerde afdelingen en artikelen door het juridische type expliciet mee te testen.
 - Blokkeert de gegevensimport bij dubbele juridische sleutels of dubbelzinnige tabelverwijzingen.
 
+## 1.6d-test — 2026-11-19
+
+**Kleine wijziging.**
+
+**Technisch beheer**
+
+- Maakt de centrale omgevingsconfiguratie leidend voor browseropslag, wijzigingsmeldingen, startcontrole en beheer-MFA, zodat dezelfde geteste programmatuur veilig naar productie kan worden gepromoveerd.
