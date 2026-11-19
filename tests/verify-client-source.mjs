@@ -62,6 +62,9 @@ assert.match(source,/function groupBackReferenceRows\(rows\)/,'Terugverwijzingen
 assert.match(source,/backReferenceFindings/,'Elke afzonderlijke vindplaats moet als eigen klikbare keuze worden weergegeven.');
 assert.match(source,/externalReferenceRows\(context\)\.find\(item=>item\.index===Number\(index\)\)/,'De contextverwijzing moet de oorspronkelijke bronindex gebruiken.');
 assert.match(source,/function openBackReferenceArticle\(row,target\)/,'Een terugverwijzing moet het volledige bronartikel kunnen openen.');
+assert.match(source,/function renderAppendixReferenceContext\(source,row,context\)/,'Een terugverwijzing uit een bijlage moet de bijlagecontext tonen.');
+assert.match(source,/function appendixReferenceMatch\(appendix,anchor\)/,'De concrete vindplaats moet aan het juiste bijlageonderdeel worden gekoppeld.');
+assert.match(source,/Open volledige bijlage/,'Een terugverwijzing uit een bijlage moet een volledige bronweergave kunnen openen.');
 assert.match(source,/referenceHighlight:\{articleId:nid\(article\),sourceId:nid\(source\)/,'De concrete vindplaats in het bronartikel moet worden gemarkeerd.');
 assert.match(source,/BEHAVIOR\.referenceContext/,'Het geopende bronartikel moet de relatie met het oorspronkelijke artikel uitleggen.');
 assert.match(source,/NAVIGATION\.roots/,'De hoofdapp moet de navigatiemodule gebruiken.');

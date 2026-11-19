@@ -1,13 +1,13 @@
 {
-  "version": "1.6f-test",
+  "version": "1.6g-test",
   "kind": "klein",
   "released_at": "2026-11-19",
   "user_notes": [
-    "Volledige bijlagen zijn compacter en rustiger vormgegeven, met duidelijke inspringing van onderdelen.",
-    "De officiële tekst, nummering en verwijzingen in bijlagen zijn ongewijzigd."
+    "Terugverwijzingen uit bijlagen tonen nu het bijlageonderdeel waar de vindplaats juridisch onder valt.",
+    "De volledige bijlage kan vanuit een terugverwijzing direct worden geopend."
   ],
   "technical_notes": [
-    "Alleen presentatie-aanpassingen in de bijlageweergave."
+    "Voegt een regressiecontrole toe voor broncontext bij bijlageterugverwijzingen."
   ],
   "resolved_comment_ids": []
 }
