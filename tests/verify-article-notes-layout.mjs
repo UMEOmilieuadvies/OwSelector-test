@@ -4,7 +4,7 @@ import vm from 'node:vm';
 
 const source=fs.readFileSync('js/article-notes.js','utf8');
 const elements=new Map(['articleNotesTitle','articleNotesIntro','articleNotesContent'].map(id=>[id,{textContent:'',innerHTML:''}]));
-const data={regulations:{BAL:{'3.50':{label:'Artikel 3.50',paragraph:'§ 3.4',source:'Stb.2018-293',notes:[{source:'Stb.2018-293',url:'',shared_for:['3.51'],text:`Artikel 3.50 (aanwijzing)
+const data={regulations:{BAL:{'3.50':{label:'Artikel 3.50',paragraph:'§ 3.4',source:'Stb.2018-293',notes:[{source:'Stb.2018-293',url:'https://zoek.officielebekendmakingen.nl/stb-2018-293.html#d17e123',source_anchor:'d17e123',source_location_status:'exact',shared_for:['3.51'],text:`Artikel 3.50 (aanwijzing)
 1. Een eerste lid loopt door
 op de volgende bronregel.
 2. Dit lid bevat:
@@ -33,6 +33,8 @@ assert.match(html,/Een eerste lid loopt door op de volgende bronregel\./,'Afgebr
 assert.doesNotMatch(html,/<br>/,'De toelichting mag niet als platte tekst met regeleinden worden weergegeven.');
 assert.match(html,/Deze toelichting; geldt voor de artikelen 3\.50, 3\.51\./,'Gedeelde toelichting moet het bekeken artikel én de overige artikelen benoemen.');
 assert.doesNotMatch(html,/Gezamenlijke toelichting bij artikelen/,'De wederzijdse lijst met gedeelde artikelen mag niet worden getoond.');
+assert.match(html,/Open de officiële vindplaats/,'Een gecontroleerde bron moet naar de exacte officiële vindplaats verwijzen.');
+assert.match(html,/#d17e123/,'De officiële bronlink moet het vastgelegde anker bevatten.');
 
 const appendixElements=new Map(['articleNotesTitle','articleNotesIntro','articleNotesContent'].map(id=>[id,{textContent:'',innerHTML:''}]));
 const appendixData={regulations:{BAL:{appendices:{i:{label:'Bijlage I',source:'Stb.2018-293',notes:[{source:'Stb.2018-293',url:'',shared_for:[],applies_via_article:'Artikel 1.1',text:'Artikel 1.1\nDeze toelichting hoort bij de aanwijzende bepaling.'}]}}}}};
@@ -47,4 +49,5 @@ await new Promise(resolve=>setImmediate(resolve));
 assert.equal(appendixElements.get('articleNotesTitle').textContent,'Nota van toelichting bij Bijlage I','De bijlage moet een eigen NVT-titel krijgen.');
 assert.match(appendixElements.get('articleNotesContent').innerHTML,/Toelichting bij de bijlage/,'De pagina moet bijlagetoelichting herkennen.');
 assert.match(appendixElements.get('articleNotesContent').innerHTML,/aanwijzende Artikel 1.1/,'Toelichting via een aanwijzend artikel moet herkenbaar blijven.');
+assert.match(appendixElements.get('articleNotesContent').innerHTML,/Open de officiële publicatie/,'Zonder anker moet de bronlink niet ten onrechte als exacte vindplaats worden gepresenteerd.');
 console.log('Artikelsgewijze toelichting wordt logisch gegroepeerd en ingesprongen weergegeven.');

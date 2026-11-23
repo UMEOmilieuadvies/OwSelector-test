@@ -59,10 +59,14 @@
     const shared=sharedFor.length
       ?`<p class="articleNotesMeta">${paragraph?`Toelichting bij § ${esc(paragraph[1])}`:'Deze toelichting'}; geldt voor de artikelen ${coveredArticles.map(esc).join(', ')}.</p>`:'';
     const via=note.applies_via_article?`<p class="articleNotesMeta">Toelichting bij het aanwijzende ${esc(note.applies_via_article)}.</p>`:'';
+    const exactSource=note.source_location_status==='exact'&&Boolean(note.source_anchor);
+    const sourceUrl=note.url||officialUrl(note.source);
+    const sourceLink=sourceUrl?`<a href="${esc(sourceUrl)}" target="_blank" rel="noopener">${exactSource?'Open de officiële vindplaats':'Open de officiële publicatie'}</a>`:'';
+    const sourceWarning=exactSource?'':'<p class="articleNotesSourceWarning">De exacte vindplaats in de officiële bron is nog niet vastgesteld. Deze link opent daarom de officiële publicatie als geheel.</p>';
     const parts=splitText(note.text);
     const excerpt=parts.excerpt.length?`<section class="articleNotesExcerpt"><h3>Wettekst waarop de toelichting ziet</h3>${structuredText(parts.excerpt)}</section>`:'';
     const explanation=structuredText(parts.explanation);
-    return `<section class="articleNotesSource"><div class="articleNotesSourceHead"><h2>${esc(note.source)}</h2><a href="${esc(note.url||officialUrl(note.source))}" target="_blank" rel="noopener">Open de officiële bron</a></div>${shared}${via}${excerpt}<section class="articleNotesText"><h3>${excerpt?'Artikelsgewijze toelichting':'Officiële artikelsgewijze toelichting'}</h3>${explanation}</section></section>`;
+    return `<section class="articleNotesSource"><div class="articleNotesSourceHead"><h2>${esc(note.source)}</h2>${sourceLink}</div>${sourceWarning}${shared}${via}${excerpt}<section class="articleNotesText"><h3>${excerpt?'Artikelsgewijze toelichting':'Officiële artikelsgewijze toelichting'}</h3>${explanation}</section></section>`;
   }
   function render(record){
     const isAppendix=record.kind==='appendix';

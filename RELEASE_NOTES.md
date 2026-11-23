@@ -959,3 +959,16 @@
 
 - Zoekresultaten worden standaard gegroepeerd weergegeven binnen hoofdstuk, afdeling of paragraaf.
 - U kunt desgewenst wisselen naar alleen artikelen of naar alle resultaten.
+
+## 1.6l-test — 2026-11-23
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Nota's van toelichting verwijzen voortaan rechtstreeks naar de gebruikte officiële vindplaats, wanneer die betrouwbaar is vastgesteld.
+- Toelichting van een volgend onderdeel wordt niet langer onder het voorafgaande artikel getoond.
+
+**Technisch beheer**
+
+- Voegt regressiecontrole toe voor officiële NvT-ankers en grenzen tussen toelichtingsblokken.

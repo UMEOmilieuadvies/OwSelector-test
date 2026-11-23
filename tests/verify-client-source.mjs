@@ -95,6 +95,9 @@ assert.ok(fs.existsSync('article-notes.html'),'De pagina met de artikelsgewijze 
 assert.ok(fs.existsSync('js/article-notes.js'),'De bediening van de artikelsgewijze toelichting ontbreekt.');
 assert.ok(fs.existsSync('data/article_notes_bal_chapter4.json'),'De gecontroleerde BAL-toelichtingsgegevens ontbreken.');
 assert.ok(fs.existsSync('tools/build_article_notes_all.py'),'De bouwer voor bijlage-toelichtingen ontbreekt.');
+assert.match(fs.readFileSync('tools/build_article_notes_all.py','utf8'),/source_location_status/,'De NvT-bouwer moet de status van de officiële vindplaats vastleggen.');
+assert.match(fs.readFileSync('tools/build_bal_amendment_links.py','utf8'),/source_anchor/,'Wijzigingsnota\'s moeten een exact officieel bronanker kunnen bewaren.');
+assert.match(fs.readFileSync('js/article-notes.js','utf8'),/Open de officiële vindplaats/,'De NvT-pagina moet onderscheid maken tussen een vindplaats en een hele publicatie.');
 assert.ok(fs.existsSync('tests/verify_appendix_notes.py'),'De broncontrole voor bijlagetoelichtingen ontbreekt.');
 assert.match(source,/function renderAppendixNotesAction\(a\)/,'Bijlagen moeten een toelichtingsactie kunnen tonen.');
 assert.match(source,/appendix_notes_index\.json/,'De bijlageactie moet alleen verschijnen bij beschikbare toelichting.');

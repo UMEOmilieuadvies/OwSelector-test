@@ -57,6 +57,7 @@ class Sections(HTMLParser):
         self.started = False
         self.heading = ''
         self.heading_parts = None
+        self.heading_anchor = ''
         self.parts = []
         self.sections = []
         self.context_article = ''
@@ -66,6 +67,9 @@ class Sections(HTMLParser):
         if tag in {'h1', 'h2', 'h3', 'h4', 'h5', 'h6'}:
             self.flush()
             self.heading_parts = []
+            self.heading_anchor = ''
+        elif self.heading_parts is not None and tag == 'a':
+            self.heading_anchor = dict(attrs).get('id', '') or self.heading_anchor
         elif tag in {'p', 'li'} and self.started:
             self.parts.append('\n')
 
@@ -100,7 +104,7 @@ class Sections(HTMLParser):
     def flush(self):
         text = clean(' '.join(self.parts))
         if self.heading and text:
-            self.sections.append({'heading': self.heading, 'text': text, 'article': self.context_article, 'paragraph': self.context_paragraph})
+            self.sections.append({'heading': self.heading, 'text': text, 'article': self.context_article, 'paragraph': self.context_paragraph, 'anchor': self.heading_anchor})
         self.heading = ''
         self.parts = []
 
@@ -147,7 +151,9 @@ def main():
         for article in sorted(targets):
             linked[article].append({
                 'source': document['publication'],
-                'url': document['url'],
+                'url': f"{document['url']}#{section['anchor']}" if section['anchor'] else document['url'],
+                'source_anchor': section['anchor'],
+                'source_location_status': 'exact' if section['anchor'] else 'publication',
                 'text': heading + '\n' + text,
                 'shared_for': sorted(targets - {article}),
                 'source_kind': 'wijzigingsnota',

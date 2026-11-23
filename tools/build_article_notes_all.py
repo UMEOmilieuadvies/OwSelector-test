@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 import json,re,xml.etree.ElementTree as ET
 
-ROOT=Path(__file__).resolve().parents[1]; SOURCE=ROOT/'data'/'source'; OUT=ROOT/'data'/'article_notes.json'; APPENDIX_INDEX=ROOT/'data'/'appendix_notes_index.json'
+ROOT=Path(__file__).resolve().parents[1]; SOURCE=ROOT/'data'/'source'; OUT=ROOT/'data'/'article_notes.json'; APPENDIX_INDEX=ROOT/'data'/'appendix_notes_index.json'; CATALOG=ROOT/'nvt_catalog.json'
 BAL_AMENDMENTS=ROOT/'data'/'article_notes_bal_amendments.json'
 REGS={'OW':('omgevingswet.xml','ow-original.html'),'BAL':('bal.xml','bal-original.html'),'BBL':('bbl.xml','bbl-original.html'),'BKL':('bkl.xml','bkl-original.html'),'OB':('ob.xml','ob-original.html'),'OR':('or.xml','or-original.html'),'IWO':('invoeringswet_omgevingswet.xml','iwo-original.html')}
 ARTICLE=re.compile(r'^Artikel\s+([0-9]+(?:\.[0-9]+)*[a-z]?)\b',re.I)
@@ -19,25 +19,29 @@ def appendix_key(value):
 def local(e):return e.tag.rsplit('}',1)[-1]
 def text(e):return ' '.join(''.join(e.itertext()).split())
 class Parser(HTMLParser):
- def __init__(self,whole_document=False):super().__init__(convert_charrefs=True);self.tag=None;self.buf=[];self.note=whole_document;self.current=None;self.parts=defaultdict(list)
+ def __init__(self,whole_document=False):super().__init__(convert_charrefs=True);self.tag=None;self.buf=[];self.note=whole_document;self.current=None;self.parts=defaultdict(list);self.heading_anchor='';self.anchors={}
  def handle_starttag(self,t,a):
-  if re.fullmatch(r'h[1-6]',t) or (t=='p' and 'tussenkop' in dict(a).get('class','')):self.tag=t;self.buf=[]
+  if re.fullmatch(r'h[1-6]',t) or (t=='p' and 'tussenkop' in dict(a).get('class','')):self.tag=t;self.buf=[];self.heading_anchor=''
+  elif self.tag and t=='a':self.heading_anchor=dict(a).get('id','') or self.heading_anchor
   elif self.current and t in {'p','li','br'}:self.parts[self.current].append('\n')
  def handle_data(self,d):
-  if not self.note and re.search(r'artikelsgewijs(?:e)?(?:\s+toelichting)?',d,re.I):
+  if not self.note and re.search(r'artikelsgewij(?:ze|s)(?:\s+toelichting)?',d,re.I):
    self.note=True;return
   if self.tag:self.buf.append(d)
   elif self.current:self.parts[self.current].append(d)
  def handle_endtag(self,t):
   if t==self.tag:
    h=' '.join(''.join(self.buf).split());self.tag=None
-   if not self.note and 'nota van toelichting' in h.lower():self.note=True;return
+   if not self.note:return
    if self.note:
     m=ARTICLE.match(h)
-    if m:self.current=m.group(1);self.parts[self.current].append(h+'\n')
+    if m:self.current=m.group(1);self.anchors[self.current]=self.heading_anchor;self.parts[self.current].append(h+'\n')
     else:
      m=APPENDIX.match(h)
-     if m:self.current='appendix:'+appendix_key(h);self.parts[self.current].append(h+'\n')
+     if m:self.current='appendix:'+appendix_key(h);self.anchors[self.current]=self.heading_anchor;self.parts[self.current].append(h+'\n')
+     # Een paragraafkop markeert het einde van de toelichting bij het vorige
+     # artikel. Hij mag niet als losse slotregel aan dat artikel blijven hangen.
+     elif re.match(r'^(?:§|Afdeling\b|Hoofdstuk\b)',h,re.I):self.current=None
      elif self.current and h:self.parts[self.current].append(h+'\n')
   elif self.current and t in {'p','li'}:self.parts[self.current].append('\n')
  def result(self):
@@ -65,23 +69,44 @@ def appendices(xml):
   match=ARTICLE_IN_APPENDIX.search(title);refs=ARTICLE_NUMBER.findall(match.group(1)) if match else []
   out.append((appendix_key(label),label,refs))
  return out
+def source_documents():
+ catalog=json.loads(CATALOG.read_text(encoding='utf8'))
+ return {item['id']:next(doc for doc in item['documents'] if not doc.get('kind')) for item in catalog['regulations']}
+def with_anchor(url,anchor):
+ return f"{url}#{anchor}" if anchor else url
+def source_key(url):
+ match=re.search(r'/(stb-\d{4}-\d+)\.html',str(url),re.I)
+ return match.group(1).lower() if match else ''
+def first_article(text):
+ match=re.search(r'^Artikel\s+([0-9]+(?:\.[0-9]+)*[a-z]?)\b',str(text),re.I|re.M)
+ return match.group(1) if match else ''
+def enrich_note(note,anchors_by_source):
+ item=dict(note);url=str(item.get('url',''));anchor=''
+ article=first_article(item.get('text',''))
+ if article:anchor=anchors_by_source.get(source_key(url),{}).get(article,'')
+ if anchor:
+  item['url']=with_anchor(url,anchor);item['source_anchor']=anchor;item['source_location_status']='exact'
+ else:item['source_location_status']='publication'
+ return item
 def main():
- all_data={};appendix_index={'regulations':{}}
+ all_data={};appendix_index={'regulations':{}};documents=source_documents();anchors_by_source={}
  for reg,(xml,name) in REGS.items():
-  p=Parser(reg in {'OW','OR'});p.feed((ROOT/'data'/'nvt'/name).read_text(encoding='utf8',errors='replace'));notes=p.result()
+  document=documents[reg];p=Parser(reg in {'OW','OR'});p.feed((ROOT/'data'/'nvt'/name).read_text(encoding='utf8',errors='replace'));notes=p.result();anchors_by_source[source_key(document['url'])]=p.anchors
   appendix_parser=Parser();appendix_parser.feed((ROOT/'data'/'nvt'/name).read_text(encoding='utf8',errors='replace'));appendix_notes=appendix_parser.result()
-  article_data={n:{'label':label,'paragraph':paragraph,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':'','text':notes[n],'shared_for':[]} ] if n in notes else [])} for n,label,paragraph in articles(SOURCE/xml)}
+  article_data={n:{'label':label,'paragraph':paragraph,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':with_anchor(document['url'],p.anchors.get(n,'')),'source_anchor':p.anchors.get(n,''),'source_location_status':'exact' if p.anchors.get(n,'') else 'publication','text':notes[n],'shared_for':[]} ] if n in notes else [])} for n,label,paragraph in articles(SOURCE/xml)}
   appendix_data={}
   for key,label,refs in appendices(SOURCE/xml):
    direct=appendix_notes.get('appendix:'+key,'');linked=[]
    if not direct:
     for article in refs:
      for note in article_data.get(article,{}).get('notes',[]):linked.append({**note,'applies_via_article':'Artikel '+article})
-   appendix_data[key]={'label':label,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':'','text':direct,'shared_for':[],'scope':'bijlage'}] if direct else linked)}
+   anchor=appendix_parser.anchors.get('appendix:'+key,'')
+   appendix_data[key]={'label':label,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':with_anchor(document['url'],anchor),'source_anchor':anchor,'source_location_status':'exact' if anchor else 'publication','text':direct,'shared_for':[],'scope':'bijlage'}] if direct else linked)}
   article_data['appendices']=appendix_data;all_data[reg]=article_data
   appendix_index['regulations'][reg]={key:bool(record['notes']) for key,record in appendix_data.items()}
  # BAL hoofdstuk 4 is afzonderlijk gecontroleerd en bevat ook relevante wijzigingsbronnen.
  overlay=json.loads((ROOT/'data'/'article_notes_bal_chapter4.json').read_text(encoding='utf8'))['articles']
+ for record in overlay.values():record['notes']=[enrich_note(note,anchors_by_source) for note in record.get('notes',[])]
  all_data['BAL'].update(overlay)
  # Aanvullende officiële wijzigingsnota's worden brongebonden toegevoegd; een
  # bestaande oorspronkelijke toelichting blijft zichtbaar naast de wijzigingstekst.
