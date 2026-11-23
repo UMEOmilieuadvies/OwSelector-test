@@ -46,6 +46,9 @@ assert.match(source,/data\?\.user_notes/,'Het wijzigingsvenster mag uitsluitend 
 assert.ok(!source.includes('Voor deze versie is geen korte wijzigingssamenvatting beschikbaar.'),'Een lege wijzigingssamenvatting mag geen venster meer opleveren.');
 assert.match(source,/function searchVariantHint\(query\)/,'Zoeken moet gecontroleerde woordafleidingen kunnen toelichten.');
 assert.match(source,/function updateSearchHint\(\)/,'De zoeker moet duidelijk maken wanneer woordafleidingen worden gebruikt.');
+assert.match(source,/function groupSearchResults\(entries\)/,'Zoekresultaten moeten juridisch gegroepeerd kunnen worden weergegeven.');
+assert.match(source,/data-search-view="grouped"/,'De gegroepeerde zoekweergave moet de standaardkeuze zijn.');
+assert.match(source,/data-search-view="articles"/,'De gebruiker moet zoekresultaten tot artikelen kunnen beperken.');
 assert.match(fs.readFileSync('index.html','utf8'),/id="searchHint"/,'De zoekhulp moet een toegankelijke vaste plek hebben.');
 assert.match(fs.readFileSync('css/app.css','utf8'),/minmax\(260px,50ch\)/,'De zoekbalk moet op grote schermen bewust compact blijven.');
 console.log('Clientconfiguratie en kritieke startfuncties zijn gecontroleerd.');

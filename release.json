@@ -1,10 +1,10 @@
 {
-  "version": "1.6j-test",
+  "version": "1.6k-test",
   "kind": "klein",
   "released_at": "2026-11-23",
   "user_notes": [
-    "De zoekbalk is compacter op brede schermen, zonder beperkingen voor lange zoekopdrachten.",
-    "Zoeken herkent veelvoorkomende woordvormen en laat tijdens het typen zien welke vormen aanvullend worden meegenomen."
+    "Zoekresultaten worden standaard gegroepeerd weergegeven binnen hoofdstuk, afdeling of paragraaf.",
+    "U kunt desgewenst wisselen naar alleen artikelen of naar alle resultaten."
   ],
   "technical_notes": [],
   "resolved_comment_ids": []

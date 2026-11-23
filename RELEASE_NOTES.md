@@ -950,3 +950,12 @@
 
 - De zoekbalk is compacter op brede schermen, zonder beperkingen voor lange zoekopdrachten.
 - Zoeken herkent veelvoorkomende woordvormen en laat tijdens het typen zien welke vormen aanvullend worden meegenomen.
+
+## 1.6k-test — 2026-11-23
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Zoekresultaten worden standaard gegroepeerd weergegeven binnen hoofdstuk, afdeling of paragraaf.
+- U kunt desgewenst wisselen naar alleen artikelen of naar alle resultaten.
