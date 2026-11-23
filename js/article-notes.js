@@ -11,10 +11,15 @@
     const match=String(source||'').match(/^Stb\.(\d{4})-(\d+)$/);
     return match?`https://zoek.officielebekendmakingen.nl/stb-${match[1]}-${match[2]}.html`:'';
   };
-  const memberHeading=/^(?:eerste|tweede|derde|vierde|vijfde|zesde|zevende|achtste|negende|tiende) lid$/i;
-  const articleHeading=/^Artikel\s+[0-9]+(?:\.[0-9]+)*[a-z]?\b/i;
-  const appendixHeading=/^Bijlage(?:\s+[IVXLCDM]+[a-z]*)?\b/i;
+  // Alleen de officiële kopvorm heeft een hoofdletter. Een verwijzing als
+  // "artikel 3.28" kan midden in een door de bron afgebroken zin staan en
+  // mag daarom nooit als zelfstandige kop worden weergegeven.
+  const memberHeading=/^(?:Eerste|Tweede|Derde|Vierde|Vijfde|Zesde|Zevende|Achtste|Negende|Tiende) lid$/;
+  const articleHeading=/^Artikel\s+[0-9]+(?:\.[0-9]+)*[a-z]?\b/;
+  const appendixHeading=/^Bijlage(?:\s+[IVXLCDM]+[a-z]*)?\b/;
   const legalHeading=line=>articleHeading.test(line)||appendixHeading.test(line);
+  const officialHeadingSet=headings=>new Set((Array.isArray(headings)?headings:[]).map(value=>String(value||'').replace(/\s+/g,' ').trim()).filter(Boolean));
+  const isHeading=(line,headings)=>headings.size?headings.has(line):(legalHeading(line)||memberHeading.test(line));
   function cleanLines(value){return String(value||'').split(/\n+/).map(line=>line.replace(/\s+/g,' ').trim()).filter(Boolean)}
   function marker(line){
     let match=line.match(/^(\d+°\.)\s+(.+)$/);
@@ -26,12 +31,13 @@
     match=line.match(/^([•–])\s+(.+)$/);
     return match?{label:match[1],text:match[2],level:1}:null;
   }
-  function structuredText(lines){
+  function structuredText(lines,sourceHeadings=[]){
     const blocks=[];let current=null;
     const flush=()=>{if(current?.text)blocks.push(current);current=null};
+    const headings=officialHeadingSet(sourceHeadings);
     for(const line of lines){
       const item=marker(line);
-      if(legalHeading(line)||memberHeading.test(line)){
+      if(isHeading(line,headings)){
         flush();blocks.push({kind:'heading',text:line});continue;
       }
       if(item){flush();current={kind:'item',...item};continue}
@@ -46,9 +52,9 @@
       return `<p>${esc(block.text)}</p>`;
     }).join('');
   }
-  function splitText(value){
-    const lines=cleanLines(value), first=lines.findIndex(line=>legalHeading(line));
-    const second=first<0?-1:lines.findIndex((line,index)=>index>first&&legalHeading(line));
+  function splitText(value,sourceHeadings=[]){
+    const lines=cleanLines(value), headings=officialHeadingSet(sourceHeadings), first=lines.findIndex(line=>isHeading(line,headings));
+    const second=first<0?-1:lines.findIndex((line,index)=>index>first&&isHeading(line,headings));
     if(second<0)return {excerpt:[],explanation:lines};
     return {excerpt:lines.slice(first,second),explanation:lines.slice(second+1)};
   }
@@ -63,9 +69,10 @@
     const sourceUrl=note.url||officialUrl(note.source);
     const sourceLink=sourceUrl?`<a href="${esc(sourceUrl)}" target="_blank" rel="noopener">${exactSource?'Open de officiële vindplaats':'Open de officiële publicatie'}</a>`:'';
     const sourceWarning=exactSource?'':'<p class="articleNotesSourceWarning">De exacte vindplaats in de officiële bron is nog niet vastgesteld. Deze link opent daarom de officiële publicatie als geheel.</p>';
-    const parts=splitText(note.text);
-    const excerpt=parts.excerpt.length?`<section class="articleNotesExcerpt"><h3>Wettekst waarop de toelichting ziet</h3>${structuredText(parts.excerpt)}</section>`:'';
-    const explanation=structuredText(parts.explanation);
+    const sourceHeadings=Array.isArray(note.source_headings)?note.source_headings:[];
+    const parts=splitText(note.text,sourceHeadings);
+    const excerpt=parts.excerpt.length?`<section class="articleNotesExcerpt"><h3>Wettekst waarop de toelichting ziet</h3>${structuredText(parts.excerpt,sourceHeadings)}</section>`:'';
+    const explanation=structuredText(parts.explanation,sourceHeadings);
     return `<section class="articleNotesSource"><div class="articleNotesSourceHead"><h2>${esc(note.source)}</h2>${sourceLink}</div>${sourceWarning}${shared}${via}${excerpt}<section class="articleNotesText"><h3>${excerpt?'Artikelsgewijze toelichting':'Officiële artikelsgewijze toelichting'}</h3>${explanation}</section></section>`;
   }
   function render(record){

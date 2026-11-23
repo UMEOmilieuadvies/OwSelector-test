@@ -154,6 +154,7 @@ def main():
                 'url': f"{document['url']}#{section['anchor']}" if section['anchor'] else document['url'],
                 'source_anchor': section['anchor'],
                 'source_location_status': 'exact' if section['anchor'] else 'publication',
+                'source_headings': [heading],
                 'text': heading + '\n' + text,
                 'shared_for': sorted(targets - {article}),
                 'source_kind': 'wijzigingsnota',

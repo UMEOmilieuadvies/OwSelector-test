@@ -22,6 +22,7 @@ notes = parser.result()
 
 assert parser.anchors['3.26'] == 'd17e105234'
 assert parser.anchors['3.27'] == 'd17e105247'
+assert parser.headings['3.26'] == ['Artikel 3.26 (algemene regels)']
 assert '§ 3.2.9' not in notes['3.26']
 assert 'Artikel 3.27' not in notes['3.26']
 assert 'Artikel 3.26' in notes['3.26']

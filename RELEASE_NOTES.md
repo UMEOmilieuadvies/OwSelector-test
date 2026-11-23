@@ -992,3 +992,16 @@
 **Technisch beheer**
 
 - Blokkeert directe en afgeleide schijntoelichtingen bij bijlagen zonder officiële NvT-inhoudsopgave.
+
+## 1.7-test — 2026-11-23
+
+**Functionele verbetering.**
+
+**Voor gebruikers**
+
+- De toelichting bij artikelen blijft leesbaar wanneer de officiële bron een zin over meerdere regels afbreekt.
+- Juridische koppen in de nota van toelichting volgen voortaan de structuur van de officiële bron.
+
+**Technisch beheer**
+
+- Voegt brongebonden kopstructuur en regressieproeven toe voor NvT-weergave.

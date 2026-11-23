@@ -36,6 +36,22 @@ assert.doesNotMatch(html,/Gezamenlijke toelichting bij artikelen/,'De wederzijds
 assert.match(html,/Open de officiële vindplaats/,'Een gecontroleerde bron moet naar de exacte officiële vindplaats verwijzen.');
 assert.match(html,/#d17e123/,'De officiële bronlink moet het vastgelegde anker bevatten.');
 
+const continuationElements=new Map(['articleNotesTitle','articleNotesIntro','articleNotesContent'].map(id=>[id,{textContent:'',innerHTML:''}]));
+const continuationData={regulations:{BAL:{'3.29':{label:'Artikel 3.29',paragraph:'§ 3.2.9',source:'Stb.2018-293',notes:[{source:'Stb.2018-293',url:'',source_headings:['Artikel 3.29 (algemene regels)'],shared_for:[],text:`Artikel 3.29 (algemene regels)
+De toelichting loopt door tot de verwijzing in
+artikel 3.28.`}]}}}};
+const continuationContext={
+  URLSearchParams,
+  location:{search:'?regeling=BAL&artikel=3.29'},
+  document:{getElementById:id=>continuationElements.get(id)},
+  fetch:async()=>({ok:true,json:async()=>continuationData}),
+};
+vm.runInNewContext(source,continuationContext,{filename:'js/article-notes.js'});
+await new Promise(resolve=>setImmediate(resolve));
+const continuationHtml=continuationElements.get('articleNotesContent').innerHTML;
+assert.match(continuationHtml,/De toelichting loopt door tot de verwijzing in artikel 3.28\./,'Een afgebroken zin met een artikelverwijzing moet als één alinea doorlopen.');
+assert.doesNotMatch(continuationHtml,/<h4>artikel 3\.28\.<\/h4>/,'Een artikelverwijzing met kleine letter mag nooit als kop worden weergegeven.');
+
 const appendixElements=new Map(['articleNotesTitle','articleNotesIntro','articleNotesContent'].map(id=>[id,{textContent:'',innerHTML:''}]));
 const appendixData={regulations:{BAL:{appendices:{i:{label:'Bijlage I',source:'Stb.2018-293',notes:[{source:'Stb.2018-293',url:'',shared_for:[],applies_via_article:'Artikel 1.1',text:'Artikel 1.1\nDeze toelichting hoort bij de aanwijzende bepaling.'}]}}}}};
 const appendixContext={

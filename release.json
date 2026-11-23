@@ -1,9 +1,10 @@
 {
-  "version": "1.6n-test",
+  "version": "1.7-test",
   "kind": "klein",
   "released_at": "2026-11-23",
   "user_notes": [
-    "Bijlagen tonen alleen een nota van toelichting wanneer die aantoonbaar uit een officiële bron komt."
+    "De toelichting bij artikelen blijft leesbaar wanneer de officiële bron een zin over meerdere regels afbreekt.",
+    "Juridische koppen in de nota van toelichting volgen voortaan de structuur van de officiële bron."
   ],
   "technical_notes": [],
   "resolved_comment_ids": []

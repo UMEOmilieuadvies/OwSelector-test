@@ -19,7 +19,7 @@ def appendix_key(value):
 def local(e):return e.tag.rsplit('}',1)[-1]
 def text(e):return ' '.join(''.join(e.itertext()).split())
 class Parser(HTMLParser):
- def __init__(self,whole_document=False):super().__init__(convert_charrefs=True);self.tag=None;self.buf=[];self.note=whole_document;self.current=None;self.parts=defaultdict(list);self.heading_anchor='';self.anchors={}
+ def __init__(self,whole_document=False):super().__init__(convert_charrefs=True);self.tag=None;self.buf=[];self.note=whole_document;self.current=None;self.parts=defaultdict(list);self.heading_anchor='';self.anchors={};self.headings=defaultdict(list)
  def handle_starttag(self,t,a):
   if re.fullmatch(r'h[1-6]',t) or (t=='p' and 'tussenkop' in dict(a).get('class','')):self.tag=t;self.buf=[];self.heading_anchor=''
   elif self.tag and t=='a':self.heading_anchor=dict(a).get('id','') or self.heading_anchor
@@ -35,14 +35,14 @@ class Parser(HTMLParser):
    if not self.note:return
    if self.note:
     m=ARTICLE.match(h)
-    if m:self.current=m.group(1);self.anchors[self.current]=self.heading_anchor;self.parts[self.current].append(h+'\n')
+    if m:self.current=m.group(1);self.anchors[self.current]=self.heading_anchor;self.headings[self.current].append(h);self.parts[self.current].append(h+'\n')
     else:
      m=APPENDIX.match(h)
-     if m:self.current='appendix:'+appendix_key(h);self.anchors[self.current]=self.heading_anchor;self.parts[self.current].append(h+'\n')
+     if m:self.current='appendix:'+appendix_key(h);self.anchors[self.current]=self.heading_anchor;self.headings[self.current].append(h);self.parts[self.current].append(h+'\n')
      # Een paragraafkop markeert het einde van de toelichting bij het vorige
      # artikel. Hij mag niet als losse slotregel aan dat artikel blijven hangen.
      elif re.match(r'^(?:§|Afdeling\b|Hoofdstuk\b)',h,re.I):self.current=None
-     elif self.current and h:self.parts[self.current].append(h+'\n')
+     elif self.current and h:self.headings[self.current].append(h);self.parts[self.current].append(h+'\n')
   elif self.current and t in {'p','li'}:self.parts[self.current].append('\n')
  def result(self):
   out={}
@@ -93,7 +93,7 @@ def main():
  for reg,(xml,name) in REGS.items():
   document=documents[reg];p=Parser(reg in {'OW','OR'});p.feed((ROOT/'data'/'nvt'/name).read_text(encoding='utf8',errors='replace'));notes=p.result();anchors_by_source[source_key(document['url'])]=p.anchors
   appendix_parser=Parser();appendix_parser.feed((ROOT/'data'/'nvt'/name).read_text(encoding='utf8',errors='replace'));appendix_notes=appendix_parser.result()
-  article_data={n:{'label':label,'paragraph':paragraph,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':with_anchor(document['url'],p.anchors.get(n,'')),'source_anchor':p.anchors.get(n,''),'source_location_status':'exact' if p.anchors.get(n,'') else 'publication','text':notes[n],'shared_for':[]} ] if n in notes else [])} for n,label,paragraph in articles(SOURCE/xml)}
+  article_data={n:{'label':label,'paragraph':paragraph,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':with_anchor(document['url'],p.anchors.get(n,'')),'source_anchor':p.anchors.get(n,''),'source_location_status':'exact' if p.anchors.get(n,'') else 'publication','source_headings':p.headings.get(n,[]),'text':notes[n],'shared_for':[]} ] if n in notes else [])} for n,label,paragraph in articles(SOURCE/xml)}
   # Een bijlage mag alleen toelichting van een aanwijzend artikel erven als
   # de officiële bron zelf een NvT-inhoudsopgave bevat. Zonder die bronlaag
   # ontstaat anders een schijntoelichting, zoals bij OR Bijlage I.
@@ -109,7 +109,7 @@ def main():
     for article in refs:
      for note in article_data.get(article,{}).get('notes',[]):linked.append({**note,'applies_via_article':'Artikel '+article})
    anchor=appendix_parser.anchors.get('appendix:'+key,'')
-   appendix_data[key]={'label':label,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':with_anchor(document['url'],anchor),'source_anchor':anchor,'source_location_status':'exact' if anchor else 'publication','text':direct,'shared_for':[],'scope':'bijlage'}] if direct else linked)}
+   appendix_data[key]={'label':label,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':with_anchor(document['url'],anchor),'source_anchor':anchor,'source_location_status':'exact' if anchor else 'publication','source_headings':appendix_parser.headings.get('appendix:'+key,[]),'text':direct,'shared_for':[],'scope':'bijlage'}] if direct else linked)}
   article_data['appendices']=appendix_data;all_data[reg]=article_data
   appendix_index['regulations'][reg]={key:bool(record['notes']) for key,record in appendix_data.items()}
  # BAL hoofdstuk 4 is afzonderlijk gecontroleerd en bevat ook relevante wijzigingsbronnen.
