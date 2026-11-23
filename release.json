@@ -1,10 +1,9 @@
 {
-  "version": "1.6l-test",
+  "version": "1.6m-test",
   "kind": "klein",
   "released_at": "2026-11-23",
   "user_notes": [
-    "Nota's van toelichting verwijzen voortaan rechtstreeks naar de gebruikte officiële vindplaats, wanneer die betrouwbaar is vastgesteld.",
-    "Toelichting van een volgend onderdeel wordt niet langer onder het voorafgaande artikel getoond."
+    "De nota van toelichting blijft betrouwbaar beschikbaar na verbetering van de bronverwijzingen."
   ],
   "technical_notes": [],
   "resolved_comment_ids": []

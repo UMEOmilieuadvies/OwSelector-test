@@ -972,3 +972,11 @@
 **Technisch beheer**
 
 - Voegt regressiecontrole toe voor officiële NvT-ankers en grenzen tussen toelichtingsblokken.
+
+## 1.6m-test — 2026-11-23
+
+**Kleine wijziging.**
+
+**Technisch beheer**
+
+- Herstelt de publicatiecontrole voor officiële NvT-vindplaatsen met een exact bronanker.
