@@ -14,7 +14,7 @@
 </header>
 <section class="searchbar" aria-label="Zoeken">
   <div class="searchrow">
-    <div class="searchinputwrap"><input id="searchInput" type="search" autocomplete="off"></div>
+    <div class="searchinputwrap"><input id="searchInput" type="search" autocomplete="off" aria-describedby="searchHint"></div>
     <button id="searchButton" disabled>Zoeken</button>
     <div id="regulationPicker" class="regulationPicker">
       <select id="regulationSelect" aria-label="Regeling"></select>
@@ -22,7 +22,7 @@
       <div id="regulationInfoTooltip" class="regulationInfoTooltip" role="tooltip" hidden></div>
     </div>
   </div>
-  <p class="searchHint">Zoek op woorden, artikelnummer of begrip. Gebruik de juiste spelling en woordvorm; de volgorde van woorden maakt niet uit.</p>
+  <p id="searchHint" class="searchHint">Zoek op woorden, artikelnummer of begrip. De volgorde van woorden maakt niet uit. Veelvoorkomende woordvormen, zoals <em>opslag</em>, <em>opslaan</em> en <em>opgeslagen</em>, worden samen gezocht.</p>
   <div class="searchtabs"><button id="recentTab" class="active">Recente zoekopdrachten</button><button id="favoritesTab">Favorieten</button></div>
   <div id="historyPanel" class="historyPanel" hidden></div>
 </section>

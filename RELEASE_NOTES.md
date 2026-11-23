@@ -941,3 +941,12 @@
 **Technisch beheer**
 
 - Herstelt de registratie van releases met gescheiden gebruikers- en technische notities.
+
+## 1.6j-test — 2026-11-23
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- De zoekbalk is compacter op brede schermen, zonder beperkingen voor lange zoekopdrachten.
+- Zoeken herkent veelvoorkomende woordvormen en laat tijdens het typen zien welke vormen aanvullend worden meegenomen.

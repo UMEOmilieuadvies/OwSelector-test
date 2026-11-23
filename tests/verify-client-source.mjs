@@ -44,6 +44,10 @@ for(const name of ['searchVariants','buildIndex','chooseReg','setupEvents','setu
 assert.match(source,/if\(!notes\.length\)return;/,'Zonder releasenotities mag het wijzigingsvenster niet verschijnen.');
 assert.match(source,/data\?\.user_notes/,'Het wijzigingsvenster mag uitsluitend gebruikerswijzigingen tonen.');
 assert.ok(!source.includes('Voor deze versie is geen korte wijzigingssamenvatting beschikbaar.'),'Een lege wijzigingssamenvatting mag geen venster meer opleveren.');
+assert.match(source,/function searchVariantHint\(query\)/,'Zoeken moet gecontroleerde woordafleidingen kunnen toelichten.');
+assert.match(source,/function updateSearchHint\(\)/,'De zoeker moet duidelijk maken wanneer woordafleidingen worden gebruikt.');
+assert.match(fs.readFileSync('index.html','utf8'),/id="searchHint"/,'De zoekhulp moet een toegankelijke vaste plek hebben.');
+assert.match(fs.readFileSync('css/app.css','utf8'),/minmax\(260px,50ch\)/,'De zoekbalk moet op grote schermen bewust compact blijven.');
 console.log('Clientconfiguratie en kritieke startfuncties zijn gecontroleerd.');
 assert.match(fs.readFileSync('index.html','utf8'),/js\/app-config\.js[\s\S]*js\/app\.js/,'Configuratie moet vóór de applicatie laden.');
 assert.match(fs.readFileSync('index.html','utf8'),/js\/app-behavior\.js[\s\S]*js\/app\.js/,'De gedeelde gedragslaag moet vóór de applicatie laden.');

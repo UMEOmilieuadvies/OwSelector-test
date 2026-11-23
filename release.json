@@ -1,10 +1,11 @@
 {
-  "version": "1.6i-test",
+  "version": "1.6j-test",
   "kind": "klein",
-  "released_at": "2026-11-19",
-  "user_notes": [],
-  "technical_notes": [
-    "Herstelt de registratie van releases met gescheiden gebruikers- en technische notities."
+  "released_at": "2026-11-23",
+  "user_notes": [
+    "De zoekbalk is compacter op brede schermen, zonder beperkingen voor lange zoekopdrachten.",
+    "Zoeken herkent veelvoorkomende woordvormen en laat tijdens het typen zien welke vormen aanvullend worden meegenomen."
   ],
+  "technical_notes": [],
   "resolved_comment_ids": []
 }
