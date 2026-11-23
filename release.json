@@ -1,9 +1,9 @@
 {
-  "version": "1.6m-test",
+  "version": "1.6n-test",
   "kind": "klein",
   "released_at": "2026-11-23",
   "user_notes": [
-    "De nota van toelichting blijft betrouwbaar beschikbaar na verbetering van de bronverwijzingen."
+    "Bijlagen tonen alleen een nota van toelichting wanneer die aantoonbaar uit een officiële bron komt."
   ],
   "technical_notes": [],
   "resolved_comment_ids": []

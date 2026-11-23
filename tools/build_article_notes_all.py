@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 import json,re,xml.etree.ElementTree as ET
 
-ROOT=Path(__file__).resolve().parents[1]; SOURCE=ROOT/'data'/'source'; OUT=ROOT/'data'/'article_notes.json'; APPENDIX_INDEX=ROOT/'data'/'appendix_notes_index.json'; CATALOG=ROOT/'nvt_catalog.json'
+ROOT=Path(__file__).resolve().parents[1]; SOURCE=ROOT/'data'/'source'; OUT=ROOT/'data'/'article_notes.json'; APPENDIX_INDEX=ROOT/'data'/'appendix_notes_index.json'; CATALOG=ROOT/'nvt_catalog.json'; TOC=ROOT/'data'/'nvt'/'toc.json'
 BAL_AMENDMENTS=ROOT/'data'/'article_notes_bal_amendments.json'
 REGS={'OW':('omgevingswet.xml','ow-original.html'),'BAL':('bal.xml','bal-original.html'),'BBL':('bbl.xml','bbl-original.html'),'BKL':('bkl.xml','bkl-original.html'),'OB':('ob.xml','ob-original.html'),'OR':('or.xml','or-original.html'),'IWO':('invoeringswet_omgevingswet.xml','iwo-original.html')}
 ARTICLE=re.compile(r'^Artikel\s+([0-9]+(?:\.[0-9]+)*[a-z]?)\b',re.I)
@@ -89,15 +89,23 @@ def enrich_note(note,anchors_by_source):
  else:item['source_location_status']='publication'
  return item
 def main():
- all_data={};appendix_index={'regulations':{}};documents=source_documents();anchors_by_source={}
+ all_data={};appendix_index={'regulations':{}};documents=source_documents();anchors_by_source={};toc=json.loads(TOC.read_text(encoding='utf8')) if TOC.exists() else {}
  for reg,(xml,name) in REGS.items():
   document=documents[reg];p=Parser(reg in {'OW','OR'});p.feed((ROOT/'data'/'nvt'/name).read_text(encoding='utf8',errors='replace'));notes=p.result();anchors_by_source[source_key(document['url'])]=p.anchors
   appendix_parser=Parser();appendix_parser.feed((ROOT/'data'/'nvt'/name).read_text(encoding='utf8',errors='replace'));appendix_notes=appendix_parser.result()
   article_data={n:{'label':label,'paragraph':paragraph,'source':'Oorspronkelijke nota van toelichting','notes':([{'source':'Oorspronkelijke nota van toelichting','url':with_anchor(document['url'],p.anchors.get(n,'')),'source_anchor':p.anchors.get(n,''),'source_location_status':'exact' if p.anchors.get(n,'') else 'publication','text':notes[n],'shared_for':[]} ] if n in notes else [])} for n,label,paragraph in articles(SOURCE/xml)}
+  # Een bijlage mag alleen toelichting van een aanwijzend artikel erven als
+  # de officiële bron zelf een NvT-inhoudsopgave bevat. Zonder die bronlaag
+  # ontstaat anders een schijntoelichting, zoals bij OR Bijlage I.
+  toc_record=toc.get(name,{})
+  allow_linked_appendix_notes=bool(toc_record.get('note_anchor') and toc_record.get('items'))
   appendix_data={}
   for key,label,refs in appendices(SOURCE/xml):
-   direct=appendix_notes.get('appendix:'+key,'');linked=[]
-   if not direct:
+   # Ook een als bijlage gelezen kop is pas bruikbaar wanneer deze uit een
+   # aantoonbare NvT-inhoudsopgave afkomstig is.
+   direct=appendix_notes.get('appendix:'+key,'') if allow_linked_appendix_notes else ''
+   linked=[]
+   if not direct and allow_linked_appendix_notes:
     for article in refs:
      for note in article_data.get(article,{}).get('notes',[]):linked.append({**note,'applies_via_article':'Artikel '+article})
    anchor=appendix_parser.anchors.get('appendix:'+key,'')

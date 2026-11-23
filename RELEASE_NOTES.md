@@ -980,3 +980,15 @@
 **Technisch beheer**
 
 - Herstelt de publicatiecontrole voor officiële NvT-vindplaatsen met een exact bronanker.
+
+## 1.6n-test — 2026-11-23
+
+**Kleine wijziging.**
+
+**Voor gebruikers**
+
+- Bijlagen tonen alleen een nota van toelichting wanneer die aantoonbaar uit een officiële bron komt.
+
+**Technisch beheer**
+
+- Blokkeert directe en afgeleide schijntoelichtingen bij bijlagen zonder officiële NvT-inhoudsopgave.
